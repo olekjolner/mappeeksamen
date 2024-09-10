@@ -9,4 +9,3 @@ Mappeeksamen består av følgende deler:
 - Rapport: "Statistisk inferens, statistiske modeller og statistisk styrke"
 - Rapport: "Studiedesign"
 - Rapport: "Analyse av eksperimenter med repeterte målinger"
-

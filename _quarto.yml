@@ -7,7 +7,7 @@ book:
   date: "2024-09-10"
   chapters:
     - index.qmd
-    - 01-reliability-tools.qmd
+    - 01-reliabilitet.qmd
     - 02-regression-models.qmd
     - 03-statistical-inference.qmd
     - 04-study-design.qmd
