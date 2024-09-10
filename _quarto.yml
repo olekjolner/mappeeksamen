@@ -3,7 +3,7 @@ project:
 
 book:
   title: "Mappeeksamen IDR4000"
-  author: "Student Studentson"
+  author: "Ole-Kristian Kjølner"
   date: "2024-09-10"
   chapters:
     - index.qmd
