@@ -2,20 +2,8 @@
 
 # Assignment 1: Reliability and tools for reproducible data science {#assignment1}
 
-The purpose of this assignment is to present estimates of reliability of measures collected in the physiology lab. A second purpose is to use tools for reproducible data science. The report that you are expected to hand in therefore has some strict requirements in its format (see [assignment description](https://dhammarstrom.github.io/quant-methods-workshops/assignment-1.html)). The assignment is a group assignment and at least three students are expected to contribute to each report.
 
-## Elements of the report
-
-**Importantly, the report should contain:**
-
-- At least one table (created from your data)
-- At least one figure (created from your data), and
-- data presented in the text.
-- The report should use a bibliography file to manage references.
-
-
-
-# Detailed protocol
+## Detailed protocol
 ### Utstyr som ble benyttet 
 
  - Biosen (for måling av laktat) 
@@ -41,7 +29,7 @@ The purpose of this assignment is to present estimates of reliability of measure
  
  
 
-# Preperations of participant being tested
+## Preperations of participant being tested
   - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan     test skal gjennomføres:
       - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
       - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
@@ -53,7 +41,7 @@ The purpose of this assignment is to present estimates of reliability of measure
       
     
 
-# Standardization of test
+## Standardization of test
  - Matinntak: 
     - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
  - Koffeininntak: 
@@ -71,23 +59,12 @@ The purpose of this assignment is to present estimates of reliability of measure
  
  
 
-# Post test data preperation
+## Post test data preperation
 
-  
-    
-    
-```{r}
-#| code-fold: TRUE
 
-file.exists("data_from_plot_t1.txt")
 
-read.delim("data_from_plot_t1.txt")
-
-```
  
- 
- 
-# Table with data from t2 (id14)
+## Table with data from t2 (id14)
  |Tid (min)|rel.VO2 (ml/min/kg)|V'O2 (ml/min)|V'CO2 (ml/min)|V'E (L/min)|RER (V'CO2/V'O2)|BF (1/min)|HF (1/min)|
  |  ---|---   |---    |---  |---    |--- |---     |--- |
  |00:30|      |       |     |       |    |        | 164|
@@ -114,27 +91,49 @@ read.delim("data_from_plot_t1.txt")
  |11:00| 66.5 | 4555  |4954 |  192  |1.09| 86.1?  | 188|
  |11:04| 64.5 | 4421  |4750 |  185  |1.07|  65.9  | 189|
  
-Tabell 1 [@refID1]  
+Tabell 1 [@(refID1)"insert name of reference"]  
    
+
   
 ```{r}
+#| message: false
+#| echo: false
 
-vo2_tid <- data.frame(time = c(5, 6, 7, 8, 9, 10, 11), 
-                      VO2 = c(3380, 3624, 3914, 4037, 4211, 4499, 4555), 
-                      HF = c(167, 174, 176, 180, 183, 185, 188))
+library(readxl)
+library(tidyverse)
+library(gt)
+library(magrittr)
 
-ggplot(vo2_tid, aes(time, VO2, 
-                    color = HF)) +
-  geom_point() +
-  geom_line() +
-  
-  scale_x_continuous(limits = c(5, 11), 
-                     breaks = c(5, 6, 7, 8, 9, 10, 11)) +
-  
-  labs(x = "tid (minutter)", 
-       y = "Absloutt oksygenopptak (ml/min)", 
-       title = "Sammenheng mellom VO2 og tid", 
-       caption = "data fra sykkeltest 2 den 29. aug")
+df <- read_xlsx("Plot_data_gr4.xlsx")
 
 ```
+
+
+```{r}
+#| echo: false
+
+df %>% 
+  select(id, timepoint, age:borg.max) %>% 
   
+  mutate(signif(w.max, 2)) %>% 
+  
+ gt()
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+ggplot(data = df, 
+       aes(weight, 
+           w.max, 
+           color = id, 
+           shape = id)) +
+  geom_point() +
+  
+  facet_wrap(~timepoint)
+
+```
+
+
