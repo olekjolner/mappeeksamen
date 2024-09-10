@@ -1,6 +1,5 @@
-# Introduksjon til mappetemplat og Lærinsgrefleksjon {.unnumbered}
+# Introduksjon {.unnumbered}
 
-Emnet IDR4000, kvantitativ metode og statistikk bruker mappeeksamen som evalueringsform. Dette er et "templat" for skriving og innlevering av eksamen. Lag en egen versjon av templatet ved å laste ned det (fork) fra GitHub og bruk denne som utgangspunkt. Ta vekk alle instruksjoner før du leverer den siste versjonen av din mappe. Du kan levere den samme mappen med aktuelle deler oppdaterte i løpet av emnet. 
 
 Mappeeksamen består av følgende deler: 
 
@@ -11,6 +10,3 @@ Mappeeksamen består av følgende deler:
 - Rapport: "Studiedesign"
 - Rapport: "Analyse av eksperimenter med repeterte målinger"
 
-I templatet organiseres hver del som et kapittel. 
-
-Referanser finner du sist i dokumenetet (eks. [@RN2902])
