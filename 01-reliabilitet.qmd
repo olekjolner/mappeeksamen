@@ -61,37 +61,6 @@
 
 ## Post test data preperation
 
-
-
- 
-## Table with data from t2 (id14)
- |Tid (min)|rel.VO2 (ml/min/kg)|V'O2 (ml/min)|V'CO2 (ml/min)|V'E (L/min)|RER (V'CO2/V'O2)|BF (1/min)|HF (1/min)|
- |  ---|---   |---    |---  |---    |--- |---     |--- |
- |00:30|      |       |     |       |    |        | 164|
- |01:00| 16.2 | 1106  |1346 |   53  |1.22|  19.7  | 128|
- |01:30| 18.5 | 1266  |1910 |   67  |1.51|  21.2  | 148|
- |02:00| 35.9 | 2458  |2288 |   69  |0.93|  24.8  | 155|
- |02:30| 39.3 | 2692  |2475 |   71  |0.92|  26.7  | 154|
- |03:00| 42.7 | 2927  |2858 |   80  |0.98|  26.4  | 152|
- |03:30| 46.0 | 3153  |3201 |   91  |1.02|  27.5  | 161|
- |04:00| 46.3 | 3173  |3270 |   94  |1.03|  28.7  | 165|
- |04:30| 47.3 | 3242  |3266 |   92  |1.01|  29.5  | 158|
- |05:00| 49.3 | 3380  |3444 |   98  |1.02|  30.6  | 167|
- |05:30| 51.8 | 3551  |3651 |  104  |1.03|  29.4  | 172|
- |06:00| 52.9 | 3624  |3758 |  106  |1.04|  30.7  | 174|
- |06:30| 55.5 | 3803  |4022 |  113  |1.06|  30.1  | 176|
- |07:00| 57.1 | 3914  |4204 |  121  |1.07|  34.4  | 176|
- |07:30| 56.6 | 3880  |4237 |  124  |1.09|  32.8  | 179|
- |08:00| 58.9 | 4037  |4428 |  131  |1.10|  37.0  | 180|
- |08:30| 60.9 | 4169  |4613 |  140  |1.11|  36.8  | 182|
- |09:00| 61.5 | 4211  |4736 |  146  |1.12|  39.4  | 183|
- |09:30| 63.0 | 4318  |4851 |  153  |1.12|  40.4  | 184|
- |10:00| 65.7 | 4499  |5085 |  168  |1.13|  44.2  | 185|
- |10:30| 66.7 | 4568  |5188 |  183  |1.14|  53.0  | 187|
- |11:00| 66.5 | 4555  |4954 |  192  |1.09| 86.1?  | 188|
- |11:04| 64.5 | 4421  |4750 |  185  |1.07|  65.9  | 189|
- 
-Tabell 1 [@(refID1)"insert name of reference"]  
    
 
   
@@ -104,22 +73,70 @@ library(tidyverse)
 library(gt)
 library(magrittr)
 
-df <- read_xlsx("Plot_data_gr4.xlsx")
+df <- read_xlsx("plot_data_gr4.xlsx")
 
 ```
+
+
 
 
 ```{r}
 #| echo: false
+#| tbl-cap: "Data from reliability tests sorted by id and timepoint"
+#| message: false
+#| warning: false
 
 df %>% 
-  select(id, timepoint, age:borg.max) %>% 
+  # velger de variablene jeg ønsker å ha med fra datasettet
+  select(id, timepoint, weight, w.max, vo2.max, vco2.max, rer.max, ve.max, bf.max, hr.max, la.max, borg.max) %>% 
+  # hr.max og la.max var <chr>, så gjør om de til <dbl>
   
-  mutate(signif(w.max, 2)) %>% 
+  mutate(hr.max = as.numeric(hr.max)) %>% 
+  mutate(la.max = as.numeric(la.max)) %>% 
   
- gt()
+  #formaterer tbl slik at 
+  pivot_longer(names_to = "variables", 
+               values_to = "values", 
+               cols = weight:borg.max) %>% 
+  
+  
+  group_by(id, timepoint, variables) %>% 
+  
+  mutate(id_timep = paste(id, timepoint, sep = "_")) %>% 
+  
+  ungroup() %>% 
+  
+  select(-id, -timepoint) %>% 
+  
+  pivot_wider(names_from = id_timep, 
+              values_from = values) %>% 
+  
+gt() %>% 
+  
+  tab_spanner(label = "id13", columns = c("id13_t1", "id13_t2", "id13_t3")) %>% 
 
+tab_spanner(label = "id14", columns = c("id14_t1", "id14_t2", "id14_t3")) %>% 
+  
+  tab_spanner(label = "id15", columns = c("id15_t1", "id15_t2")) %>% 
+  
+  tab_spanner(label = "id16", columns = c("id16_t1", "id16_t2")) %>% 
+
+cols_label(variables = " ", 
+           id13_t1 = "t1", 
+           id13_t2 = "t2", 
+           id13_t3 = "t3", 
+           id14_t1 = "t1", 
+           id14_t2 = "t2", 
+           id14_t3 = "t3", 
+           id15_t1 = "t1", 
+           id15_t2 = "t2", 
+           id16_t1 = "t1", 
+           id16_t2 = "t2")
 ```
+
+
+
+
 
 ```{r}
 #| echo: false
