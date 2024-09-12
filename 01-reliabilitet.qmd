@@ -3,11 +3,6 @@
 # Assignment 1: Reliability and tools for reproducible data science {#assignment1}
 
 
-## Detailed protocol
-
-### Metode 
-
-
 ### Utstyr som ble benyttet 
 
  - Biosen (for måling av laktat) 
@@ -28,6 +23,7 @@
  - Pulsbelte garmin
  - Hansker
 
+## Metode
  
 ### Preparations of participant being tested
  
@@ -40,9 +36,15 @@
       - Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test. 
       - Testleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne "pushingen" gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker. 
       
-    
+### Når testdeltaker er ferdig å sykle
 
-## Standardization of test
+  - Testleder har nå spurt om Borgs skala
+  - Etter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling. 
+  - Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus. 
+  - Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
+
+### Standardization of test
+
  - Matinntak: 
     - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
  - Koffeininntak: 
@@ -56,16 +58,10 @@
     - 5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)
  - Samme testprotokoll ved alle testene: 
     - start på 200W - 20W økning hvert minutt til utmattelse. 
- 
- 
- 
 
-## Post test data preperation
-Data er hentet ut og formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R. 
    
-   
-
-
+  
+## Tabeller og grafer som først ble laget med kun datasett fra gruppe 4
   
 ```{r}
 #| message: false
@@ -79,7 +75,6 @@ library(magrittr)
 df <- read_xlsx("plot_data_gr4.xlsx")
 
 ```
-
 
 
 
@@ -194,7 +189,7 @@ df %>%
 ```
 
 
-
+### Plot: sammenheng mellom w.max og vekt (kun datasett fra gruppe 4)
 
 ```{r}
 #| echo: false
@@ -204,7 +199,7 @@ df %>%
 #| message: false
 
 ggplot(data = df, 
-       aes(weight, 
+       aes(vo2.max, 
            w.max, 
            color = id, 
            shape = id)) +
@@ -222,11 +217,11 @@ ggplot(data = df,
 ```
 
 
-### Typical error
+### Typical error for la.max mellom t1 og t2 (kun datasett fra gruppe 4)
 
 ```{r}
 #| echo: false
-#| label: bergening av typical error og prosent 
+#| label: beregning av typical error og te som prosent av gjennomsnitt for verdi la.max
 #| message: false
 #| warning: false
 
@@ -243,14 +238,122 @@ df |>
             te = s / sqrt(2), 
             cv = 100 * (te/m)) |> 
   
-  print()
+  gt() |> 
+  
+  fmt_number(decimals = 2)
+
+```
+
+
+## Tabeller og grafer med datasett fra alle gruppene
+
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+
+library(readxl)
+library(tidyverse)
+library(gt)
+library(magrittr)
+
+df_all <- read_xlsx("plot_data_all_gr.xlsx") |> 
+  mutate(w.max = as.numeric(w.max), 
+         la.max = as.numeric(la.max), 
+         hr.max = as.numeric(hr.max), 
+         rer.max = as.numeric(rer.max))
+  
+```
+
+### Graf
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| tbl-cap: "Sammenheng mellom vo2.max og w.max"
+
+ggplot(data = df_all, 
+      aes(vo2.max, 
+          w.max, 
+          color = age)) +
+  geom_point()
+
+```
+
+
+### Tabell
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| tbl-cap: "Alle verdier er gj.snitt og standardavvik"
+
+df_all |> 
+  select(id, timepoint, w.max, vo2.max) |> 
+  
+  pivot_longer(names_to = "names", 
+               values_to = "tall", 
+               cols = w.max:vo2.max) |> 
+  
+  summarise(.by = c(id, names), 
+            m = mean(tall, na.rm = TRUE), 
+            sd = sd(tall, na.rm = TRUE)) |> 
+  
+  mutate(m_sd = paste0(signif(m, 3), " (", signif(sd, 3),") ")) |> 
+  
+  ungroup() |> 
+  
+  select(-m, -sd) |> 
+  
+  pivot_wider(names_from = names, 
+              values_from = m_sd) |> 
+  
+  gt()
 
 ```
 
 
 
-### referanse Hopkins 
-[@Hopkins]
+### Beregning av reliabilitet 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, standardavvik, typical error og coefficient of variation av variabelen w.max"
+
+df_all |> 
+  
+  #velger de variablene vi ønsker å se på
+  select(id, timepoint, w.max) |> 
+  
+  # benytter pivot_wider for lage !tidy-data, nå ser vi eks id_01 sin w.max ved timepoint == t1 osv.
+  pivot_wider(names_from = timepoint, 
+              values_from = w.max) |> 
+  
+#så vil vi se på typical error og regne på reliabilitet. Muterer så vi får en verdi som er differansen mellom t2 og t1
+  mutate(diff = t2 - t1) |> 
+  
+  #summarise tar veridene i kolonnene til t1 og t2 og regner snittet av de, samt standardavviket
+  summarise(m = mean(c(t1, t2), na.rm = TRUE), 
+            s = sd(diff, na.rm = TRUE), 
+            te = s / sqrt(2), 
+            cv = te/m * 100) |> 
+  
+  gt() |> 
+  
+  fmt_number(decimals = 1)
+
+# får da at mean = 331W og sd = 12,6. Typical error i dette tilfellet ble 8,90 og cv (coefficient of variation) er 2,69 %. 
+
+```
+
+Ifølge Hopkins et.al er typical error den gjennomsnittlige variasjonen ved en test. Hvis man hadde gjort en retest vil typical error gi en indikasjon på den forventede variasjonen i resultat [@Hopkins]. 
+
+
 
 
 ### Data i tekst 
