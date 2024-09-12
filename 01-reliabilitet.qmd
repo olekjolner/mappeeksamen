@@ -10,6 +10,7 @@
     - rør for oppsamling av blod
     - blandingscontainer for rør med blod
     - papir for å tørke av finger
+    - beger med løsning
  - Vyntus (for måling av metabolsk respons)
     - miksekammer
     - turbin
@@ -31,7 +32,7 @@
 ### Forberedelse og kalibrering av utstyr
 
 1. Sørg for at Biosen er på, og at det er nok væske i kalibreringssolution (rød flaske). Sett igang kalibrering av Biosen om det er nødvendig. 
-2. Ta med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, rør for oppsamling av blod og papir.
+2. Ta med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, beger med løsning, rør for oppsamling av blod og papir.
 3. Kalibrering av Vyntus CPX
     a. Skru på kalibreringsgassen.
     b. Se til at turbin er koblet til sampling slange og optoelektronisk måler. 
@@ -39,15 +40,15 @@
     OBS! Ved differanse på over 2% under volumkalibrering eller differanse over 0.2% differanse under gasskalibrering, gjennomfør nødvendig feilsøking og kjør kalibrering på nytt.  
 4. Ta på hansker og sett sammen munnstykke. Dekk til munnstykket med papir med hjelp av neseklype. 
 5. Ta med munnstykke og slange bort til sykkel og Vyntus CPX. Fest munnstykke til slange, og slange til miksekammer. 
-6. Legg til ny eller velg aktuell testdeltager.
+6. Legg til ny eller velg aktuell testdeltager inne i Vyntus og Lode softwaren.
      a. Ny testdeltager legges til, og følgende ID-informasjon legges til under fornavn, etternavn og personnummer: idr4000_h24_gr4_idxx (xx=nr).
  
 ### Forberedelse av testdeltager
  
   - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:
-      - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
+      - Dette er en VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
       - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
-      - Test skal gjennomføres sittende
+      - Test skal gjennomføres sittende.
       - Borg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er "ingen anstrengelse" og 20 er "maksimal anstrengelse". 
       - Underveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet. 
       - Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test. 
@@ -55,12 +56,12 @@
       
 ### Når testdeltaker er ferdig å sykle
 
-  - Testleder har nå spurt om Borgs skala
+  - Testleder har nå spurt om Borgs skala.
   - Etter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling. 
   - Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus. 
   - Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
 
-### Standardization of test
+### Standardisering av test
 
  - Matinntak: 
     - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
@@ -72,11 +73,15 @@
  - Trening: 
     - ingen hard trening på underkropp dagen før test. 
  - Oppvarmingsprotokoll: 
-    - 5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)
+    - 5 min oppvamring, der deltageren sykler på økende intensitet i 2-2-1 min, eks: (2 min 150W, 2 min 175W, 1 min 220W)
  - Samme testprotokoll ved alle testene: 
-    - start på 200W - 20W økning hvert minutt til utmattelse. 
+    - Her vil det være individuelle forskjeller, eks: start på 200W - 20W økning hvert minutt til utmattelse. 
 
-   
+## Intern validering
+Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne and Martin 2015, s.823). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
+
+Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne and Martin 2015, s.825).  
+
   
 ## Tabeller og grafer som først ble laget med kun datasett fra gruppe 4
   
