@@ -12,9 +12,11 @@
     - papir for å tørke av finger
  - Vyntus (for måling av metabolsk respons)
     - miksekammer
+    - turbin
     - slange fra miksekammer til munnstykke
     - neseklype (teipbit på nese for at neseklype skulle sitte godt)
-    - gassbeholder med standardgass
+    - gassbeholder med referansegass
+    - munnstykke
  - Lode-sykkel
     - Samme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.
     - MTB pedaler
@@ -22,6 +24,7 @@
  - Gulvvifte (samme instilling ved hver test)
  - Pulsbelte garmin
  - Hansker
+ - Minnepenn for overføring av data
 
 ## Metode
  
