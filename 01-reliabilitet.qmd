@@ -26,11 +26,25 @@
  - Hansker
  - Minnepenn for overføring av data
 
-## Metode
+## Metode - gjennomføring av VO^2^max test
+
+### Forberedelse og kalibrering av utstyr
+
+1. Sørg for at Biosen er på, og at det er nok væske i kalibreringssolution (rød flaske). Sett igang kalibrering av Biosen om det er nødvendig. 
+2. Ta med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, rør for oppsamling av blod og papir.
+3. Kalibrering av Vyntus CPX
+    a. Skru på kalibreringsgassen.
+    b. Se til at turbin er koblet til sampling slange og optoelektronisk måler. 
+    c. Koble til kalibreringsporten på CPX-en og kjør både volum- og gasskalibrering.
+    OBS! Ved differanse på over 2% under volumkalibrering eller differanse over 0.2% differanse under gasskalibrering, gjennomfør nødvendig feilsøking og kjør kalibrering på nytt.  
+4. Ta på hansker og sett sammen munnstykke. Dekk til munnstykket med papir med hjelp av neseklype. 
+5. Ta med munnstykke og slange bort til sykkel og Vyntus CPX. Fest munnstykke til slange, og slange til miksekammer. 
+6. Legg til ny eller velg aktuell testdeltager.
+     a. Ny testdeltager legges til, og følgende ID-informasjon legges til under fornavn, etternavn og personnummer: idr4000_h24_gr4_idxx (xx=nr).
  
-### Preparations of participant being tested
+### Forberedelse av testdeltager
  
-  - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan     test skal gjennomføres:
+  - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:
       - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
       - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
       - Test skal gjennomføres sittende
