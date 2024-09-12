@@ -7,7 +7,7 @@ book:
   date: "2024-09-10"
   chapters:
     - index.qmd
-    - 01-reliabiltet.qmd
+    - 01-reliabilitet.qmd
     - 02-regression-models.qmd
     - 03-statistical-inference.qmd
     - 04-study-design.qmd
@@ -16,9 +16,9 @@ book:
     - 07-laboratory-report.qmd
     - references.qmd
 
-bibliography: resources/bib-final.bib
+bibliography: bibliography.bib
 
-format: pdf
+format: html
 
 
 

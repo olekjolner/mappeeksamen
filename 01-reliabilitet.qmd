@@ -4,6 +4,10 @@
 
 
 ## Detailed protocol
+
+### Metode 
+
+
 ### Utstyr som ble benyttet 
 
  - Biosen (for måling av laktat) 
@@ -23,13 +27,10 @@
  - Gulvvifte (samme instilling ved hver test)
  - Pulsbelte garmin
  - Hansker
- - Labfrakk
- - Cydex for desinfisering av munnstykke og neseklype
- - Bøtte med såpevann for å vaske av cydex
- 
- 
 
-## Preperations of participant being tested
+ 
+### Preparations of participant being tested
+ 
   - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan     test skal gjennomføres:
       - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
       - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
@@ -60,8 +61,10 @@
  
 
 ## Post test data preperation
-
+Data er hentet ut og formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R. 
    
+   
+
 
   
 ```{r}
@@ -82,6 +85,7 @@ df <- read_xlsx("plot_data_gr4.xlsx")
 
 ```{r}
 #| echo: false
+#| label: Tabell med oversikt over all data fra alle id'er
 #| tbl-cap: "Data from reliability tests sorted by id and timepoint"
 #| message: false
 #| warning: false
@@ -142,15 +146,21 @@ cols_label(variables = " ",
            id16_t1 = "t1", 
            id16_t2 = "t2") %>% 
   
-  fmt_number(decimals = 2)
+  fmt_number(decimals = 2) %>% 
   
-  
+  tab_options(table.font.size = 9)
+
   
 ```
 
 
-```{r}
 
+```{r}
+#| echo: false
+#| label: Tabell med gj.snitt og std verdier sortert etter id
+#| tbl-cap: "Table sorted by id. All numbers are mean (sd)"
+#| warning: false
+#| message: false
 
 df %>% 
   select(id, timepoint, weight, w.max:borg.max) %>% 
@@ -169,7 +179,7 @@ df %>%
   
   mutate(m_s = paste0(signif(m, 3), " (", signif(s, 2), ")")) %>% 
   
-  ungroup() %>% 
+  ungroup() %>%
   
   select(-m, -s,) %>% 
   
@@ -189,7 +199,9 @@ df %>%
 ```{r}
 #| echo: false
 #| warning: false
+#| label: Graf med relasjon mellom vekt og watt-max
 #| tbl-cap: "Relation between weight and w.max sorted by timepoint"
+#| message: false
 
 ggplot(data = df, 
        aes(weight, 
@@ -204,9 +216,45 @@ ggplot(data = df,
        y = "Watt max (W)", 
        color = "ID", 
        shape = "ID", 
-       subtitle = "Sammenheng mellom watt-max og vekt", 
+       subtitle = "Sammenheng mellom watt-max og vekt",
        caption = "Antall tester/id: ID13=3, ID14=4, ID15=3, ID16=2")
 
 ```
+
+
+### Typical error
+
+```{r}
+#| echo: false
+#| label: bergening av typical error og prosent 
+#| message: false
+#| warning: false
+
+df |> 
+  select(id, timepoint, la.max) |> 
+  
+  pivot_wider(names_from = timepoint, 
+              values_from = la.max) |> 
+  
+  mutate(diff = t2 - t1) |> 
+  
+  summarise(m = mean(c(t1, t2), na.rm = TRUE), 
+            s = sd(diff, na.rm = TRUE), 
+            te = s / sqrt(2), 
+            cv = 100 * (te/m)) |> 
+  
+  print()
+
+```
+
+
+
+### referanse Hopkins 
+[@Hopkins]
+
+
+### Data i tekst 
+
+to add data in text we can use `r "data fra environment"`%
 
 
