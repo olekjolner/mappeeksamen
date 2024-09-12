@@ -1,68 +1,65 @@
-
-
 # Assignment 1: Reliability and tools for reproducible data science {#assignment1}
 
+### Utstyr som ble benyttet
 
-### Utstyr som ble benyttet 
-
- - Biosen (for måling av laktat) 
-    - lansett finger
-    - rør for oppsamling av blod
-    - blandingscontainer for rør med blod
-    - papir for å tørke av finger
- - Vyntus (for måling av metabolsk respons)
-    - miksekammer
-    - slange fra miksekammer til munnstykke
-    - neseklype (teipbit på nese for at neseklype skulle sitte godt)
-    - gassbeholder med standardgass
- - Lode-sykkel
-    - Samme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.
-    - MTB pedaler
-    - 172,5 mm lengde krankarmer
- - Gulvvifte (samme instilling ved hver test)
- - Pulsbelte garmin
- - Hansker
+-   Biosen (for måling av laktat)
+    -   lansett finger
+    -   rør for oppsamling av blod
+    -   blandingscontainer for rør med blod
+    -   papir for å tørke av finger
+-   Vyntus (for måling av metabolsk respons)
+    -   miksekammer
+    -   turbin
+    -   slange fra miksekammer til munnstykke
+    -   neseklype (teipbit på nese for at neseklype skulle sitte godt)
+    -   gassbeholder med referansegass
+-   Lode-sykkel
+    -   Samme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.
+    -   MTB pedaler
+    -   172,5 mm lengde krankarmer
+-   Gulvvifte (samme instilling ved hver test)
+-   Pulsbelte garmin
+-   Hansker
+-   Minnepenn for overføring av data
 
 ## Metode
- 
+
 ### Preparations of participant being tested
- 
-  - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan     test skal gjennomføres:
-      - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
-      - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
-      - Test skal gjennomføres sittende
-      - Borg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er "ingen anstrengelse" og 20 er "maksimal anstrengelse". 
-      - Underveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet. 
-      - Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test. 
-      - Testleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne "pushingen" gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker. 
-      
+
+-   Informasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:
+    -   VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer.
+    -   Test avsluttes dersom tråkkfrekvens \< 60 rpm.
+    -   Test skal gjennomføres sittende
+    -   Borg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er "ingen anstrengelse" og 20 er "maksimal anstrengelse".
+    -   Underveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet.
+    -   Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test.
+    -   Testleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne "pushingen" gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker.
+
 ### Når testdeltaker er ferdig å sykle
 
-  - Testleder har nå spurt om Borgs skala
-  - Etter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling. 
-  - Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus. 
-  - Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
+-   Testleder har nå spurt om Borgs skala
+-   Etter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling.
+-   Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.
+-   Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
 
 ### Standardization of test
 
- - Matinntak: 
-    - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
- - Koffeininntak: 
-    - inntak som normalt. 
- - Test gjennomføres på samme tidspunkt på dagen ved alle tester
- - Søvn/døgnrytme: 
-    - forsøk å opprettholde normal døgnrytme gjennom testperioden. 
- - Trening: 
-    - ingen hard trening på underkropp dagen før test. 
- - Oppvarmingsprotokoll: 
-    - 5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)
- - Samme testprotokoll ved alle testene: 
-    - start på 200W - 20W økning hvert minutt til utmattelse. 
+-   Matinntak:
+    -   siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv.
+-   Koffeininntak:
+    -   inntak som normalt.
+-   Test gjennomføres på samme tidspunkt på dagen ved alle tester
+-   Søvn/døgnrytme:
+    -   forsøk å opprettholde normal døgnrytme gjennom testperioden.
+-   Trening:
+    -   ingen hard trening på underkropp dagen før test.
+-   Oppvarmingsprotokoll:
+    -   5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)
+-   Samme testprotokoll ved alle testene:
+    -   start på 200W - 20W økning hvert minutt til utmattelse.
 
-   
-  
 ## Tabeller og grafer som først ble laget med kun datasett fra gruppe 4
-  
+
 ```{r}
 #| message: false
 #| echo: false
@@ -75,8 +72,6 @@ library(magrittr)
 df <- read_xlsx("plot_data_gr4.xlsx")
 
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -148,8 +143,6 @@ cols_label(variables = " ",
   
 ```
 
-
-
 ```{r}
 #| echo: false
 #| label: Tabell med gj.snitt og std verdier sortert etter id
@@ -189,23 +182,21 @@ df %>%
 ```
 
 
-### Plot: sammenheng mellom w.max og vekt (kun datasett fra gruppe 4)
+### Plot: sammenheng mellom w.max og vekt 
 
 ```{r}
 #| echo: false
 #| warning: false
 #| label: Graf med relasjon mellom vekt og watt-max
-#| tbl-cap: "Relation between weight and w.max sorted by timepoint"
+#| tbl-cap: "Relation between weight and w.max."
 #| message: false
 
 ggplot(data = df, 
-       aes(vo2.max, 
+       aes(weight, 
            w.max, 
            color = id, 
            shape = id)) +
   geom_point() +
-  
-  facet_wrap(~timepoint) +
   
   labs(x = "Vekt (kg)", 
        y = "Watt max (W)", 
@@ -216,8 +207,7 @@ ggplot(data = df,
 
 ```
 
-
-### Typical error for la.max mellom t1 og t2 (kun datasett fra gruppe 4)
+### Te og cv for la.max sett mellom t1 og t2 
 
 ```{r}
 #| echo: false
@@ -240,13 +230,13 @@ df |>
   
   gt() |> 
   
-  fmt_number(decimals = 2)
+  fmt_number(decimals = 2) |> 
+  
+  tab_footnote(footnote = "m = gj.snitt (W), s = standardavvik, te = typical error, cv = coefficient of variation (%)")
 
 ```
 
-
-## Tabeller og grafer med datasett fra alle gruppene
-
+## Tabeller og plots med datasett fra alle gruppene
 
 ```{r}
 #| message: false
@@ -266,30 +256,32 @@ df_all <- read_xlsx("plot_data_all_gr.xlsx") |>
   
 ```
 
-### Graf
+### Plot
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| tbl-cap: "Sammenheng mellom vo2.max og w.max"
+#| label: plot av vo2.max og w.max
 
 ggplot(data = df_all, 
       aes(vo2.max, 
           w.max, 
           color = age)) +
-  geom_point()
+  geom_point() +
+  
+  labs(subtitle = "Sammenheng mellom vo2.max, w.max og alder")
 
 ```
 
-
-### Tabell
+### Tabeller
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| tbl-cap: "Alle verdier er gj.snitt og standardavvik"
+#| tbl-cap: "Verdier er gj.snitt og standardavvik for de ulike testtidspunktene"
+#| label: snitt og standardavvik for verider w.max og vo2.max per id
 
 df_all |> 
   select(id, timepoint, w.max, vo2.max) |> 
@@ -298,7 +290,7 @@ df_all |>
                values_to = "tall", 
                cols = w.max:vo2.max) |> 
   
-  summarise(.by = c(id, names), 
+  summarise(.by = c(timepoint, names), 
             m = mean(tall, na.rm = TRUE), 
             sd = sd(tall, na.rm = TRUE)) |> 
   
@@ -315,15 +307,14 @@ df_all |>
 
 ```
 
-
-
-### Beregning av reliabilitet 
+### Beregning av reliabilitet
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
 #| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, standardavvik, typical error og coefficient of variation av variabelen w.max"
+#| label: mean, sd, te og cv for w.max verdien
 
 df_all |> 
   
@@ -345,19 +336,18 @@ df_all |>
   
   gt() |> 
   
-  fmt_number(decimals = 1)
-
+  fmt_number(decimals = 2)
+  
 # får da at mean = 331W og sd = 12,6. Typical error i dette tilfellet ble 8,90 og cv (coefficient of variation) er 2,69 %. 
 
 ```
 
-Ifølge Hopkins et.al er typical error den gjennomsnittlige variasjonen ved en test. Hvis man hadde gjort en retest vil typical error gi en indikasjon på den forventede variasjonen i resultat [@Hopkins]. 
+```{r}
+#| echo: false
+
+cv_perc <- 2.69
+```
 
 
-
-
-### Data i tekst 
-
-to add data in text we can use `r "data fra environment"`%
-
+Ifølge Hopkins (2000) er "typical error" den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med `r cv_perc` % [@Hopkins].
 
