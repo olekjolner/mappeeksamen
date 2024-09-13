@@ -94,186 +94,9 @@
 Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne and Martin 2015, s.823). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
 
 Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne and Martin 2015, s.825).  
-  
 
 
-## Tabeller og grafer som først ble laget med kun datasett fra gruppe 4
 
-```{r}
-#| message: false
-#| echo: false
-
-library(readxl)
-library(tidyverse)
-library(gt)
-library(magrittr)
-
-df <- read_xlsx("plot_data_gr4.xlsx")
-
-```
-
-```{r}
-#| echo: false
-#| label: Tabell med oversikt over all data fra alle id'er
-#| tbl-cap: "Data from reliability tests sorted by id and timepoint"
-#| message: false
-#| warning: false
-
-df %>% 
-  # velger de variablene jeg ønsker å ha med fra datasettet
-  select(id, timepoint, weight, w.max, vo2.max, vco2.max, rer.max, ve.max, bf.max, hr.max, la.max, borg.max) %>% 
-  # hr.max og la.max var <chr>, så gjør om de til <dbl>
-  
-  mutate(hr.max = as.numeric(hr.max)) %>% 
-  mutate(la.max = as.numeric(la.max)) %>% 
-  
-  #formaterer tbl slik at karakterene weight:borg.max samles i èn kolonne og tilhørende verdier ved siden i en egen kolonne.
-  pivot_longer(names_to = "variables", 
-               values_to = "values", 
-               cols = weight:borg.max) %>% 
-  
-  # gruperer etter id, timepoint og variables
-  group_by(id, timepoint, variables) %>% 
-  
-  # slår sammen karakterene id og timepoint
-  mutate(id_timep = paste(id, timepoint, sep = "_")) %>% 
-  
-  # fjerner grupering
-  ungroup() %>% 
-  
-  # fjerner is og timepoint siden de nå er slått sammen til id_timep
-  select(-id, -timepoint) %>% 
-  
-  #ordner tabell så variabler weight:borg.max havner lengst til ve og id_timep får hver sin kolonne
-  pivot_wider(names_from = id_timep, 
-              values_from = values) %>% 
-  
-  # printer tabell i "viewer"
-gt() %>% 
-  
-  # lager egen kolonneoverskrift for å sortere de ulike id'ene
-  tab_spanner(label = "id13", columns = c("id13_t1", "id13_t2", "id13_t3")) %>% 
-
-tab_spanner(label = "id14", columns = c("id14_t1", "id14_t2", "id14_t3", "id14_t4")) %>% 
-  
-  tab_spanner(label = "id15", columns = c("id15_t1", "id15_t2", "id15_t3")) %>% 
-  
-  tab_spanner(label = "id16", columns = c("id16_t1", "id16_t2")) %>% 
-
-  #endrer navn på kolonnene
-cols_label(variables = " ", 
-           id13_t1 = "t1", 
-           id13_t2 = "t2", 
-           id13_t3 = "t3", 
-           id14_t1 = "t1", 
-           id14_t2 = "t2", 
-           id14_t3 = "t3",
-           id14_t4 = "t4",
-           id15_t1 = "t1", 
-           id15_t2 = "t2",
-           id15_t3 = "t3",
-           id16_t1 = "t1", 
-           id16_t2 = "t2") %>% 
-  
-  fmt_number(decimals = 2) %>% 
-  
-  tab_options(table.font.size = 9)
-
-  
-```
-
-```{r}
-#| echo: false
-#| label: Tabell med gj.snitt og std verdier sortert etter id
-#| tbl-cap: "Table sorted by id. All numbers are mean (sd)"
-#| warning: false
-#| message: false
-
-df %>% 
-  select(id, timepoint, weight, w.max:borg.max) %>% 
-  
-  mutate(rel.vo2max = vo2.max / weight) %>% 
-  mutate(rel.wmax = w.max / weight) %>% 
-  
-  pivot_longer(names_to = "names", 
-               values_to = "tall", 
-               cols = w.max:rel.wmax) %>% 
-  
-  group_by(id, names) %>% 
-  
-  summarise(m = mean(tall), 
-            s = sd(tall)) %>% 
-  
-  mutate(m_s = paste0(signif(m, 3), " (", signif(s, 2), ")")) %>% 
-  
-  ungroup() %>%
-  
-  select(-m, -s,) %>% 
-  
-  pivot_wider(names_from = "id", 
-              values_from = m_s) %>% 
-   
-  gt() %>% 
-  
-   cols_label(names = " ")
-  
-  
-```
-
-
-### Plot: sammenheng mellom w.max og vekt 
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: Graf med relasjon mellom vekt og watt-max
-#| tbl-cap: "Relation between weight and w.max."
-#| message: false
-
-ggplot(data = df, 
-       aes(weight, 
-           w.max, 
-           color = id, 
-           shape = id)) +
-  geom_point() +
-  
-  labs(x = "Vekt (kg)", 
-       y = "Watt max (W)", 
-       color = "ID", 
-       shape = "ID", 
-       subtitle = "Sammenheng mellom watt-max og vekt",
-       caption = "Antall tester/id: ID13=3, ID14=4, ID15=3, ID16=2")
-
-```
-
-### Te og cv for la.max sett mellom t1 og t2 
-
-```{r}
-#| echo: false
-#| label: beregning av typical error og te som prosent av gjennomsnitt for verdi la.max
-#| message: false
-#| warning: false
-
-df |> 
-  select(id, timepoint, la.max) |> 
-  
-  pivot_wider(names_from = timepoint, 
-              values_from = la.max) |> 
-  
-  mutate(diff = t2 - t1) |> 
-  
-  summarise(m = mean(c(t1, t2), na.rm = TRUE), 
-            s = sd(diff, na.rm = TRUE), 
-            te = s / sqrt(2), 
-            cv = 100 * (te/m)) |> 
-  
-  gt() |> 
-  
-  fmt_number(decimals = 2) |> 
-  
-  tab_footnote(footnote = "m = gj.snitt (W), s = standardavvik, te = typical error, cv = coefficient of variation (%)")
-
-```
 
 ## Tabeller og plots med datasett fra alle gruppene
 
@@ -355,7 +178,7 @@ df_all |>
 #| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, standardavvik, typical error og coefficient of variation av variabelen w.max"
 #| label: mean, sd, te og cv for w.max verdien
 
-df_all |> 
+dat <- df_all |> 
   
   #velger de variablene vi ønsker å se på
   select(id, timepoint, w.max) |> 
@@ -371,21 +194,22 @@ df_all |>
   summarise(m = mean(c(t1, t2), na.rm = TRUE), 
             s = sd(diff, na.rm = TRUE), 
             te = s / sqrt(2), 
-            cv = te/m * 100) |> 
-  
+            cv = te/m * 100) 
+
+
+cv_perc <- round(dat$cv,2)
+
+
+
+dat |> 
   gt() |> 
   
   fmt_number(decimals = 2)
-  
-# får da at mean = 331W og sd = 12,6. Typical error i dette tilfellet ble 8,90 og cv (coefficient of variation) er 2,69 %. 
+
 
 ```
 
-```{r}
-#| echo: false
 
-cv_perc <- 2.69
-```
 
 
 Ifølge Hopkins (2000) er "typical error" den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med `r cv_perc` % [@Hopkins].
