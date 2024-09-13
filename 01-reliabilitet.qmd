@@ -1,5 +1,9 @@
 # Assignment 1: Reliability and tools for reproducible data science {#assignment1}
 
+
+
+## Metode - gjennomføring av VO^2^max test
+
 ### Utstyr som ble benyttet
 
 -   Biosen (for måling av laktat)
@@ -21,24 +25,6 @@
 -   Pulsbelte garmin
 -   Hansker
 -   Minnepenn for overføring av data
-
-
-
-## Metode
-
-### Preparations of participant being tested
-
--   Informasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:
-    -   VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer.
-    -   Test avsluttes dersom tråkkfrekvens \< 60 rpm.
-    -   Test skal gjennomføres sittende
-    -   Borg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er "ingen anstrengelse" og 20 er "maksimal anstrengelse".
-    -   Underveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet.
-    -   Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test.
-    -   Testleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne "pushingen" gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker.
-
-
-## Metode - gjennomføring av VO^2^max test
 
 ### Forberedelse og kalibrering av utstyr
 
@@ -73,8 +59,8 @@
 -   Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.
 -   Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
 
-### Standardisering av test
 
+## Standardisering av test
 
  - Matinntak: 
     - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
@@ -94,8 +80,6 @@
 Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne and Martin 2015, s.823). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
 
 Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne and Martin 2015, s.825).  
-
-
 
 
 ## Tabeller og plots med datasett fra alle gruppene
@@ -132,11 +116,12 @@ ggplot(data = df_all,
           color = age)) +
   geom_point() +
   
-  labs(subtitle = "Sammenheng mellom vo2.max, w.max og alder")
+  labs(subtitle = "Sammenheng mellom vo2.max, w.max og alder") 
 
 ```
 
-### Tabeller
+### Tabell
+
 
 ```{r}
 #| warning: false
@@ -175,7 +160,7 @@ df_all |>
 #| warning: false
 #| message: false
 #| echo: false
-#| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, standardavvik, typical error og coefficient of variation av variabelen w.max"
+#| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max"
 #| label: mean, sd, te og cv for w.max verdien
 
 dat <- df_all |> 
@@ -196,21 +181,16 @@ dat <- df_all |>
             te = s / sqrt(2), 
             cv = te/m * 100) 
 
-
+#henter ut cv_perc som brukes som data i text
 cv_perc <- round(dat$cv,2)
 
-
-
+#lager tabell her og runder av tall i tabell med 2 desimaler
 dat |> 
   gt() |> 
   
   fmt_number(decimals = 2)
 
-
 ```
-
-
-
 
 Ifølge Hopkins (2000) er "typical error" den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med `r cv_perc` % [@Hopkins].
 
