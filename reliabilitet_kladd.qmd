@@ -1,0 +1,18 @@
+---
+title: "01-rel-kladd"
+---
+
+```{r}
+
+#| message: false
+#| echo: false
+
+library(readxl)
+library(tidyverse)
+library(gt)
+library(magrittr)
+
+df_all <- read_xlsx("plot_data_all_gr.xlsx")
+
+```
+
