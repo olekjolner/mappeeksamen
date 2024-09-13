@@ -1,0 +1,182 @@
+[
+  {
+    "objectID": "01-reliabilitet.html",
+    "href": "01-reliabilitet.html",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "",
+    "text": "1.0.1 Utstyr som ble benyttet\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ## Metode",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#metode",
+    "href": "01-reliabilitet.html#metode",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.1 Metode",
+    "text": "1.1 Metode\n\n1.1.1 Preparations of participant being tested\n\nInformasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:\n\nVO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer.\nTest avsluttes dersom tråkkfrekvens &lt; 60 rpm.\nTest skal gjennomføres sittende\nBorg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er “ingen anstrengelse” og 20 er “maksimal anstrengelse”.\nUnderveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet.\nTestdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test.\nTestleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne “pushingen” gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker.\n\n\n\n\n1.1.2 Når testdeltaker er ferdig å sykle\n\nTestleder har nå spurt om Borgs skala\nEtter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling.\nNoterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.\nData som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.\n\n\n\n1.1.3 Standardization of test\n\nMatinntak:\n\nsiste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv.\n\nKoffeininntak:\n\ninntak som normalt.\n\nTest gjennomføres på samme tidspunkt på dagen ved alle tester\nSøvn/døgnrytme:\n\nforsøk å opprettholde normal døgnrytme gjennom testperioden.\n\nTrening:\n\ningen hard trening på underkropp dagen før test.\n\nOppvarmingsprotokoll:\n\n5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)\n\nSamme testprotokoll ved alle testene:\n\nstart på 200W - 20W økning hvert minutt til utmattelse.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#tabeller-og-grafer-som-først-ble-laget-med-kun-datasett-fra-gruppe-4",
+    "href": "01-reliabilitet.html#tabeller-og-grafer-som-først-ble-laget-med-kun-datasett-fra-gruppe-4",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.1 Tabeller og grafer som først ble laget med kun datasett fra gruppe 4",
+    "text": "1.1 Tabeller og grafer som først ble laget med kun datasett fra gruppe 4\n\n\n\n\n\n\nData from reliability tests sorted by id and timepoint\n\n\n\nid13\nid14\nid15\nid16\n\n\nt1\nt2\nt3\nt1\nt2\nt3\nt4\nt1\nt2\nt3\nt1\nt2\n\n\n\n\nweight\n88.80\n90.10\n90.00\n68.50\n68.80\n69.20\n69.00\n103.90\n103.60\n101.30\n82.10\n82.80\n\n\nw.max\n341.00\n344.33\n354.33\n385.33\n380.00\n371.67\n381.00\n305.00\n280.33\n293.33\n383.67\n379.33\n\n\nvo2.max\n4,634.50\n4,606.50\n4,540.50\n4,556.50\n4,561.50\n4,437.00\n4,545.00\n4,350.50\n3,818.50\n4,134.00\n4,872.00\n5,050.00\n\n\nvco2.max\n5,453.00\n5,312.00\n5,324.50\n5,129.00\n5,071.00\n4,991.50\n5,180.50\n5,034.00\n4,471.00\n4,785.00\n5,276.50\n5,561.00\n\n\nrer.max\n1.17\n1.15\n1.17\n1.12\n1.11\n1.12\n1.14\n1.15\n1.17\n1.16\n1.08\n1.10\n\n\nve.max\n201.50\n182.50\n176.00\n176.50\n187.50\n164.00\n182.00\n206.00\n196.00\n194.00\n192.00\n190.50\n\n\nbf.max\n54.80\n49.60\n48.35\n48.95\n69.55\n43.35\n48.35\n47.30\n63.85\n53.05\n80.10\n68.80\n\n\nhr.max\n194.00\n194.00\n194.00\n191.00\n188.00\n187.00\n189.00\n183.00\n180.00\n184.00\n187.00\n181.00\n\n\nla.max\n15.43\n12.97\n14.77\n15.78\n16.16\n13.93\n15.37\n9.25\n11.10\n12.62\n8.97\n9.07\n\n\nborg.max\n19.00\n18.00\n18.00\n19.00\n19.00\n18.00\n19.00\n17.00\n16.00\n18.00\n19.00\n20.00\n\n\n\n\n\n\n\n\n\n\n\n\n\nTable sorted by id. All numbers are mean (sd)\n\n\n\nid13\nid14\nid15\nid16\n\n\n\n\nbf.max\n50.9 (3.4)\n52.6 (12)\n54.7 (8.4)\n74.4 (8)\n\n\nborg.max\n18.3 (0.58)\n18.8 (0.5)\n17 (1)\n19.5 (0.71)\n\n\nhr.max\n194 (0)\n189 (1.7)\n182 (2.1)\n184 (4.2)\n\n\nla.max\n14.4 (1.3)\n15.3 (0.97)\n11 (1.7)\n9.02 (0.071)\n\n\nrel.vo2max\n51.3 (0.88)\n65.7 (1.1)\n39.8 (2.6)\n60.2 (1.2)\n\n\nrel.wmax\n3.87 (0.062)\n5.51 (0.1)\n2.85 (0.12)\n4.63 (0.065)\n\n\nrer.max\n1.16 (0.013)\n1.13 (0.01)\n1.16 (0.01)\n1.09 (0.011)\n\n\nvco2.max\n5360 (78)\n5090 (81)\n4760 (280)\n5420 (200)\n\n\nve.max\n187 (13)\n178 (10)\n199 (6.4)\n191 (1.1)\n\n\nvo2.max\n4590 (48)\n4520 (59)\n4100 (270)\n4960 (130)\n\n\nw.max\n347 (6.9)\n380 (5.7)\n293 (12)\n382 (3.1)\n\n\n\n\n\n\n\n\n1.1.1 Plot: sammenheng mellom w.max og vekt\n\n\n\n\n\n\n\n\n\n\n\n1.1.2 Te og cv for la.max sett mellom t1 og t2\n\n\n\n\n\n\n\n\nm\ns\nte\ncv\n\n\n\n\n12.34\n1.79\n1.27\n10.26\n\n\n\nm = gj.snitt (W), s = standardavvik, te = typical error, cv = coefficient of variation (%)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#tabeller-og-grafer-med-datasett-fra-alle-gruppene",
+    "href": "01-reliabilitet.html#tabeller-og-grafer-med-datasett-fra-alle-gruppene",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.3 Tabeller og grafer med datasett fra alle gruppene",
+    "text": "1.3 Tabeller og grafer med datasett fra alle gruppene\n\n1.3.1 Plot\n\n\n\n\n\n\n\n\n\n\n\n1.3.2 Tabell\n\n\n\n\n\n\nAlle verdier er gj.snitt og standardavvik\n\n\nid\nw.max\nvo2.max\n\n\n\n\nid_01\n243 (12.7)\n3240 (146)\n\n\nid_02\n221 (2.78)\n2700 (157)\n\n\nid_03\n290 (43.1)\n4130 (298)\n\n\nid_04\n231 (12.7)\n2860 (52)\n\n\nid_05\n387 (6.13)\n4390 (47.7)\n\n\nid_06\n286 (7.54)\n3710 (6.36)\n\n\nid_07\n435 (19.1)\n5130 (142)\n\n\nid_08\n230 (NA)\n2540 (NA)\n\n\nid_09\n389 (2.14)\n4650 (40.8)\n\n\nid_10\n269 (1.16)\n3100 (63.9)\n\n\nid_11\n318 (0)\n3640 (96.5)\n\n\nid_12\n407 (29.3)\n4480 (226)\n\n\nid_13\n347 (6.94)\n4590 (48.3)\n\n\nid_14\n380 (5.71)\n4520 (59.1)\n\n\nid_15\n293 (12.3)\n4100 (268)\n\n\nid_16\n382 (3.06)\n4960 (126)\n\n\n\n\n\n\n\n\n\n1.3.3 Beregning av reliabilitet\n\n\n# A tibble: 1 × 4\n      m     s    te    cv\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  331.  12.6  8.90  2.69\n\n\nIfølge (Hopkins 2000) er “typical error” den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med 2.69%.\n\n\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html",
+    "href": "02-regression-models.html",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "",
+    "text": "The assignment has three parts:\n\nPart 1: Lactate thresholds\nPart 2: Predicting sizes of DNA fragments\nPart 3: Interpreting a regression table",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html",
+    "href": "03-statistical-inference.html",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "",
+    "text": "This assignment is set up as a statistical laboratory, we will perform simulations and your assignment is to interpret and explain the results. Create a report based on the code used in the lab and make sure you answer the specified questions (1-8). You can be as creative as you want and explore the results further.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html",
+    "href": "04-study-design.html",
+    "title": "4  Assignment 4: Study designs",
+    "section": "",
+    "text": "4.1 Overview\nChoose an area of interest (e.g. protein supplementation for muscle hypertrophy or the effect of block periodization on VO2max). Find at least five original research studies1 in your selected area and describe strength and weakness of these studies. The report should focus on the design of the studies and selection of statistical tests to answer study aims. Conclude your report with a recommendation, how should future studies in your area be designed to best answer similar questions?",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#footnotes",
+    "href": "04-study-design.html#footnotes",
+    "title": "4  Assignment 4: Study designs",
+    "section": "",
+    "text": "Avoid using review articles or meta-analyses↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html",
+    "href": "05-repeated-measurements.html",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "",
+    "text": "5.1 Assignment overview\nIn this assignment you will analyse and report on trial investigating the effect of resistance training volume on lean mass and muscle strength. The data are part of the exscidata package and can be accessed as data(\"strengthvolume\") and data(\"dxadata\"). Read the instructions carefully!",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#assignment-overview",
+    "href": "05-repeated-measurements.html#assignment-overview",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "",
+    "text": "Below you will find a basic outline of the report and example code that we worked on in class.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#introduction",
+    "href": "05-repeated-measurements.html#introduction",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.2 Introduction",
+    "text": "5.2 Introduction",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#methods",
+    "href": "05-repeated-measurements.html#methods",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.3 Methods",
+    "text": "5.3 Methods\n\n5.3.1 Participants and study overview\n\n\n5.3.2 Muscle strength and hypertrophy\n\n\n5.3.3 Data analysis and statistics",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#results",
+    "href": "05-repeated-measurements.html#results",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.4 Results",
+    "text": "5.4 Results\nThe average difference in lean mass changes between sets were 122.8, 95% CI: [8.6, 237], p = 0.036.\n\n## Time points in strength data set\n\nstrengthvolume %&gt;%\n  distinct(exercise)\n\n# A tibble: 6 × 1\n  exercise\n  &lt;chr&gt;   \n1 legpress\n2 legext  \n3 isok.60 \n4 isok.120\n5 isok.240\n6 isom    \n\n## Exploratory plot of strength data \n\nstr &lt;- strengthvolume %&gt;%\n  filter(include == \"incl\") %&gt;%\n  mutate(time = factor(time, levels = c(\"pre\", \"session1\", \n                                        \"week2\", \"week5\", \n                                        \"week9\", \"post\"))) %&gt;%\n  print()\n\n# A tibble: 2,856 × 8\n   participant sex   include time     sets     leg   exercise  load\n   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;fct&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;\n 1 FP13        male  incl    pre      single   R     legpress   115\n 2 FP13        male  incl    pre      multiple L     legpress   115\n 3 FP13        male  incl    pre      single   R     legext      55\n 4 FP13        male  incl    pre      multiple L     legext      55\n 5 FP13        male  incl    session1 single   R     legpress   125\n 6 FP13        male  incl    session1 multiple L     legpress   125\n 7 FP13        male  incl    session1 single   R     legext      55\n 8 FP13        male  incl    session1 multiple L     legext      55\n 9 FP13        male  incl    week2    single   R     legpress   185\n10 FP13        male  incl    week2    multiple L     legpress   175\n# ℹ 2,846 more rows\n\nstr %&gt;%\n  ggplot(aes(time, \n             load, \n             group = paste(participant, sets), \n             color = sets)) + \n  geom_line() + \n  facet_wrap(~ exercise, scales = \"free\")\n\nWarning: Removed 5 rows containing missing values or values outside the scale range\n(`geom_line()`).\n\n\n\n\n\n\n\n\n## How many measurements per participant\n\nstr %&gt;%\n  filter(!is.na(load)) %&gt;%\n  group_by(participant, exercise, sets) %&gt;%\n  summarise(n = n() ) %&gt;%\n  ggplot(aes(n, participant, color = sets)) +\n  geom_point() + \n  facet_wrap(~ exercise) + \n  theme(axis.text.y = element_blank())\n\n`summarise()` has grouped output by 'participant', 'exercise'. You can override\nusing the `.groups` argument.\n\n\n\n\n\n\n\n\n## Use pre and post data \n# Combine pre data prior to data analysis\n# per exercise, leg, participant, and sets\n\nstr %&gt;%\n  mutate(time = if_else(time %in% c(\"pre\", \"session1\"), \"pre\", time)) %&gt;%\n  \n  filter(time %in% c(\"pre\", \"post\")) %&gt;%\n  \n  summarise(load = max(load, na.rm = TRUE), \n            .by = c(participant, \n                    sex, \n                    time, \n                    sets,\n                    exercise,\n                    leg)) %&gt;%\n  \n  print()\n\nWarning: There were 7 warnings in `summarise()`.\nThe first warning was:\nℹ In argument: `load = max(load, na.rm = TRUE)`.\nℹ In group 62: `participant = \"FP6\"`, `sex = \"female\"`, `time = \"post\"`, `sets\n  = \"multiple\"`, `exercise = \"legpress\"`, `leg = \"L\"`.\nCaused by warning in `max()`:\n! no non-missing arguments to max; returning -Inf\nℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.\n\n\n# A tibble: 816 × 7\n   participant sex    time  sets     exercise leg    load\n   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;\n 1 FP13        male   pre   single   legpress R     125  \n 2 FP13        male   pre   multiple legpress L     125  \n 3 FP13        male   pre   single   legext   R      55  \n 4 FP13        male   pre   multiple legext   L      55  \n 5 FP13        male   post  single   legpress R     230  \n 6 FP13        male   post  multiple legpress L     235  \n 7 FP13        male   post  single   legext   R      97.5\n 8 FP13        male   post  multiple legext   L     100  \n 9 FP16        female pre   single   legpress R      95  \n10 FP16        female pre   multiple legpress L      85  \n# ℹ 806 more rows",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#discussion",
+    "href": "05-repeated-measurements.html#discussion",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.5 Discussion",
+    "text": "5.5 Discussion",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#conclusion",
+    "href": "05-repeated-measurements.html#conclusion",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.6 Conclusion",
+    "text": "5.6 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "06-vitenskapsteori.html",
+    "href": "06-vitenskapsteori.html",
+    "title": "6  Philosophy of science",
+    "section": "",
+    "text": "See instructions on canvas.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Philosophy of science</span>"
+    ]
+  },
+  {
+    "objectID": "07-laboratory-report.html",
+    "href": "07-laboratory-report.html",
+    "title": "7  Molecular Laboratory report",
+    "section": "",
+    "text": "Select one laboratory assignment and write a detailed report.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Molecular Laboratory report</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
+    "href": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.2 Tabeller og plots med datasett fra alle gruppene",
+    "text": "1.2 Tabeller og plots med datasett fra alle gruppene\n\n1.2.1 Plot\n\n\n\n\n\n\n\n\n\n\n\n1.2.2 Tabeller\n\n\n\n\n\n\nVerdier er gj.snitt og standardavvik for de ulike testtidspunktene\n\n\ntimepoint\nw.max\nvo2.max\n\n\n\n\nt1\n332 (62)\n4120 (713)\n\n\nt2\n331 (66.6)\n4090 (738)\n\n\nt3\n316 (84.7)\n3890 (859)\n\n\nt4\n294 (88.8)\n3600 (999)\n\n\n\n\n\n\n\n\n\n1.2.3 Beregning av reliabilitet\n\n\n\n\n\n\nSammenlikner t1 og t2 og ser på gj.snittsverdi, standardavvik, typical error og coefficient of variation av variabelen w.max\n\n\nm\ns\nte\ncv\n\n\n\n\n331.07\n12.59\n8.90\n2.69\n\n\n\n\n\n\n\nIfølge Hopkins (2000) er “typical error” den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med 2.69 % (Hopkins 2000).\n\n\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  }
+]
