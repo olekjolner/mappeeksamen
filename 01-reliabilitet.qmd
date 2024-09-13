@@ -73,21 +73,29 @@
 -   Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.
 -   Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
 
-### Standardization of test
+### Standardisering av test
 
--   Matinntak:
-    -   siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv.
--   Koffeininntak:
-    -   inntak som normalt.
--   Test gjennomføres på samme tidspunkt på dagen ved alle tester
--   Søvn/døgnrytme:
-    -   forsøk å opprettholde normal døgnrytme gjennom testperioden.
--   Trening:
-    -   ingen hard trening på underkropp dagen før test.
--   Oppvarmingsprotokoll:
-    -   5 min oppvamring (2 min 150W, 2 min 175W, 1 min 220W)
--   Samme testprotokoll ved alle testene:
-    -   start på 200W - 20W økning hvert minutt til utmattelse.
+
+ - Matinntak: 
+    - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
+ - Koffeininntak: 
+    - inntak som normalt. 
+ - Test gjennomføres på samme tidspunkt på dagen ved alle tester
+ - Søvn/døgnrytme: 
+    - forsøk å opprettholde normal døgnrytme gjennom testperioden. 
+ - Trening: 
+    - ingen hard trening på underkropp dagen før test. 
+ - Oppvarmingsprotokoll: 
+    - 5 min oppvamring, der deltageren sykler på økende intensitet i 2-2-1 min, eks: (2 min 150W, 2 min 175W, 1 min 220W)
+ - Samme testprotokoll ved alle testene: 
+    - Her vil det være individuelle forskjeller, eks: start på 200W - 20W økning hvert minutt til utmattelse. 
+
+## Intern validering
+Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne and Martin 2015, s.823). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
+
+Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne and Martin 2015, s.825).  
+  
+
 
 ## Tabeller og grafer som først ble laget med kun datasett fra gruppe 4
 
