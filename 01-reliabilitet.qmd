@@ -77,9 +77,9 @@
     - Her vil det være individuelle forskjeller, eks: start på 200W - 20W økning hvert minutt til utmattelse. 
 
 ## Intern validering
-Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne and Martin 2015, s.823). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
+Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen [@Halperin]. Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
 
-Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne and Martin 2015, s.825).  
+Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager [@Halperin].  
 
 
 ## Tabeller og plots med datasett fra alle gruppene
@@ -120,8 +120,8 @@ ggplot(data = df_all,
 
 ```
 
-### Tabell
 
+### Tabell
 
 ```{r}
 #| warning: false
@@ -153,6 +153,7 @@ df_all |>
   gt()
 
 ```
+
 
 ### Beregning av reliabilitet
 
@@ -191,6 +192,7 @@ dat |>
   fmt_number(decimals = 2)
 
 ```
+
 
 Ifølge Hopkins (2000) er "typical error" den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med `r cv_perc` % [@Hopkins].
 
