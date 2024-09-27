@@ -242,12 +242,14 @@ results %>%
   tab_caption("Summering av signifikante resultater") |> 
   cols_label(n = "Utvalgsstr.", 
              sig_results = "Signif. res. / 1000")
+```
+I histogrammet med n=8 kan er se stor variasjon innad i utvalgene. Ved de 1000 simuleringene som er gjort er det sannsynlig at det har vært stor spredning i de variablene som er trekt i samme utvalg (og motsatt). Dermed vil disse enkelt-utvalgene gjøre utslag på *p*-verdien begge veier.
 
-# Using the pwr package
-library(pwr)
 
-pwr_8 <- pwr.t.test(n = 8, sig.level = 0.05, d = 1.5/3, type = "one.sample")
-pwr_40 <- pwr.t.test(n = 40, sig.level = 0.05, d = 1.5/3, type = "one.sample")
+## Antall observasjoner fra hvert utvalg som er under signifikansnivået på 0.05
+
+```{r}
+#| code-fold: true
 
 n_sig_8 <- results |> 
   filter(pval < 0.05) |> 
@@ -260,20 +262,30 @@ n_sig_40 <- results |>
 
 ```
 
-I histogrammet med n=8 kan er se stor variasjon innad i utvalgene. Ved de 1000 simuleringene som er gjort er det sannsynlig at det har vært stor spredning i de variablene som er trekt i samme utvalg (og motsatt). Dermed vil disse enkelt-utvalgene gjøre utslag på *p*-verdien begge veier.
-
-
-## Antall observasjoner fra hvert utvalg som er under signifikansnivået på 0.05
 
 Setter signifikansnivå til p \< 0.05 Det er `r n_sig_40` tilfeller der p
 \< 0.05 for utvalget med 40. Det er `r n_sig_8` tilfeller der p\< 0.05
 for utvalget med 8.
 
+
 ## Estmerer effekten ved one-sample t-test
+```{r}
+#| code-fold: true
+
+# Using the pwr package
+library(pwr)
+
+pwr_8 <- pwr.t.test(n = 8, sig.level = 0.05, d = 1.5/3, type = "one.sample")
+pwr_40 <- pwr.t.test(n = 40, sig.level = 0.05, d = 1.5/3, type = "one.sample")
+```
 
 Effekt ved utavlget på 8 stk: `r round(pwr_8$power, digits = 3)`. Effekt
 ved utvalget på 40 stk: `r round(pwr_40$power, digits = 3)`.
 En kan forvente høyere effekt med et større utvalg. Dette observeres i vårt tilfelle. Med høyere effekt, vil en også forvente å se større grad av signifikans, altså en lavere *p*-verdi (som også er tilfellet i denne simuleringen). 
+
+
+
+## Ved å benytte det nye datasettet: hvor mange tilfeller av "falsk positive"-tester vil vi komme over ved å repetere studien mange ganger?
 
 ```{r}
 #| code-fold: true
@@ -317,6 +329,7 @@ for(i in 1:1000) {
 results_null <- bind_rows(results_8, results_40)
 ```
 
+
 ```{r, fig.width=6, fig.height=4}
 #| code-fold: true
 
@@ -334,6 +347,7 @@ facet_wrap(~ n) +
 
 ```
 
+
 ```{r}
 #| code-fold: true
 
@@ -347,7 +361,6 @@ falsepos_40 <- results_null |>
   
 ```
 
-## Ved å benytte det nye datasettet over: hvor mange tilfeller av "falsk positive"-tester vil vi komme over ved å repetere studien mange ganger?
 
 Ved å repetere studien 1000 ganger, vil vi komme over `r falsepos_8`
 falsk-positive tester for utvalget med 8, og `r falsepos_40` for
