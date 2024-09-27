@@ -229,8 +229,12 @@ results %>%
                  fill = "orange") +
   facet_wrap(~ n) + 
   labs(x = "*p*-values", 
-       y = "Number of simulations") +
-  theme(axis.title.x = element_markdown())
+       y = "Number of simulations", 
+       subtitle = "Fordelingen av *p*-verdier fra 1000 simuleringer", 
+       caption = "Hver bar representerer antall simuleringer av en gitt *p*-verdi") +
+  theme(axis.title.x = element_markdown()) +
+theme(plot.subtitle = element_markdown()) +
+  theme(plot.caption = element_markdown())
 
 
 # Count the proportion of tests below a certain p-value for each 
@@ -243,7 +247,7 @@ results %>%
   cols_label(n = "Utvalgsstr.", 
              sig_results = "Signif. res. / 1000")
 ```
-I histogrammet med n=8 kan er se stor variasjon innad i utvalgene. Ved de 1000 simuleringene som er gjort er det sannsynlig at det har vært stor spredning i de variablene som er trekt i samme utvalg (og motsatt). Dermed vil disse enkelt-utvalgene gjøre utslag på *p*-verdien begge veier.
+I histogrammet med n=8 kan er se stor variasjon innad i utvalgene. Ved de 1000 simuleringene som er gjort er det sannsynlig at det har vært stor spredning i de variablene som er trekt i samme utvalg (og motsatt). Dermed vil disse enkelt-utvalgene gjøre utslag på *p*-verdien begge veier. Ved å plotte det slik fremheves også tendensen til falsk-positive simuleringer ved p = 0.05. En falsk positiv oppstår når en test indikerer en signifikant effekt, slik at man forkaster nullhypotesten (H~0~), men det egentlig ikke er en effekt der (H~0~ er sann). 
 
 
 ## Antall observasjoner fra hvert utvalg som er under signifikansnivået på 0.05
@@ -277,6 +281,9 @@ library(pwr)
 
 pwr_8 <- pwr.t.test(n = 8, sig.level = 0.05, d = 1.5/3, type = "one.sample")
 pwr_40 <- pwr.t.test(n = 40, sig.level = 0.05, d = 1.5/3, type = "one.sample")
+
+pwr_8
+pwr_40
 ```
 
 Effekt ved utavlget på 8 stk: `r round(pwr_8$power, digits = 3)`. Effekt
@@ -339,10 +346,13 @@ ggplot(data = results_null, aes(pval)) +
   geom_histogram(binwidth = 0.05, 
                  color = "black", fill = "lightgreen",) +
 facet_wrap(~ n) +
-  labs(caption = , 
+  labs(subtitle = "Fordelingen av *p*-verdier fra 1000 simuleringer", 
+       caption = "Hver bar representerer antall simuleringer av en gitt *p*-verdi", 
        x = "*p*-verdier", 
        y = "Number of simulations") +
-  theme(axis.title.x = element_markdown())
+  theme(axis.title.x = element_markdown()) +
+theme(plot.subtitle = element_markdown()) +
+  theme(plot.caption = element_markdown())
 
 
 ```
@@ -358,7 +368,7 @@ falsepos_8 <- results_null |>
 falsepos_40 <- results_null |> 
   filter(results_null$pval < 0.05, n == 40) |> 
   nrow()
-  
+
 ```
 
 
