@@ -2,7 +2,6 @@
 output: html_document
 editor_options: 
   chunk_output_type: console
-
 author: Ole-Kristian Kjølner, Eskil Strand, Hennie Engebretsen, Ole Conrad Burud
   
 bibliography: bibliography.bib

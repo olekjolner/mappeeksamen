@@ -1,8 +1,13 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Assignment 1: Reliability and tools for reproducible data science {#assignment1}
 
+## Introduksjon
 
-
-## Metode - gjennomføring av VO^2^max test
+## Metode - gjennomføring av V&#755;O~2max~ test
 
 ### Utstyr som ble benyttet
 
@@ -102,21 +107,29 @@ df_all <- read_xlsx("plot_data_all_gr.xlsx") |>
   
 ```
 
+
 ### Plot
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| label: plot av vo2.max og w.max
+#| label: plot av w.max for hver id ved de ulike tidspunkt for testing
+
+# endret graf fra VO2.max og w.max, til å se på hver enkelt id sine variasjoner i w.max ved ulike testtidspunkt. Her kan man se på spredningen mellom hver test og da allerede få et innblikk i standardavvik. 
 
 ggplot(data = df_all, 
-      aes(vo2.max, 
+      aes(id, 
           w.max, 
-          color = age)) +
+          group = timepoint,
+          color = timepoint)) +
   geom_point() +
-  
-  labs(subtitle = "Sammenheng mellom vo2.max, w.max og alder") 
+  scale_y_continuous(limits = c(200, 475)) +
+  scale_x_discrete(labels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16")) +
+
+  labs(x = "Testdeltakere", 
+       y = "Max watt (W)", 
+       subtitle = "Max watt testdeltaker hadde ved de ulike tidspunktene") 
 
 ```
 
@@ -128,14 +141,14 @@ ggplot(data = df_all,
 #| message: false
 #| echo: false
 #| tbl-cap: "Verdier er gj.snitt og standardavvik for de ulike testtidspunktene"
-#| label: snitt og standardavvik for verider w.max og vo2.max per id
+#| label: snitt og standardavvik for watt-maks ved de ulike testtidspunktene
 
 df_all |> 
-  select(id, timepoint, w.max, vo2.max) |> 
+  select(id, timepoint, w.max) |> 
   
   pivot_longer(names_to = "names", 
                values_to = "tall", 
-               cols = w.max:vo2.max) |> 
+               cols = w.max) |> 
   
   summarise(.by = c(timepoint, names), 
             m = mean(tall, na.rm = TRUE), 

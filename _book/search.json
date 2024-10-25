@@ -1,0 +1,372 @@
+[
+  {
+    "objectID": "03-statistical-inference.html",
+    "href": "03-statistical-inference.html",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "",
+    "text": "3.1 Introduksjon\nStatistisk inferens er en type statistikk som omhandler metoder for å trekke konklusjoner om en populasjon basert på et utvalg. Målet er å generalisere funnene fra utvalget og bruke det til å si noe om hele populasjonen. En viktig del av statistisk inferens er å vurdere usikkerheten i estimatene, typisk ved hjelp av konfidensintervaller og p-verdier (Cremers, Wager, and Yarkoni 2017).\nEffektstørrelser gir en kvantitativ vurdering av hvor betydelig en observert effekt er, og er ikke avhengig av utvalgsstørrelse. Dette er nyttig i forskning, da det hjelper med å forstå de praktiske betydningene av funnene man har gjort. Ved å kombinere statistisk inferens med effektstørrelser kan man bedre vurdere resultatene sine og sette det i en bred kontekst (Cremers, Wager, and Yarkoni 2017).\nCode\nlibrary(tidyverse)\nlibrary(ggtext)\nlibrary(gt)\n\nset.seed(1)\npopulation &lt;- rnorm(1000000, mean = 1.5, sd = 3)\n\n#lager to ulike utvalg der gruppe 1 er n=8 og gruppe 2 n=40\nsamp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n\nsamp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n\nm1 &lt;- lm(y ~ 1, data = samp1)\nm2 &lt;- lm(y ~ 1, data = samp2)\n\nsum1 &lt;- summary(m1) \nsum2 &lt;- summary(m2)\nCode\n# plotter samp 1 og 2 for å illustrere den relative spredningen i utvalget\nsamp1 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"orange\") +\n  geom_vline(xintercept = coef(sum1)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum1)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\", \n       caption = \"Utvalg 1 fra populasjonen (n = 8)\",\n       x = \"\", \n       y = \"\")\n\n\n\n\n\n\n\n\n\nCode\nsamp2 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"red\") + \n  geom_vline(xintercept = coef(sum2)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum2)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\",\n       caption = \"Utvalg 2 fra populasjonen (n = 40)\", \n       x = \"\", \n       y = \"\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html",
+    "href": "01-reliabilitet.html",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "",
+    "text": "1.1 Introduksjon",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#metode---gjennomføring-av-vo2max-test",
+    "href": "01-reliabilitet.html#metode---gjennomføring-av-vo2max-test",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.2 Metode - gjennomføring av V˳O2max test",
+    "text": "1.2 Metode - gjennomføring av V˳O2max test\n\n1.2.1 Utstyr som ble benyttet\n\nBiosen (for måling av laktat)\n\nlansett finger\nrør for oppsamling av blod\nblandingscontainer for rør med blod\npapir for å tørke av finger\n\nVyntus (for måling av metabolsk respons)\n\nmiksekammer\nturbin\nslange fra miksekammer til munnstykke\nneseklype (teipbit på nese for at neseklype skulle sitte godt)\ngassbeholder med referansegass\n\nLode-sykkel\n\nSamme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.\nMTB pedaler\n172,5 mm lengde krankarmer\n\nGulvvifte (samme instilling ved hver test)\nPulsbelte garmin\nHansker\nMinnepenn for overføring av data\n\n\n\n1.2.2 Forberedelse og kalibrering av utstyr\n\nSørg for at Biosen er på, og at det er nok væske i kalibreringssolution (rød flaske). Sett igang kalibrering av Biosen om det er nødvendig.\nTa med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, rør for oppsamling av blod og papir.\nKalibrering av Vyntus CPX\n\nSkru på kalibreringsgassen.\nSe til at turbin er koblet til sampling slange og optoelektronisk måler.\nKoble til kalibreringsporten på CPX-en og kjør både volum- og gasskalibrering. OBS! Ved differanse på over 2% under volumkalibrering eller differanse over 0.2% differanse under gasskalibrering, gjennomfør nødvendig feilsøking og kjør kalibrering på nytt.\n\n\nTa på hansker og sett sammen munnstykke. Dekk til munnstykket med papir med hjelp av neseklype.\nTa med munnstykke og slange bort til sykkel og Vyntus CPX. Fest munnstykke til slange, og slange til miksekammer.\nLegg til ny eller velg aktuell testdeltager.\n\nNy testdeltager legges til, og følgende ID-informasjon legges til under fornavn, etternavn og personnummer: idr4000_h24_gr4_idxx (xx=nr).\n\n\n\n\n1.2.3 Forberedelse av testdeltager\n\nInformasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:\n\nVO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer.\nTest avsluttes dersom tråkkfrekvens &lt; 60 rpm.\nTest skal gjennomføres sittende\nBorg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er “ingen anstrengelse” og 20 er “maksimal anstrengelse”.\nUnderveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet.\nTestdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test.\nTestleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne “pushingen” gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker.\n\n\n\n\n1.2.4 Når testdeltaker er ferdig å sykle\n\nTestleder har nå spurt om Borgs skala\nEtter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling.\nNoterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.\nData som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#standardisering-av-test",
+    "href": "01-reliabilitet.html#standardisering-av-test",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.3 Standardisering av test",
+    "text": "1.3 Standardisering av test\n\nMatinntak:\n\nsiste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv.\n\nKoffeininntak:\n\ninntak som normalt.\n\nTest gjennomføres på samme tidspunkt på dagen ved alle tester\nSøvn/døgnrytme:\n\nforsøk å opprettholde normal døgnrytme gjennom testperioden.\n\nTrening:\n\ningen hard trening på underkropp dagen før test.\n\nOppvarmingsprotokoll:\n\n5 min oppvamring, der deltageren sykler på økende intensitet i 2-2-1 min, eks: (2 min 150W, 2 min 175W, 1 min 220W)\n\nSamme testprotokoll ved alle testene:\n\nHer vil det være individuelle forskjeller, eks: start på 200W - 20W økning hvert minutt til utmattelse.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#intern-validering",
+    "href": "01-reliabilitet.html#intern-validering",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.4 Intern validering",
+    "text": "1.4 Intern validering\nBåde tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne, and Martin 2015). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.\nSelv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne, and Martin 2015).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
+    "href": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
+    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "section": "1.5 Tabeller og plots med datasett fra alle gruppene",
+    "text": "1.5 Tabeller og plots med datasett fra alle gruppene\n\n1.5.1 Plot\n\n\n\n\n\n\n\n\n\n\n\n1.5.2 Tabell\n\n\n\n\n\n\nVerdier er gj.snitt og standardavvik for de ulike testtidspunktene\n\n\ntimepoint\nw.max\n\n\n\n\nt1\n332 (62)\n\n\nt2\n331 (66.6)\n\n\nt3\n316 (84.7)\n\n\nt4\n294 (88.8)\n\n\n\n\n\n\n\n\n\n1.5.3 Beregning av reliabilitet\n\n\n\n\n\n\nSammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max\n\n\nm\ns\nte\ncv\n\n\n\n\n331.07\n12.59\n8.90\n2.69\n\n\n\n\n\n\n\nIfølge Hopkins (2000) er “typical error” den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med 2.69 % (Hopkins 2000).\n\n\n\n\nHalperin, Israel, David B Pyne, and David T Martin. 2015. “Threats to Internal Validity in Exercise Science: A Review of Overlooked Confounding Variables.” Int. J. Sports Physiol. Perform. 10 (7): 823–29.\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html",
+    "href": "02-regression-models.html",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "",
+    "text": "2.1 Introduksjon\nEn regresjonsmodell er en modell som kvantifiserer forholdet mellom en eller flere uavhengige variabler og en avhengig variabel. Innen medisin er regresjon den analysemtoden som er hyppigst anvendt. Det finnes forskjellige regresjonsmodeller. De vanligste er lineær regresjon, polynominal regresjon og logistisk regresjon. Hva man har av datasett vil bestemme hvilken regresjonsmodell som egner seg best å benytte (Pisică et al. 2022).\nEn lineær regresjonsmodell er en modell der en kan estimere verdien av en avhengig variabel basert på verdien av andre kjente uavhengige variabler (Pisică et al. 2022). I en slik modell benyttes en rett linje for å lage en modell som beskriver dataen. Følgende funksjon benyttes for å skape det lineære plottet:\nyi = b0 + b1xi + ei\nder yi er den avhengige variabelen som kan estimeres ved å benytte de uavhengige variablene b1xi og b0. b0 er skjæringspunktet til grafen og b1 er stigningstallet til grafen.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html#part-1---lactate-thresholds",
+    "href": "02-regression-models.html#part-1---lactate-thresholds",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "2.2 Part 1 - Lactate thresholds",
+    "text": "2.2 Part 1 - Lactate thresholds\n\n2.2.1 Metode\nDataene ble sortert i mer passende format (tidydata) for å gjøre det lettere med modellene våre senere. Deretter ble det gjort ulike regresjonsmodeller for å fremstille dataene våre. Nye skjæringspunkter ble tegnet for å illustrere treningsintensitet ved ulike laktatverdier.\n\n\n2.2.2 Resultat\n\n\nCode\nlibrary(readxl)\nlibrary(tidyr)\nlibrary(exscidata)\nlibrary(tidyverse)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(magrittr)\nlibrary(gt)\nlibrary(ggtext)\n\n# Kalkuler treningsintensitet ved 2 og 4 mmol/L\n\nw &lt;- cyclingstudy |&gt; \n  select(subject, group, timepoint, lac.225:lac.375) |&gt; \n  filter(timepoint == \"pre\", subject == 10) |&gt; \n  pivot_longer(names_to = \"watt\", \n               values_to = \"lac\",\n               names_prefix = \"lac.\", \n               names_transform = list(watt = as.numeric),\n               cols = lac.225:lac.375)\n  \nmod &lt;- lm(lac ~ watt, data = w)\n\n\n\nw |&gt; \n  ggplot(aes(watt, lac, group = subject)) +\n  labs(x = \"Watt\",\n       y = \"Laktat\") +\n  geom_point(size = 3, shape = 21, fill = \"gold\") + \n  geom_line(lty = 2) +\n  geom_smooth(method = lm, se = FALSE) +\n  geom_smooth(method = lm, se = FALSE, formula = y ~ poly(x, 2), color = \"lightgreen\") +\n  geom_smooth(method = lm, se = FALSE, formula = y ~ poly(x, 3), color = \"lightpink\") +\n  coord_cartesian(xlim = c(220, 380)) +\n  geom_hline(yintercept = 2, color = \"red\") +\n  geom_hline(yintercept = 4, color = \"purple\") +\n  # Legger inn en vertikal linje, med y = 2mmol, skjæringspunkt 308W, tatt på øyemål.\n  geom_vline(xintercept = 309, linewidth = 1, alpha = 0.8) +\n  # Legger inn en vertikal linje med y = 4mmol, skjæringspunkt 342W, tatt på øyemål.\n  geom_vline(xintercept = 342, linewidth = 1, alpha = 0.8) +\n  theme_minimal()\n\n\n\n\n\nFigur 1: Gule punkter = laktat og watt, blå linje = lineær regresjon, grønn linje = andregradsligning, rosa = tredjegradsligning.\n\n\n\n\nCode\nx2lac &lt;- (2 - coef(mod)[1]) / coef(mod)[2]\nx4lac &lt;- (4 - coef(mod)[1]) / coef(mod)[2]\n\n\n\n\n2.2.3 Diskusjon\nVi har valgt å se på subject 10 fra datasettet Cyclingstudy. Vi gjør om datasettet til tidydata. Dette gjør vi for å gi watt og laktat hver sine verdier. Vi plotter inn laktatverdier og wattverdier (gule punkter). Deretter tegner vi en stiplet linje som følger punktene. Vi gjør en regresjonsanalyse, først en lineær modell (blå linje), deretter en andregradsligning (grønn) og til slutt en tredjegradsligning (rosa). Disse bruker vi for å observere hvilken modell som passer best i dette tilfellet.\nFor å understreke hvor unøyaktig den lineære modellen er i dette tilfellet, kan man på øyemål se at laktaten på 300W viser omtrent 2.4 mmol × L-1. Den faktiske laktaten på 300W er 1.69 mmol × L-1.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html#part-2---predicting-sizes-of-dna-fragments",
+    "href": "02-regression-models.html#part-2---predicting-sizes-of-dna-fragments",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "2.3 Part 2 - Predicting sizes of DNA fragments",
+    "text": "2.3 Part 2 - Predicting sizes of DNA fragments\n\n2.3.1 Metode\nFor å kunne predikere kalibreringskurven til qPCR, er det en rekke prosesser på molekylærlabben som er gjort på forhånd før det kunne kjørers i R-studio.\nFor å kunne kjøre et PCR på en agrose gel 2%, ble det først tatt helbod fra en forsøksperson for å kunne ha et ekstrahert DNA. Helblodet vært igjen ulike prosesser hvor det er tilsatt ulike løsninger og tilsatt ulike primere. Vi står da igjen med et PCR-produkt. Det har videre blitt kjørt en elektroforese for å kunne separere DNA fragmentene fra PCR reaksjonen. Når elektroforesen var ferdig, ble det tatt et bilde av agrose gel 2%.\nVidere har bildet fra elektroforesen blitt analysert ved hjelp av ImageJFiji og videre dataanalyser gjort i R og R studio. PCR-reaksjoner blir bestemt av primerdesign og dens spesifisitet.\n\n\n2.3.2 Resultat\n\n\nCode\nladder &lt;- data.frame(dist = c(374.5, 396.5, 423.5, 458.5, 496.5, 547.5,607.5,688.5,734.5,792.5,860.5,936.5,1035.5), \n                     \n                     mw = c(1000, 900, 800, \n                            700, 600, 500,\n                            400, 300, 250, \n                            200, 150, 100, 50))\n            \n\n# Create a new data frame of unknowns\nunknown &lt;- data.frame(dist = c(1208.5, 600.5, 18.5, 383.5, 408.5, 436.5, 470.5, 508.5, 559.5, 618.5, 696.5, 742.5, 798.5, 862.5, 935.5, 993.5))\n\n# Fit the model\ncal &lt;- lm(log(mw) ~ dist, data = ladder)\n\n\n\npreds &lt;- exp(predict(cal, newdata = unknown))\n\n\n\nladder %&gt;% \n  ggplot(aes(dist, log(mw))) + \n           geom_point() +\n  geom_abline(intercept = coef(cal)[1], slope = coef(cal)[2])\n\n\n\n\n\n\n\n\n\nCode\ndataframe2 &lt;- data.frame(unknowns = c(1208.5, 600.5, 18.5, 383.5, 408.5, 436.5, 470.5, 508.5, 559.5, 618.5, 696.5, 742.5, 798.5, 862.5, 935.5, 993.5),\n                         (preds))\n  dataframe2 |&gt; gt()\n\n\n\n\n\n\n\n\nunknowns\nX.preds.\n\n\n\n\n1208.5\n31.22469\n\n\n600.5\n400.04598\n\n\n18.5\n4595.75349\n\n\n383.5\n994.08908\n\n\n408.5\n895.12164\n\n\n436.5\n795.92770\n\n\n470.5\n690.13619\n\n\n508.5\n588.44932\n\n\n559.5\n475.11729\n\n\n618.5\n370.95290\n\n\n696.5\n267.43845\n\n\n742.5\n220.50796\n\n\n798.5\n174.34415\n\n\n862.5\n133.29586\n\n\n935.5\n98.13646\n\n\n993.5\n76.94317\n\n\n\n\n\n\n\n\n\n2.3.3 Diskusjon",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html#part-3---interpreting-a-regression-table",
+    "href": "02-regression-models.html#part-3---interpreting-a-regression-table",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "2.4 Part 3 - Interpreting a regression table",
+    "text": "2.4 Part 3 - Interpreting a regression table\n\n2.4.1 Metode\n\n\n2.4.2 Resultat\n\n\nCode\nlibrary(exscidata)\nlibrary(tidyverse)\n\ndat &lt;- hypertrophy |&gt; \n  select(GROUP, TRAINING_AGE, AGE, CLUSTER, VL_T2, TESTOSTERONE_T1, TESTOSTERONE_T2)\n\nm &lt;- lm(TESTOSTERONE_T1 ~ TRAINING_AGE, dat)\n\n  dat |&gt; \n  ggplot(aes(TRAINING_AGE, TESTOSTERONE_T1)) +\n    labs(x = \"Treningsalder (år)\",\n         y = expression(Testosteronverdier ~ ng %.% dl^{-1})) +  \n    # use expression for superscript\n    \n  geom_point(size = 3, shape = 21, fill = \"orange\") +\n    \n  geom_abline(intercept = coef(m)[1], slope = coef(m)[2], color = \"steelblue\", size = 1) +\n    \n    geom_hline(yintercept = coef(m)[1] + coef(m)[2] * 10, color = \"darkgreen\") +\n    \n    geom_vline(xintercept = 10, color = \"darkred\") +\n    \n    scale_y_continuous(breaks = c(200, 354, 400, 600, 800, 1000), \n                       labels = c(200, \"testo10\", 400, 600, 800, 1000)) + \n    \n    theme_bw()\n\n\n\n\n\nFigur 3: Sammenheng mellom treningsalder og testosteronverdier i blodet\n\n\n\n\nCode\n  # Den lineære modellen forteller i dette tilfellet at for hvert år man trener, så vil nivå av testosterone synke med 20.51 ng*dl&lt;sup&gt;-1&lt;/sup&gt;. I tillegg kan man estimere testonivå etter å ha trent i 10 år. Dette vil vi gjøre med følgende utregning: \n  \ntesto10 &lt;- coef(m)[1] + coef(m)[2] * 10\ntesto10rounded &lt;- round(testo10, 2)\n  \n# testosteronnivå etter 10 år med trening estimeres til 354.26 ng*dl^-1\n\n\n\n\n2.4.3 Diskusjon\nFra datasettet hypertrophy valgte vi å se på sammenhengen mellom testosteronkonsentrasjon i blodet (ng × dl-1) og treningsalder (antall år med trening). Den lineære modellen forteller at testosteronkonsentrasjonen i blodet synker med 20.51 ng × dl-1 for hvert treningsår. Etter 10 år med trening, estimerer den lineære modellen et testosteronnivå på 354.26 ng × dl-1.\nAnalysen av dataene viser en p-verdi på 0,1779, noe som indikerer at det ikke er statistisk signifikant bevis for en sammenheng mellom treningsalder og nivået av testosteron i blodet. Siden p-verdien er høyere enn det vanlige signifikansnivået på 0,05, kan vi ikke avvise nullhypotesen, som antyder at det ikke er noen betydelig effekt eller sammenheng mellom de to variablene i dette datasettet. Dette betyr at variasjonen i testosteronnivåer ikke ser ut til å være relatert til hvor lenge individene har trent.\nI analysen av sammenhengen mellom treningsalder og testosteronnivåer i blodet ses det en t-verdi på 6.250. Den høye t-verdien på 6.250, og en p-verdi på 0,1779. Denne p-verdien er høyere enn det vanlige signifikansnivået på 0,05, noe som betyr at vi ikke har tilstrekkelig statistisk bevis for å avvise nullhypotesen. Selv om t-verdien indikerer en mulig sammenheng mellom treningsalder og testosteronnivå, er det ikke nok evidens til å konkludere med at denne sammenhengen er signifikant. Dermed kan vi konkludere med at selv om det kan være en tendens til en sammenheng mellom treningsalder og testosteronnivåer, er resultatene fra denne analysen ikke sterke nok til å si at treningsalder har en reell effekt på testosteronnivåene i blodet.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "02-regression-models.html#referanser",
+    "href": "02-regression-models.html#referanser",
+    "title": "2  Assignment 2: Regression models, predicting from data",
+    "section": "2.5 Referanser",
+    "text": "2.5 Referanser\n\n\n\n\nPisică, Dana, Ruben Dammers, Eric Boersma, and Victor Volovici. 2022. “Tenets of Good Practice in Regression Analysis. A Brief Tutorial.” World Neurosurg. 161 (May): 230–239.e6.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Assignment 2: Regression models, predicting from data</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html",
+    "href": "04-study-design.html",
+    "title": "4  Assignment 4: Study designs",
+    "section": "",
+    "text": "4.1 Introduksjon\nStudiedesign er en viktig komponent i forskning da det vil være avgjørende for hvordan data samles inn, tolkes og analyseres. Et godt studiedesign vil ofte resultere i mer pålitelige resultater og større grad av reproduserbarhet. Studier som ser seg mer anvendbare i praksis er å foretrekke. (Zabor, Kaizer, and Hobbs 2020)\nStruktur er en viktig komponent når man planlegger en studie. QALMRI-metoden kan bidra til å sikre en ryddig og god struktur. QALMRI adresserer spørsmål som en ønsker svar på, for så å oppgi hvilke tilnærminger som skal benyttes for å besvare spørsmålet. Videre ser man på sammenhengen mellom metodene som benyttes i studien og koblingen til spørsmålet, eller hypotesten, man har stilt i oppgaven. Til slutt presenteres resultatene og man drar konklusjoner til den aktuelle populasjonen.\nI denne oppgaven studeres fem originalartikler som tar for seg effekten av blokkperiodisering på \\(\\dot{V}O_{2max}\\) (Bent R. Rønnestad, Øfsteng, and Ellefsen 2019), (Breil et al. 2010), (B. R. Rønnestad et al. 2016), (B. R. Rønnestad, Hansen, and Ellefsen 2014), (B. R. Rønnestad et al. 2014). I oppgaven blir det lagt mest vekt på studiedesignene og de statistiske analysemetodene fra de utvalgte studiene, samt en vurdering av styrker og svakheter knyttet til disse.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#footnotes",
+    "href": "04-study-design.html#footnotes",
+    "title": "4  Assignment 4: Study designs",
+    "section": "",
+    "text": "Avoid using review articles or meta-analyses↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html",
+    "href": "05-repeated-measurements.html",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "",
+    "text": "5.1 Assignment overview\nIn this assignment you will analyse and report on trial investigating the effect of resistance training volume on lean mass and muscle strength. The data are part of the exscidata package and can be accessed as data(\"strengthvolume\") and data(\"dxadata\"). Read the instructions carefully!",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#assignment-overview",
+    "href": "05-repeated-measurements.html#assignment-overview",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "",
+    "text": "Below you will find a basic outline of the report and example code that we worked on in class.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#introduction",
+    "href": "05-repeated-measurements.html#introduction",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.2 Introduction",
+    "text": "5.2 Introduction",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#methods",
+    "href": "05-repeated-measurements.html#methods",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.3 Methods",
+    "text": "5.3 Methods\n\n5.3.1 Participants and study overview\n\n\n5.3.2 Muscle strength and hypertrophy\n\n\n5.3.3 Data analysis and statistics",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#results",
+    "href": "05-repeated-measurements.html#results",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.4 Results",
+    "text": "5.4 Results\nThe average difference in lean mass changes between sets were 122.8, 95% CI: [8.6, 237], p = 0.036.\n\n## Time points in strength data set\n\nstrengthvolume %&gt;%\n  distinct(exercise)\n\n# A tibble: 6 × 1\n  exercise\n  &lt;chr&gt;   \n1 legpress\n2 legext  \n3 isok.60 \n4 isok.120\n5 isok.240\n6 isom    \n\n## Exploratory plot of strength data \n\nstr &lt;- strengthvolume %&gt;%\n  filter(include == \"incl\") %&gt;%\n  mutate(time = factor(time, levels = c(\"pre\", \"session1\", \n                                        \"week2\", \"week5\", \n                                        \"week9\", \"post\"))) %&gt;%\n  print()\n\n# A tibble: 2,856 × 8\n   participant sex   include time     sets     leg   exercise  load\n   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;fct&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;\n 1 FP13        male  incl    pre      single   R     legpress   115\n 2 FP13        male  incl    pre      multiple L     legpress   115\n 3 FP13        male  incl    pre      single   R     legext      55\n 4 FP13        male  incl    pre      multiple L     legext      55\n 5 FP13        male  incl    session1 single   R     legpress   125\n 6 FP13        male  incl    session1 multiple L     legpress   125\n 7 FP13        male  incl    session1 single   R     legext      55\n 8 FP13        male  incl    session1 multiple L     legext      55\n 9 FP13        male  incl    week2    single   R     legpress   185\n10 FP13        male  incl    week2    multiple L     legpress   175\n# ℹ 2,846 more rows\n\nstr %&gt;%\n  ggplot(aes(time, \n             load, \n             group = paste(participant, sets), \n             color = sets)) + \n  geom_line() + \n  facet_wrap(~ exercise, scales = \"free\")\n\nWarning: Removed 5 rows containing missing values or values outside the scale range\n(`geom_line()`).\n\n\n\n\n\n\n\n\n## How many measurements per participant\n\nstr %&gt;%\n  filter(!is.na(load)) %&gt;%\n  group_by(participant, exercise, sets) %&gt;%\n  summarise(n = n() ) %&gt;%\n  ggplot(aes(n, participant, color = sets)) +\n  geom_point() + \n  facet_wrap(~ exercise) + \n  theme(axis.text.y = element_blank())\n\n`summarise()` has grouped output by 'participant', 'exercise'. You can override\nusing the `.groups` argument.\n\n\n\n\n\n\n\n\n## Use pre and post data \n# Combine pre data prior to data analysis\n# per exercise, leg, participant, and sets\n\nstr %&gt;%\n  mutate(time = if_else(time %in% c(\"pre\", \"session1\"), \"pre\", time)) %&gt;%\n  \n  filter(time %in% c(\"pre\", \"post\")) %&gt;%\n  \n  summarise(load = max(load, na.rm = TRUE), \n            .by = c(participant, \n                    sex, \n                    time, \n                    sets,\n                    exercise,\n                    leg)) %&gt;%\n  \n  print()\n\nWarning: There were 7 warnings in `summarise()`.\nThe first warning was:\nℹ In argument: `load = max(load, na.rm = TRUE)`.\nℹ In group 62: `participant = \"FP6\"`, `sex = \"female\"`, `time = \"post\"`, `sets\n  = \"multiple\"`, `exercise = \"legpress\"`, `leg = \"L\"`.\nCaused by warning in `max()`:\n! no non-missing arguments to max; returning -Inf\nℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.\n\n\n# A tibble: 816 × 7\n   participant sex    time  sets     exercise leg    load\n   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;\n 1 FP13        male   pre   single   legpress R     125  \n 2 FP13        male   pre   multiple legpress L     125  \n 3 FP13        male   pre   single   legext   R      55  \n 4 FP13        male   pre   multiple legext   L      55  \n 5 FP13        male   post  single   legpress R     230  \n 6 FP13        male   post  multiple legpress L     235  \n 7 FP13        male   post  single   legext   R      97.5\n 8 FP13        male   post  multiple legext   L     100  \n 9 FP16        female pre   single   legpress R      95  \n10 FP16        female pre   multiple legpress L      85  \n# ℹ 806 more rows",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#discussion",
+    "href": "05-repeated-measurements.html#discussion",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.5 Discussion",
+    "text": "5.5 Discussion",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#conclusion",
+    "href": "05-repeated-measurements.html#conclusion",
+    "title": "5  Assignment 5: Analyzing repeated measures experiments",
+    "section": "5.6 Conclusion",
+    "text": "5.6 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
+    ]
+  },
+  {
+    "objectID": "06-vitenskapsteori.html",
+    "href": "06-vitenskapsteori.html",
+    "title": "6  Philosophy of science",
+    "section": "",
+    "text": "See instructions on canvas.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Philosophy of science</span>"
+    ]
+  },
+  {
+    "objectID": "07-laboratory-report.html",
+    "href": "07-laboratory-report.html",
+    "title": "7  Molecular Laboratory report",
+    "section": "",
+    "text": "Select one laboratory assignment and write a detailed report.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Molecular Laboratory report</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#forklar-estimatet-standard-error-se-t-verdien-p-verdien-fra-regresjonen-som-vi-lagde-fra-m1-og-m2",
+    "href": "03-statistical-inference.html#forklar-estimatet-standard-error-se-t-verdien-p-verdien-fra-regresjonen-som-vi-lagde-fra-m1-og-m2",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.2 Forklar estimatet, standard error (SE), t-verdien, p-verdien fra regresjonen som vi lagde fra m1 og m2",
+    "text": "3.2 Forklar estimatet, standard error (SE), t-verdien, p-verdien fra regresjonen som vi lagde fra m1 og m2\n\n3.2.1 t-verdi\nT-verdien brukes for å sammenlikne gjennomsnittet av to ulike datasett. T-verdien tar altså differansen mellom gjennomsnittet av utvalget og gjennomsnittet av populasjonen, og ser på det i forhold til standardavviket over kvadratroten av antallet i utvalget, slik som formelen viser under.\n\\(t = \\frac{(\\overline{x}-\\mu_{0})} {\\frac{s} {\\sqrt n}}\\), der \\(\\overline{x}\\) = gjennomsnittet av utvalget, \\(\\mu_{0}\\) = gjennomsnittet av populajsonen, s = standardavviket, n = størrelsen av utvalget\nT-verdien brukes for å støtte opp under vår nullhypotese, eller forkaste den. Jo nærmere t er null, destod større sannsynlighet for at det ikke er noen signifikant forskjell. Hvis vi tar høyde for at gruppen med størst utvalg vil være den gruppen med minst feilmargin, vil dette stemme i vårt tilfelle med sample 1 og 2, der t er større i sample 1 (1.47), sammenliknet med t i sample 2 (3.276).\n\n\n3.2.2 p-verdi\nSier noe om usikkerheten i trekningen av utvalget. Kanskje trakk man i sample 1 bare ekstreme verdier. Utvalget vil neppe bli en perfekt representasjon av populasjonen uansett hvordan man trekker ett utvalg. Dette er en usikkerhet man må ta høyde for i ulike studier og dette kan p-verdien hjelpe oss å si noe om. Om vi tar høyde for at nullhypotesten stemmer, hvor mange verdier kan vi forvente er mer ekstreme enn våre observasjoner. p-veriden måler altså observasjonene våre opp mot den spesifikke nullhypotesen.\n\n\n3.2.3 SE\nstandard error er en måte å angi feilmarginen av et estimat eller måling. Man benytter ofte sentralgrenseteoremet i denne sammenhengen, som sier at hvis man gjør en undersøkelse mange ganger, vil resulatene samle seg omkring den sanne verdien. Jo større utvalg, jo mindre feilmargin.\nManuelt kan man beregne SE ved å ta standardavviket og dele på kvadratroten av antall observasjoner. Dette gir oss altså et svar på hvor langt unna det sanne gjennomsnittet kan vi forvente å komme. I tilfellet vårt ser vi at SE for sample 1 er tydelig større enn i sample 2, nettopp pga et mindre utvalg i sample 1. Vi kan altså forvente å få verdier lenger unna den sanne gjennomsnittsverdien ved et mindre utvalg.\n\n\n3.2.4 Estimatet\nEstmatet er gjennomsnittet av alle verdiene i utvalget, så i sample 1 er estmiatet 1.84 og i sample 2 er estimatet 1.564.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#hva-bidrar-til-de-ulike-resulatene-i-de-to-studiene-m1-og-m2",
+    "href": "03-statistical-inference.html#hva-bidrar-til-de-ulike-resulatene-i-de-to-studiene-m1-og-m2",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.3 Hva bidrar til de ulike resulatene i de to studiene (m1 og m2)",
+    "text": "3.3 Hva bidrar til de ulike resulatene i de to studiene (m1 og m2)\nForskjellen mellom sample 1 og 2 er antall som trekkes ut, utvalget. Med et større utvalg blir SE lavere og p-verdien også lavere, sammenlinket med et utvalg som er mindre.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#hvorfor-benytter-vi-begge-halene-i-t-fordelingen-two-tailed-test",
+    "href": "03-statistical-inference.html#hvorfor-benytter-vi-begge-halene-i-t-fordelingen-two-tailed-test",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.4 Hvorfor benytter vi begge “halene” i t-fordelingen (two-tailed test)",
+    "text": "3.4 Hvorfor benytter vi begge “halene” i t-fordelingen (two-tailed test)\nEn two-tailed test tillater at man ser på mulighet for endring i begge retninger, altså positiv og negativ retning. Hvis man undersøker ulike behandlinger, for eksempel for blodtrykk, vil man være interessert i å se på positive og negative endringer mellom grupper.\n\n\nCode\n# Create data frames to store the model estimates\nresults_8 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 8)  \n\nresults_40 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 40)\n\n# A for loop used to sample 1000 studies, each iteration (i) will draw a new sample\n# from the population. \n\nfor(i in 1:1000) {\n  \n  # Draw a sample \n  samp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n  samp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n  # Model the data\n  m1 &lt;- lm(y ~ 1, data = samp1)\n  m2 &lt;- lm(y ~ 1, data = samp2)\n  \n  # Extract values from the models\n  results_8[i, 1] &lt;- coef(summary(m1))[1, 1]\n  results_8[i, 2] &lt;- coef(summary(m1))[1, 2]\n  results_8[i, 3] &lt;- coef(summary(m1))[1, 4]\n\n  results_40[i, 1] &lt;- coef(summary(m2))[1, 1]\n  results_40[i, 2] &lt;- coef(summary(m2))[1, 2]\n  results_40[i, 3] &lt;- coef(summary(m2))[1, 4]\n  \n  \n}\n\n\n# Save the results in a combined data frame\n\nresults &lt;- bind_rows(results_8, results_40)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#kalkuler-standardavvik-for-estimat-variabelen-og-gjennomsnittet-av-se-variabelen-for-begge-utvalgene.",
+    "href": "03-statistical-inference.html#kalkuler-standardavvik-for-estimat-variabelen-og-gjennomsnittet-av-se-variabelen-for-begge-utvalgene.",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.5 Kalkuler standardavvik for estimat-variabelen og gjennomsnittet av se-variabelen for begge utvalgene.",
+    "text": "3.5 Kalkuler standardavvik for estimat-variabelen og gjennomsnittet av se-variabelen for begge utvalgene.\nStandard error: \\(SE = \\frac{\\sigma}{\\sqrt n}\\) , der \\(\\sigma\\) = standardavviket for utvalget og n = antall i utvalget.\n\n\nCode\nsd_est_8 &lt;- sd(results_8$estimate) \nmean_se_8 &lt;- mean(results_8$se)\n\nsd_est_40 &lt;- sd(results_40$estimate)\nmean_se_40 &lt;- mean(results_40$se)\n\n\nFor utvalget med n=8 er standardavviket for snittet av utvalget 1.039 og gjennomsnittet av standardfeilen 1.012. Altså tilnærmet likt. Det samme gjelder for utvalget med n=40 (bare med mindre avvik) der standardavviket for snittet av utvalget er 0.474 og gjennomsnittet av standardfeilen er 0.472. Hvordan kan man definere standardfeilen, sett i lys av disse variablene? På generell basis kan man si at SE for et utvalg er et estimat på standardavviket til den teoretiske fordelingen av gjennomsnitt. Observerer at når “n” (utvalget) øker, vil standardfeilen synke (ref. formel for beregning av SE).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#lag-et-histogram-av-p-verdiene-for-de-to-uvalgene.-hvordan-kan-histogrammene-tolkes-og-hva-forteller-de-om-effekten-av-størrelsen-av-utvalget-for-statistisk-styrke",
+    "href": "03-statistical-inference.html#lag-et-histogram-av-p-verdiene-for-de-to-uvalgene.-hvordan-kan-histogrammene-tolkes-og-hva-forteller-de-om-effekten-av-størrelsen-av-utvalget-for-statistisk-styrke",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.6 Lag et histogram av p-verdiene for de to uvalgene. Hvordan kan histogrammene tolkes og hva forteller de om effekten av størrelsen av utvalget for statistisk styrke?",
+    "text": "3.6 Lag et histogram av p-verdiene for de to uvalgene. Hvordan kan histogrammene tolkes og hva forteller de om effekten av størrelsen av utvalget for statistisk styrke?\n\n\nCode\nlibrary(ggtext)\nlibrary(dplyr)\nlibrary(gt)\n\n# A two facets histogram can be created with ggplot2\nresults %&gt;%\n  ggplot(aes(pval)) + \n  geom_histogram(bins = 25, \n                 color = \"black\", \n                 fill = \"orange\") +\n  facet_wrap(~ n) + \n  labs(x = \"*p*-values\", \n       y = \"Number of simulations\", \n       subtitle = \"Fordelingen av *p*-verdier fra 1000 simuleringer\", \n       caption = \"Hver bar representerer antall simuleringer av en gitt *p*-verdi\") +\n  theme(axis.title.x = element_markdown()) +\ntheme(plot.subtitle = element_markdown()) +\n  theme(plot.caption = element_markdown())\n\n\n\n\n\n\n\n\n\nCode\n# Count the proportion of tests below a certain p-value for each \nresults %&gt;%\n  filter(pval &lt; 0.05) %&gt;%\n  group_by(n) %&gt;%\n  summarise(sig_results = n()/1000) |&gt; \n  gt() |&gt; \n  tab_caption(\"Summering av signifikante resultater\") |&gt; \n  cols_label(n = \"Utvalgsstr.\", \n             sig_results = \"Signif. res. / 1000\")\n\n\n\n\n\n\nSummering av signifikante resultater\n\n\nUtvalgsstr.\nSignif. res. / 1000\n\n\n\n\n8\n0.222\n\n\n40\n0.877\n\n\n\n\n\n\n\nI histogrammet med n=8 kan er se stor variasjon innad i utvalgene. Ved de 1000 simuleringene som er gjort er det sannsynlig at det har vært stor spredning i de variablene som er trekt i samme utvalg (og motsatt). Dermed vil disse enkelt-utvalgene gjøre utslag på p-verdien begge veier. Ved å plotte det slik fremheves også tendensen til falsk-positive simuleringer ved p = 0.05. En falsk positiv oppstår når en test indikerer en signifikant effekt, slik at man forkaster nullhypotesten (H0), men det egentlig ikke er en effekt der (H0 er sann).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#antall-observasjoner-fra-hvert-utvalg-som-er-under-signifikansnivået-på-0.05",
+    "href": "03-statistical-inference.html#antall-observasjoner-fra-hvert-utvalg-som-er-under-signifikansnivået-på-0.05",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.7 Antall observasjoner fra hvert utvalg som er under signifikansnivået på 0.05",
+    "text": "3.7 Antall observasjoner fra hvert utvalg som er under signifikansnivået på 0.05\n\n\nCode\nn_sig_8 &lt;- results |&gt; \n  filter(pval &lt; 0.05) |&gt; \n  filter(n != 40) |&gt; \n  nrow()\nn_sig_40 &lt;- results |&gt; \n  filter(pval &lt; 0.05) |&gt; \n  filter(n == 40) |&gt; \n  nrow()\n\n\nSetter signifikansnivå til p &lt; 0.05 Det er 877 tilfeller der p &lt; 0.05 for utvalget med 40. Det er 222 tilfeller der p&lt; 0.05 for utvalget med 8.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#estmerer-effekten-ved-one-sample-t-test",
+    "href": "03-statistical-inference.html#estmerer-effekten-ved-one-sample-t-test",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.8 Estmerer effekten ved one-sample t-test",
+    "text": "3.8 Estmerer effekten ved one-sample t-test\n\n\nCode\n# Using the pwr package\nlibrary(pwr)\n\npwr_8 &lt;- pwr.t.test(n = 8, sig.level = 0.05, d = 1.5/3, type = \"one.sample\")\npwr_40 &lt;- pwr.t.test(n = 40, sig.level = 0.05, d = 1.5/3, type = \"one.sample\")\n\npwr_8\n\n\n\n     One-sample t test power calculation \n\n              n = 8\n              d = 0.5\n      sig.level = 0.05\n          power = 0.232077\n    alternative = two.sided\n\n\nCode\npwr_40\n\n\n\n     One-sample t test power calculation \n\n              n = 40\n              d = 0.5\n      sig.level = 0.05\n          power = 0.8693981\n    alternative = two.sided\n\n\nEffekt ved utavlget på 8 stk: 0.232. Effekt ved utvalget på 40 stk: 0.869. En kan forvente høyere effekt med et større utvalg. Dette observeres i vårt tilfelle. Med høyere effekt, vil en også forvente å se større grad av signifikans, altså en lavere p-verdi (som også er tilfellet i denne simuleringen).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-over-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "href": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-over-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.9 Ved å benytte det nye datasettet over: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?",
+    "text": "3.9 Ved å benytte det nye datasettet over: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?\n\n\nCode\nfalsepos_8 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 8) |&gt; \n  nrow()\n  \nfalsepos_40 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 40) |&gt; \n  nrow()\n\n\nVed å repetere studien 1000 ganger, vil vi komme over 41 falsk-positive tester for utvalget med 8, og 62 for utvalget med 40. Totalt antall falsk-positive tester blir 103.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#referanser",
+    "href": "03-statistical-inference.html#referanser",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.10 Referanser",
+    "text": "3.10 Referanser\n\n\n\n\nCremers, Henk R, Tor D Wager, and Tal Yarkoni. 2017. “The Relation Between Statistical Power and Inference in fMRI.” PLoS One 12 (11): e0184923.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "href": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "section": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?",
+    "text": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?\n\n\nCode\npopulation &lt;- rnorm(1000000, mean = 0, sd = 3)\n\n# Create data frames to store the model estimates\nresults_8 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 8)  \n\nresults_40 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 40)\n\nfor(i in 1:1000) {\n  \n  # Draw a sample \n  samp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n  samp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n  # Model the data\n  m1 &lt;- lm(y ~ 1, data = samp1)\n  m2 &lt;- lm(y ~ 1, data = samp2)\n  \n  # Extract values from the models\n  results_8[i, 1] &lt;- coef(summary(m1))[1, 1]\n  results_8[i, 2] &lt;- coef(summary(m1))[1, 2]\n  results_8[i, 3] &lt;- coef(summary(m1))[1, 4]\n\n  results_40[i, 1] &lt;- coef(summary(m2))[1, 1]\n  results_40[i, 2] &lt;- coef(summary(m2))[1, 2]\n  results_40[i, 3] &lt;- coef(summary(m2))[1, 4]\n  \n}\n\n# Save the results in a combined data frame\n\nresults_null &lt;- bind_rows(results_8, results_40)\n\n\n\n\nCode\n#lager histogram for koden over\n\nggplot(data = results_null, aes(pval)) +\n  geom_histogram(binwidth = 0.05, \n                 color = \"black\", fill = \"lightgreen\",) +\nfacet_wrap(~ n) +\n  labs(subtitle = \"Fordelingen av *p*-verdier fra 1000 simuleringer\", \n       caption = \"Hver bar representerer antall simuleringer av en gitt *p*-verdi\", \n       x = \"*p*-verdier\", \n       y = \"Number of simulations\") +\n  theme(axis.title.x = element_markdown()) +\ntheme(plot.subtitle = element_markdown()) +\n  theme(plot.caption = element_markdown())\n\n\n\n\n\n\n\n\n\n\n\nCode\nfalsepos_8 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 8) |&gt; \n  nrow()\n  \nfalsepos_40 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 40) |&gt; \n  nrow()\n\n\nVed å repetere studien 1000 ganger, vil vi komme over 53 falsk-positive tester for utvalget med 8, og 43 for utvalget med 40. Totalt antall falsk-positive tester blir 96.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#metode",
+    "href": "04-study-design.html#metode",
+    "title": "4  Assignment 4: Study designs",
+    "section": "4.2 Metode",
+    "text": "4.2 Metode\nAlle studiene i oppgaven er randomiserte kontrollerte forsøk (RCT) der man var interessert i å undersøke effekten av periodisering av høyintensiv trening. Utvalget ble delt i to grupper, en blokkperiodiseringsgruppe (BP) og en kontrollgruppe (CT). I studiene trente utvalget i BP og CT det samme volumet totalt over intervensjonsperioden. Forskjellen var at BP periodiserte sine høyintesive økter i bolker/mikrosykluser (periodiserignen varierte mellom studiene). Det ble gjennomført målinger både pre og post treningsintervensjonen og intervensjonene hadde varighet fra 4 til 12 uker.\nI studiene lå utvalget et sted mellom 16 og 22 personer. I noen studier så en på både kvinner og menn, i andre studier kun menn. Gjengangeren var at utvalget ble definert som godt trente utøvere, eller at de hadde drevet kompetetivt i sin idrett de siste årene.\nDet ble gjennomført ulike statistiske analyser i de ulike forsøkene. Noen benyttet ANOVA, mens andre benyttet t-tester, eller en kombinasjon av begge. Flere av studiene benyttet Cohen’s d for å beregne effektstørrelse (ES) da dette er en gunstig metode når man vil vurdere effekten av en intervensjon og sammenlinkne to grupper (Hopkins et al. 2009). I studiene ble resultater presentert som gjennomsnittsøkning i % \\(\\pm\\) standardavvik. Resultater ble ansett som statistisk signifikante dersom p-verdier \\(\\leq\\) 0.05.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#resultater",
+    "href": "04-study-design.html#resultater",
+    "title": "4  Assignment 4: Study designs",
+    "section": "4.3 Resultater",
+    "text": "4.3 Resultater\nEtter å ha sammenliknet kontrollgruppen med blokkperiodiseringsgruppen post intervensjon, kom samtlige studier frem til at blokkperiodisering gav signinfikant økning i prestasjonsparametere. Endringen kan ses i tabell 1.\n\n\n\nStudie\nRelativ endring i \\(\\dot{V}O_{2max}\\)\np-verdier\nEffektstørrelse\n\n\n\n\n1\n\\(5.1 \\pm 3.3\\%\\)\n=0.05\n1.04\n\n\n2\n\\(5.1 \\pm na\\)\n&lt;0.01\nna\n\n\n3\n\\(2.0 \\pm 2.5\\%\\)\n&lt;0.05\n0.76\n\n\n4\n\\(4.6 \\pm 3.7\\%\\) (relative)\n&lt;0.05\n1.34\n\n\n5\n\\(8.8 \\pm 5.9\\%\\)\n&lt;0.05\n1.08\n\n\n\nTabell 1: Alle verdier er fra BP-gruppen.\nP-verdier &lt; 0.05 i samtlige studier. Den gjennomsnittlige effekten blir målt til å ligge en plass mellom 0.76 og 1.34 i 4/5 studier. En av studiene gjorde i tillegg beregninger på kun de mannlige utøverne i sin studie og fant mer signifikante resultater. Denne studien presenterte ingen effektstørrelser.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#diskusjon",
+    "href": "04-study-design.html#diskusjon",
+    "title": "4  Assignment 4: Study designs",
+    "section": "4.4 Diskusjon",
+    "text": "4.4 Diskusjon\nStyrken ved å benytte RCT som studiedesign er at det minimerer bias og skaper godt sammenlikningsgrunnlag blant liknende intervensjoner. Ved å benytte RCT blir også resultatene mer pålitelige. Ved å benytte objektive data i sine resultater, skapes en anvendbarhet i form av at studiene i større grad er sammenliknbare på tvers av studier og intervensjoner. (Zabor, Kaizer, and Hobbs 2020)\nEn svakhet ved studiene er de små utvalgene. Dette øker sjansen for å gjøre type II-feil (godtakelse av nullhypotesen, tross at den er falsk). Gjennomsnitt i små utvalg påvirkes i relativt stor grad av verdier som ligger langt unna gjennomsnittet (outliers) (Mishra et al. 2019). For å objektivt fjerne outliers fra datasettet kan en bestemme seg for grenseverdier man ønsker at sine verdier skal ligge innenfor (Hopkins et al. 2009).\nDet kan tenkes at det er gunstig for fremtidige studier å ha større grad av mangfold, dvs. menn og kvinner, ulik alder og treningsbakgrunn. Dette for å kunne si noe om en bredere populasjon. Utvalget bør dog stå i stil til populasjonen man ønsker å si noe om. Ønsker man eksempelvis å forskrive gode treningsmetoder for toppidrettsutøvere innen sykkelsporten, bør utvalget bestå at godt trente syklister. Da utvalgene i disse studiene bestod av godt trente utøvere, kan det antyde at blokkperiodisering av høyintensiv trening kan være gunstig for utøvere som allerede er på et høyt nivå.\nTid og varighet av intervensjoner er ofte en svakhet i studier. Disse studiene varte i hhv. 5-, 4-, 5-, 6- og 12-uker, noe som gjør det vanskelig å si noe om de langsiktige effektene av blokkperiodisering vs tradisjonell trening. Funnene i studiene kan styrkes dersom man studiene repeteres og/eller følges opp over lengre perioder.\nMålet med studiene var å se hvorvidt mikrosykluser med høyintensiv trening øker prestasjonsparameteren \\(\\dot{V}O_{2max}\\) mer enn traidisjonell periodisering av trening. For å undersøke potensielle endringer mellom BP og CT i studiene ble det som nevnt benyttet ulike statistsike tester. Grunnet små utvalg og en forventet liten endring i prestasjonsmaraterne blant de godt trente utøverne, ble det benyttet t-tester da det viser seg hensiksmessig ved små utvalg og benyttes for å sammenlikne gjennomsnittet mellom to grupper (Mishra et al. 2019).\nDet at én av studiene ikke presenterte effektstørrelse kan man stille spørmål ved. En av grunnene kan være at små utvalg kan skape store variasjoner i resultater og skape lite pålitelige effekter. Et annet punkt å diskutere er hvorvidt resulatene er av klinisk relevans. Dersom forskerne mener at en effektsørrelsen kan gi et feilaktig inntrykk av resultatenes styrke, kan de la være å presentere effekten.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#konklusjon",
+    "href": "04-study-design.html#konklusjon",
+    "title": "4  Assignment 4: Study designs",
+    "section": "4.5 Konklusjon",
+    "text": "4.5 Konklusjon\nBlokkperiodisering viser å gi større økning i \\(\\dot{V}O_{2max}\\) i samtlige studier, sammenliknet med tradisjonell trening. Langrennsutøvere, ishockeyspillere, alpinister og syklister har alle hatt økning i \\(\\dot{V}O_{2max}\\) ved å periodisere hard trening. Godt trente utøvere, som potensielt har stagnert med tradisjonell trening, kan ha god effekt av blokkperiodisering. Funnene vil særlig være relevant for godt trente utøvere, da dette var utvalget som ble sett på i samtlige studier. Dette er dog et snevert utvalg, som trolig har egenskaper som skiller seg fra resten av befolkningen. Derfor vil det være utfordrende å generalisere funn og anbefalinger opp mot den generelle befolkningen. Repetisjon av studiene der utvalget innehar større grad av spredning når det kommer til treningsbakgrunn, kjønn og alder kan derav være av interesse.\nAlle studiene er randomiserte kontrollerte studier, noe som gir tyngde til grad av validitet og grunnlag for direkte sammenlikning av ulike treningsmetoder. Det parallelle gruppedesignet som ble benyttet isolerer effekten av de ulike treningsintervensjonene.\nANOVA (analysis of variance) og t-tester ble benyttet slik at man kan sammenlikne flere grupper over ulike tidpunkter i intervensjonen. På den måten kan man få innblikk i hvordan ulik form for trening påvirker prestasjonparametere over tid. Valget av testene bidrar å styrke funnene om at blokkperiodisering gir økning i \\(\\dot{V}O_{2max}\\), sammenliknet med tradisjonell trening.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "04-study-design.html#referanser",
+    "href": "04-study-design.html#referanser",
+    "title": "4  Assignment 4: Study designs",
+    "section": "4.6 Referanser",
+    "text": "4.6 Referanser\n\n\n\n\nBreil, Fabio A, Simone N Weber, Stefan Koller, Hans Hoppeler, and Michael Vogt. 2010. “Block Training Periodization in Alpine Skiing: Effects of 11-Day HIT on VO2max and Performance.” Eur. J. Appl. Physiol. 109 (6): 1077–86.\n\n\nHopkins, William G, Stephen W Marshall, Alan M Batterham, and Juri Hanin. 2009. “Progressive Statistics for Studies in Sports Medicine and Exercise Science.” Med. Sci. Sports Exerc. 41 (1): 3–13.\n\n\nMishra, Prabhaker, Uttam Singh, Chandra M Pandey, Priyadarshni Mishra, and Gaurav Pandey. 2019. “Application of Student’s t-Test, Analysis of Variance, and Covariance.” Ann. Card. Anaesth. 22 (4): 407–11.\n\n\nRønnestad, B R, S Ellefsen, H Nygaard, E E Zacharoff, O Vikmoen, J Hansen, and J Hallén. 2014. “Effects of 12 Weeks of Block Periodization on Performance and Performance Indices in Well-Trained Cyclists.” Scand. J. Med. Sci. Sports 24 (2): 327–35.\n\n\nRønnestad, B R, J Hansen, and S Ellefsen. 2014. “Block Periodization of High-Intensity Aerobic Intervals Provides Superior Training Effects in Trained Cyclists.” Scand. J. Med. Sci. Sports 24 (1): 34–42.\n\n\nRønnestad, B R, J Hansen, V Thyli, T A Bakken, and Ø Sandbakk. 2016. “5-Week Block Periodization Increases Aerobic Power in Elite Cross-Country Skiers.” Scand. J. Med. Sci. Sports 26 (2): 140–46.\n\n\nRønnestad, Bent R, Sjur J Øfsteng, and Stian Ellefsen. 2019. “Block Periodization of Strength and Endurance Training Is Superior to Traditional Periodization in Ice Hockey Players.” Scand. J. Med. Sci. Sports 29 (2): 180–88.\n\n\nZabor, Emily C, Alexander M Kaizer, and Brian P Hobbs. 2020. “Randomized Controlled Trials.” Chest 158 (1S): S79–87.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  }
+]

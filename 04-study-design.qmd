@@ -25,9 +25,20 @@ Det ble gjennomført ulike statistiske analyser i de ulike forsøkene. Noen beny
 
 ## Resultater
 
-Etter å ha sammenliknet kontrollgruppen med blokkperiodiseringsgruppen post intervensjon, kom samtlige studier frem til at blokkperiodisering gav signinfikant økning i prestasjonsparametere. Økningen i $\dot{V}O_{2max}$ ble presentert til å ligge mellom 6.0-8.8 % blant studiene. 
+Etter å ha sammenliknet kontrollgruppen med blokkperiodiseringsgruppen post intervensjon, kom samtlige studier frem til at blokkperiodisering gav signinfikant økning i prestasjonsparametere. Endringen kan ses i tabell 1.  
 
 *P*-verdier < 0.05 i samtlige studier. Den gjennomsnittlige effekten blir målt til å ligge en plass mellom 0.76 og 1.34 i 4/5 studier. En av studiene gjorde i tillegg beregninger på kun de mannlige utøverne i sin studie og fant mer signifikante resultater. Denne studien presenterte ingen effektstørrelser.  
+
+|Studie|Relativ endring i $\dot{V}O_{2max}$|*p*-verdier|Effektstørrelse|
+|------|-----------------------------|-----------|---------------|
+|1     |$5.1 \pm 3.3\%$              |  =0.05    | 1.04          |  
+|2     |$5.1 \pm na$                 |  <0.01    | na            |
+|3     |$2.0 \pm 2.5\%$              | <0.05     | 0.76          |
+|4     |$4.6 \pm 3.7\%$ (relative)   | <0.05     | 1.34          |
+|5     |$8.8 \pm 5.9\%$              | <0.05     |1.08           |
+
+Tabell 1: Alle verdier er fra BP-gruppen. 
+
 
 ## Diskusjon
 
