@@ -3,91 +3,41 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# Assignment 1: Reliability and tools for reproducible data science {#assignment1}
+# Assignment 1: Reliabilitet
 
 ## Introduksjon
 
-## Metode - gjennomføring av V&#755;O~2max~ test
 
-### Utstyr som ble benyttet
 
--   Biosen (for måling av laktat)
-    -   lansett finger
-    -   rør for oppsamling av blod
-    -   blandingscontainer for rør med blod
-    -   papir for å tørke av finger
--   Vyntus (for måling av metabolsk respons)
-    -   miksekammer
-    -   turbin
-    -   slange fra miksekammer til munnstykke
-    -   neseklype (teipbit på nese for at neseklype skulle sitte godt)
-    -   gassbeholder med referansegass
--   Lode-sykkel
-    -   Samme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.
-    -   MTB pedaler
-    -   172,5 mm lengde krankarmer
--   Gulvvifte (samme instilling ved hver test)
--   Pulsbelte garmin
--   Hansker
--   Minnepenn for overføring av data
+## Metode
 
-### Forberedelse og kalibrering av utstyr
-
-1. Sørg for at Biosen er på, og at det er nok væske i kalibreringssolution (rød flaske). Sett igang kalibrering av Biosen om det er nødvendig. 
-2. Ta med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, rør for oppsamling av blod og papir.
-3. Kalibrering av Vyntus CPX
-    a. Skru på kalibreringsgassen.
-    b. Se til at turbin er koblet til sampling slange og optoelektronisk måler. 
-    c. Koble til kalibreringsporten på CPX-en og kjør både volum- og gasskalibrering.
-    OBS! Ved differanse på over 2% under volumkalibrering eller differanse over 0.2% differanse under gasskalibrering, gjennomfør nødvendig feilsøking og kjør kalibrering på nytt.  
-4. Ta på hansker og sett sammen munnstykke. Dekk til munnstykket med papir med hjelp av neseklype. 
-5. Ta med munnstykke og slange bort til sykkel og Vyntus CPX. Fest munnstykke til slange, og slange til miksekammer. 
-6. Legg til ny eller velg aktuell testdeltager.
-     a. Ny testdeltager legges til, og følgende ID-informasjon legges til under fornavn, etternavn og personnummer: idr4000_h24_gr4_idxx (xx=nr).
+### Gjennomføring av $\dot{V}O_{2max}$ test
  
-### Forberedelse av testdeltager
- 
-  - Informasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:
-      - VO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer. 
-      - Test avsluttes dersom tråkkfrekvens < 60 rpm. 
-      - Test skal gjennomføres sittende
-      - Borg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er "ingen anstrengelse" og 20 er "maksimal anstrengelse". 
-      - Underveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet. 
-      - Testdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test. 
-      - Testleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne "pushingen" gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker. 
-      
+Testen som skal gjennomføres er en $\dot{V}O_{2max}$-test, der testdeltakeren starter på en forhåndsbestemt wattverdi (motstand). Denne wattverdien økes gradvis hvert minutt, avhengig av den valgte protokollen, og testdeltakeren sykler til en ikke lenger klarer å fortsette. Testen avsluttes dersom deltakerens tråkkfrekvens synker under 60 rpm (rotasjoner per minutt). Under testen skal deltaker forbli sittende på sykkelen.
 
-### Når testdeltaker er ferdig å sykle
+Testdeltakeren vil få informasjon om hvor lenge de har syklet underveis i testen. Derimot vil de ikke ha tilgang til annen informasjon som puls, $\dot{V}O_{2}$ eller lignende data underveis. Testlederen vil informere om hvor lang tid det er igjen til neste wattøkning og hvilken watt testdeltakeren sykler på for øyeblikket. 
 
--   Testleder har nå spurt om Borgs skala
--   Etter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling.
--   Noterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.
--   Data som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.
+Testlederen vil mot slutten av testen bidra til å pushe testdeltakeren for å få ut det siste av deres kapasitet. Hvordan denne "pushingen" gjennomføres, kan variere mellom testledere, men det er viktig at tilnærmingen til hver deltaker er så konsekvent som mulig. Borg-skalaen (6-20) vil benyttes for å vurdere utmattelsen hos testdeltakeren. Ved testslutt vil deltaker bli bedt om å gi et tall på skalaen, der 6 tilsvarer "ingen anstrengelse" og 20  "maksimal anstrengelse". 
 
+Ett minutt etter testslutt tas en laktatprøve fra testdeltakeren for å estimere maksimal laktatverdi ($La_{max}$). Etter at prøven er tatt, noterer testlederen ned hvor lenge testdeltakeren har syklet, og henter deretter ut relevant data fra testen via en rapport fra Vyntus-systemet.
 
-## Standardisering av test
+### Standardisering
 
- - Matinntak: 
-    - siste store måltid senest 2 timer før teststart. Tillatt å spise èn mindre karbohydratkilde senest 30 min før test, dvs. èn banan, èn bar, èn gel, osv. 
- - Koffeininntak: 
-    - inntak som normalt. 
- - Test gjennomføres på samme tidspunkt på dagen ved alle tester
- - Søvn/døgnrytme: 
-    - forsøk å opprettholde normal døgnrytme gjennom testperioden. 
- - Trening: 
-    - ingen hard trening på underkropp dagen før test. 
- - Oppvarmingsprotokoll: 
-    - 5 min oppvamring, der deltageren sykler på økende intensitet i 2-2-1 min, eks: (2 min 150W, 2 min 175W, 1 min 220W)
- - Samme testprotokoll ved alle testene: 
-    - Her vil det være individuelle forskjeller, eks: start på 200W - 20W økning hvert minutt til utmattelse. 
+Testdeltakeren skal spise sitt siste store måltid senest 2 timer før teststart. Det er tillatt å innta en mindre karbohydratkilde (eks: banan, energibar, gel) senest 30 minutter før teststart. Koffeininntak skal gjøres som normalt og testene gjennomføres  på samme tidspunkt på dagen så godt det lar seg gjøre. Deltakeren anbefales å forsøke å opprettholde sin vanlige døgnrytme gjennom testperioden. For å forberede kroppen på testen, er det viktig at deltakerne ikke gjennomfører hard trening på underekstremitetene dagen før testen. 
 
-## Intern validering
+Oppvarmingen før testen ble satt til 5 minutter, hvor deltaker sykler på økende intensitet i intervaller på 2-2-1 minutt. Eksempelvis 2 minutter på 150W, 2 minutter på 175W og 1 minutt på 220W.  
+
+Testprotokollen er den samme for alle tester. Et eksempel på testprotokolle var start på 200W med en økning på 20W hvert minutt til utmattelse. Individuelle tilpasning mtp belastning ble gjort for hver deltaker, både ved oppvarming og testprotokoll. 
+
+### Intern validering
+
 Både tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen [@Halperin]. Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.
 
 Selv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager [@Halperin].  
 
 
-## Tabeller og plots med datasett fra alle gruppene
+
+## Resultater
 
 ```{r}
 #| message: false
@@ -108,104 +58,125 @@ df_all <- read_xlsx("plot_data_all_gr.xlsx") |>
 ```
 
 
-### Plot
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| label: plot av w.max for hver id ved de ulike tidspunkt for testing
+#| label: fig-w.max
+#| fig-cap: "Watten testdeltaker holdt de siste 30 sek av testen ved de ulike tidspunktene"
 
-# endret graf fra VO2.max og w.max, til å se på hver enkelt id sine variasjoner i w.max ved ulike testtidspunkt. Her kan man se på spredningen mellom hver test og da allerede få et innblikk i standardavvik. 
 
-ggplot(data = df_all, 
+watt_deltaker_plot <- ggplot(data = df_all, 
       aes(id, 
           w.max, 
           group = timepoint,
           color = timepoint)) +
-  geom_point() +
-  scale_y_continuous(limits = c(200, 475)) +
+  geom_point(size = 4, shape = 20) +
+  scale_y_continuous(limits = c(200, 475), 
+                     breaks = c(200, 250, 300, 350, 400, 450)) +
   scale_x_discrete(labels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16")) +
 
   labs(x = "Testdeltakere", 
-       y = "Max watt (W)", 
-       subtitle = "Max watt testdeltaker hadde ved de ulike tidspunktene") 
+       y = "Maks-watt (W)",
+       color = "Tidspunkt") +
+  theme_minimal() +
+   theme(
+    text = element_text(family = "Arial", size = 12),
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 12))
+
+watt_deltaker_plot
 
 ```
 
 
-### Tabell
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| tbl-cap: "Verdier er gj.snitt og standardavvik for de ulike testtidspunktene"
-#| label: snitt og standardavvik for watt-maks ved de ulike testtidspunktene
+#| tbl-cap: "Gj.snitt og st.avvik for watt-maks ved "
+#| label: "snitt og standardavvik for watt-maks ved de ulike testtidspunktene"
 
-df_all |> 
+library(kableExtra)
+
+tab_watt <- df_all |> 
   select(id, timepoint, w.max) |> 
-  
   pivot_longer(names_to = "names", 
                values_to = "tall", 
                cols = w.max) |> 
-  
   summarise(.by = c(timepoint, names), 
             m = mean(tall, na.rm = TRUE), 
             sd = sd(tall, na.rm = TRUE)) |> 
-  
   mutate(m_sd = paste0(signif(m, 3), " (", signif(sd, 3),") ")) |> 
-  
   ungroup() |> 
-  
   select(-m, -sd) |> 
-  
   pivot_wider(names_from = names, 
               values_from = m_sd) |> 
-  
-  gt()
+  kable(format = "html",
+        col.names = c("Tidspunkt", "Watt-maks"),
+    caption = "Summary Statistics of Max Watt by Timepoint",
+    align = "c") |> 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+    full_width = TRUE,  
+    position = "center") |> 
+  footnote(general = " ", 
+           general_title = "Watt-maks verdier er gj.snitt og st.avvik.")
+
+tab_watt
 
 ```
 
 
-### Beregning av reliabilitet
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
-#| tbl-cap: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max"
-#| label: mean, sd, te og cv for w.max verdien
+#| tbl-cap: "Summerende statistikk"
+#| label: "Sammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max"
 
 dat <- df_all |> 
-  
   #velger de variablene vi ønsker å se på
   select(id, timepoint, w.max) |> 
-  
   # benytter pivot_wider for lage !tidy-data, nå ser vi eks id_01 sin w.max ved timepoint == t1 osv.
   pivot_wider(names_from = timepoint, 
               values_from = w.max) |> 
-  
 #så vil vi se på typical error og regne på reliabilitet. Muterer så vi får en verdi som er differansen mellom t2 og t1
   mutate(diff = t2 - t1) |> 
-  
   #summarise tar veridene i kolonnene til t1 og t2 og regner snittet av de, samt standardavviket
   summarise(m = mean(c(t1, t2), na.rm = TRUE), 
             s = sd(diff, na.rm = TRUE), 
             te = s / sqrt(2), 
-            cv = te/m * 100) 
+            cv = te/m * 100)
 
-#henter ut cv_perc som brukes som data i text
+mean_watt_max <- round(dat$m, 1)
+sd_watt <- round(dat$s, 1)
+te <- round(dat$te, 1)
 cv_perc <- round(dat$cv,2)
 
-#lager tabell her og runder av tall i tabell med 2 desimaler
-dat |> 
-  gt() |> 
-  
-  fmt_number(decimals = 2)
+mean_and_sd <- paste0(mean_watt_max, " (", "\u00B1" , sd_watt, ")")
+
+tab_sum_stat <- dat |> 
+  kable(format = "html", 
+        caption = "Summerende statistikk",
+        col.names = c("Gj.snitt", "St.avvik", "Typisk feil", "Variasjonskoeffisient"), 
+        digits = 2,  # Round all values to 2 decimal places
+        align = "c") |> 
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = TRUE, 
+                position = "center") |> 
+  footnote(general = " ", 
+           general_title = "")
 
 ```
 
+Den gjennomsnittlige watt-verdien som testdeltakerne holdt de siste 30 sekundene av $\dot{V}O_{2max}$-testen var `r mean_and_sd` og den typiske feilen ble målt til `r te`. 
+Ifølge Hopkins (2000) er den typisk feilen, den gjennomsnittlige variasjonen ved en test. Den typiske feilen gir en indikasjon på den forventede variasjonen ved en retest[@Hopkins]. I dette tilfellet kan en forvente en variasjon på `r cv_perc` % ved en eventuell re-test. 
 
-Ifølge Hopkins (2000) er "typical error" den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med `r cv_perc` % [@Hopkins].
+## Referanser
+
 

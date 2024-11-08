@@ -1,32 +1,32 @@
 [
   {
-    "objectID": "03-statistical-inference.html",
-    "href": "03-statistical-inference.html",
-    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Mappeeksamen IDR4000",
     "section": "",
-    "text": "3.1 Introduksjon\nStatistisk inferens er en type statistikk som omhandler metoder for å trekke konklusjoner om en populasjon basert på et utvalg. Målet er å generalisere funnene fra utvalget og bruke det til å si noe om hele populasjonen. En viktig del av statistisk inferens er å vurdere usikkerheten i estimatene, typisk ved hjelp av konfidensintervaller og p-verdier (Cremers, Wager, and Yarkoni 2017).\nEffektstørrelser gir en kvantitativ vurdering av hvor betydelig en observert effekt er, og er ikke avhengig av utvalgsstørrelse. Dette er nyttig i forskning, da det hjelper med å forstå de praktiske betydningene av funnene man har gjort. Ved å kombinere statistisk inferens med effektstørrelser kan man bedre vurdere resultatene sine og sette det i en bred kontekst (Cremers, Wager, and Yarkoni 2017).\nCode\nlibrary(tidyverse)\nlibrary(ggtext)\nlibrary(gt)\n\nset.seed(1)\npopulation &lt;- rnorm(1000000, mean = 1.5, sd = 3)\n\n#lager to ulike utvalg der gruppe 1 er n=8 og gruppe 2 n=40\nsamp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n\nsamp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n\nm1 &lt;- lm(y ~ 1, data = samp1)\nm2 &lt;- lm(y ~ 1, data = samp2)\n\nsum1 &lt;- summary(m1) \nsum2 &lt;- summary(m2)\nCode\n# plotter samp 1 og 2 for å illustrere den relative spredningen i utvalget\nsamp1 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"orange\") +\n  geom_vline(xintercept = coef(sum1)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum1)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\", \n       caption = \"Utvalg 1 fra populasjonen (n = 8)\",\n       x = \"\", \n       y = \"\")\n\n\n\n\n\n\n\n\n\nCode\nsamp2 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"red\") + \n  geom_vline(xintercept = coef(sum2)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum2)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\",\n       caption = \"Utvalg 2 fra populasjonen (n = 40)\", \n       x = \"\", \n       y = \"\")",
+    "text": "Introduksjon\nMappeeksamen består av følgende deler:\n\nRapport: “Deskriptiv statistikk, reliabilitet og validitet og verktøy for reproduserbar vitenskap”.\nLaborasjonsrapport fra molekylærlabb\nArbeidskrav i vitenskapsteori\nRapport: “Statistisk inferens, statistiske modeller og statistisk styrke”\nRapport: “Studiedesign”\nRapport: “Analyse av eksperimenter med repeterte målinger”",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+      "Introduksjon"
     ]
   },
   {
     "objectID": "01-reliabilitet.html",
     "href": "01-reliabilitet.html",
-    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "title": "1  Assignment 1: Reliabilitet",
     "section": "",
     "text": "1.1 Introduksjon",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
     ]
   },
   {
     "objectID": "01-reliabilitet.html#metode---gjennomføring-av-vo2max-test",
     "href": "01-reliabilitet.html#metode---gjennomføring-av-vo2max-test",
-    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
+    "title": "1  Assignment 1: Reliabilitet",
     "section": "1.2 Metode - gjennomføring av V˳O2max test",
-    "text": "1.2 Metode - gjennomføring av V˳O2max test\n\n1.2.1 Utstyr som ble benyttet\n\nBiosen (for måling av laktat)\n\nlansett finger\nrør for oppsamling av blod\nblandingscontainer for rør med blod\npapir for å tørke av finger\n\nVyntus (for måling av metabolsk respons)\n\nmiksekammer\nturbin\nslange fra miksekammer til munnstykke\nneseklype (teipbit på nese for at neseklype skulle sitte godt)\ngassbeholder med referansegass\n\nLode-sykkel\n\nSamme oppsett på sykkel ved hver test (høyde sete, avtsand sete til styre, osv.). Oppsettet lagres på data etter innstilling ved t1.\nMTB pedaler\n172,5 mm lengde krankarmer\n\nGulvvifte (samme instilling ved hver test)\nPulsbelte garmin\nHansker\nMinnepenn for overføring av data\n\n\n\n1.2.2 Forberedelse og kalibrering av utstyr\n\nSørg for at Biosen er på, og at det er nok væske i kalibreringssolution (rød flaske). Sett igang kalibrering av Biosen om det er nødvendig.\nTa med nødvendig laktatutstyr bort til sykkelen, herunder: lansett, rør for oppsamling av blod og papir.\nKalibrering av Vyntus CPX\n\nSkru på kalibreringsgassen.\nSe til at turbin er koblet til sampling slange og optoelektronisk måler.\nKoble til kalibreringsporten på CPX-en og kjør både volum- og gasskalibrering. OBS! Ved differanse på over 2% under volumkalibrering eller differanse over 0.2% differanse under gasskalibrering, gjennomfør nødvendig feilsøking og kjør kalibrering på nytt.\n\n\nTa på hansker og sett sammen munnstykke. Dekk til munnstykket med papir med hjelp av neseklype.\nTa med munnstykke og slange bort til sykkel og Vyntus CPX. Fest munnstykke til slange, og slange til miksekammer.\nLegg til ny eller velg aktuell testdeltager.\n\nNy testdeltager legges til, og følgende ID-informasjon legges til under fornavn, etternavn og personnummer: idr4000_h24_gr4_idxx (xx=nr).\n\n\n\n\n1.2.3 Forberedelse av testdeltager\n\nInformasjon fra testansvarlig til testdeltaker vedrørende hvordan test skal gjennomføres:\n\nVO2max test der vi starter på en gitt watt (motstand). Watten vil øke hvert minutt (hvor mye avhenger av protokoll) og testdeltaker sykler helt til han/hun ikke greier mer.\nTest avsluttes dersom tråkkfrekvens &lt; 60 rpm.\nTest skal gjennomføres sittende\nBorg skala benyttes når utmattelse inntreffer hos testdeltaker. Deltaker vil bli spurt om å gi et tall fra 6-20 på hvor sliten han/hun er, der 6 er “ingen anstrengelse” og 20 er “maksimal anstrengelse”.\nUnderveis i test vil testdeltaker ha tilgang på hvor lenge han/hun har syklet.\nTestdeltaker informeres om at testleder kun vil informere om hvor lenge det er til neste økning og hvilken watt som sykles på for øyeblikket. Annen data som puls, VO2, osv., vil ikke utøver ha tilgang på underveis i test.\nTestleder vil mot slutten av test bidra til å pushe testdeltaker slik at han/hun får ut sitt ytterste. Hvordan denne “pushingen” gjennomføres vil variere fra testleder til testleder. Det viktige er at testleder oppfører seg tilnærmet likt ved hver test ovenfor den aktuelle testdeltaker.\n\n\n\n\n1.2.4 Når testdeltaker er ferdig å sykle\n\nTestleder har nå spurt om Borgs skala\nEtter 1 min tas en laktatprøve av testdeltaker for å estimere la.max. Prøver plasseres i beger med løsning før den vendes og plasseres i Biosen for måling.\nNoterer ned hvor lenge deltaker syklet og henter så ut resten av data fra test via rapport på vyntus.\nData som er hentet ut er formatert i excel. Deretter benyttet vi read_xlsx for å importere datafilen til R.",
+    "text": "1.2 Metode - gjennomføring av V˳O2max test\n\n1.2.1 Forberedelse av testdeltager\nTesten som skal gjennomføres er en \\(\\dot{V}O_{2max}\\)-test, der testdeltakeren starter på en forhåndsbestemt wattverdi (motstand). Denne wattverdien økes gradvis hvert minutt, avhengig av den valgte protokollen, og testdeltakeren sykler til en ikke lenger klarer å fortsette. Testen avsluttes dersom deltakerens tråkkfrekvens synker under 60 rpm (rotasjoner per minutt). Under testen skal deltaker forbli sittende på sykkelen.\nTestdeltakeren vil få informasjon om hvor lenge de har syklet underveis i testen. Derimot vil de ikke ha tilgang til annen informasjon som puls, \\(\\dot{V}O_{2}\\) eller lignende data underveis. Testlederen vil informere om hvor lang tid det er igjen til neste wattøkning og hvilken watt testdeltakeren sykler på for øyeblikket.\nTestlederen vil mot slutten av testen bidra til å pushe testdeltakeren for å få ut det siste av deres kapasitet. Hvordan denne “pushingen” gjennomføres, kan variere mellom testledere, men det er viktig at tilnærmingen til hver deltaker er så konsekvent som mulig. Borg-skalaen (6-20) vil benyttes for å vurdere utmattelsen hos testdeltakeren. Ved testslutt vil deltaker bli bedt om å gi et tall på skalaen, der 6 tilsvarer “ingen anstrengelse” og 20 “maksimal anstrengelse”.\nEtt minutt etter testslutt tas en laktatprøve fra testdeltakeren for å estimere maksimal laktatverdi (\\(La_{max}\\)). Etter at prøven er tatt, noterer testlederen ned hvor lenge testdeltakeren har syklet, og henter deretter ut relevant data fra testen via en rapport fra Vyntus-systemet.\n\n\n1.2.2 Standardisering av test\nTestdeltakeren skal spise sitt siste store måltid senest 2 timer før teststart. Det er tillatt å innta en mindre karbohydratkilde (eks: banan, energibar, gel) senest 30 minutter før teststart. Koffeininntak skal gjøres som normalt og testene gjennomføres på samme tidspunkt på dagen så godt det lar seg gjøre. Deltakeren anbefales å forsøke å opprettholde sin vanlige døgnrytme gjennom testperioden. For å forberede kroppen på testen, er det viktig at deltakerne ikke gjennomfører hard trening på underekstremitetene dagen før testen.\nOppvarmingen før testen ble satt til 5 minutter, hvor deltaker sykler på økende intensitet i intervaller på 2-2-1 minutt. Eksempelvis 2 minutter på 150W, 2 minutter på 175W og 1 minutt på 220W.\nTestprotokollen er den samme for alle tester. Et eksempel på testprotokolle var start på 200W med en økning på 20W hvert minutt til utmattelse. Individuelle tilpasning mtp belastning ble gjort for hver deltaker, både ved oppvarming og testprotokoll.\n\n\n1.2.3 Intern validering\nBåde tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne, and Martin 2015). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.\nSelv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne, and Martin 2015).",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
     ]
   },
   {
@@ -52,11 +52,11 @@
   {
     "objectID": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
     "href": "01-reliabilitet.html#tabeller-og-plots-med-datasett-fra-alle-gruppene",
-    "title": "1  Assignment 1: Reliability and tools for reproducible data science",
-    "section": "1.5 Tabeller og plots med datasett fra alle gruppene",
-    "text": "1.5 Tabeller og plots med datasett fra alle gruppene\n\n1.5.1 Plot\n\n\n\n\n\n\n\n\n\n\n\n1.5.2 Tabell\n\n\n\n\n\n\nVerdier er gj.snitt og standardavvik for de ulike testtidspunktene\n\n\ntimepoint\nw.max\n\n\n\n\nt1\n332 (62)\n\n\nt2\n331 (66.6)\n\n\nt3\n316 (84.7)\n\n\nt4\n294 (88.8)\n\n\n\n\n\n\n\n\n\n1.5.3 Beregning av reliabilitet\n\n\n\n\n\n\nSammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max\n\n\nm\ns\nte\ncv\n\n\n\n\n331.07\n12.59\n8.90\n2.69\n\n\n\n\n\n\n\nIfølge Hopkins (2000) er “typical error” den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med 2.69 % (Hopkins 2000).\n\n\n\n\nHalperin, Israel, David B Pyne, and David T Martin. 2015. “Threats to Internal Validity in Exercise Science: A Review of Overlooked Confounding Variables.” Int. J. Sports Physiol. Perform. 10 (7): 823–29.\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
+    "title": "1  Assignment 1: Reliabilitet",
+    "section": "1.3 Tabeller og plots med datasett fra alle gruppene",
+    "text": "1.3 Tabeller og plots med datasett fra alle gruppene\n\n\n\n\n\n\n\n\nFigure 1.1: Max-watt testdeltaker hadde ved de ulike tidspunktene\n\n\n\n\n\n\n1.3.1 Tabell\n\n\n\nGj.snitt og st.avvik for watt-maks ved\n\n\nTidspunkt\nWatt-maks\n\n\n\n\nt1\n332 (62)\n\n\nt2\n331 (66.6)\n\n\nt3\n316 (84.7)\n\n\nt4\n294 (88.8)\n\n\n\nWatt-maks verdier er gj.snitt og st.avvik.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1.3.2 Beregning av reliabilitet\n\n\n\n\n\n\nSammenlikner t1 og t2 og ser på gj.snittsverdi, st.avvik, typ. error og coeff. of variation av variabelen w.max\n\n\nm\ns\nte\ncv\n\n\n\n\n331.07\n12.59\n8.90\n2.69\n\n\n\n\n\n\n\nIfølge Hopkins (2000) er “typical error” den gjennomsnittlige variasjonen ved en test. Typical error gir en indikasjon på den forventede variasjonen ved en retest. I dette tilfellet hvor vi ser på watt.max, kan en forvente at watt.max ved neste test vil variere med 2.69 % (Hopkins 2000).\n\n\n\n\nHalperin, Israel, David B Pyne, and David T Martin. 2015. “Threats to Internal Validity in Exercise Science: A Review of Overlooked Confounding Variables.” Int. J. Sports Physiol. Perform. 10 (7): 823–29.\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliability and tools for reproducible data science</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
     ]
   },
   {
@@ -110,113 +110,13 @@
     ]
   },
   {
-    "objectID": "04-study-design.html",
-    "href": "04-study-design.html",
-    "title": "4  Assignment 4: Study designs",
+    "objectID": "03-statistical-inference.html",
+    "href": "03-statistical-inference.html",
+    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
     "section": "",
-    "text": "4.1 Introduksjon\nStudiedesign er en viktig komponent i forskning da det vil være avgjørende for hvordan data samles inn, tolkes og analyseres. Et godt studiedesign vil ofte resultere i mer pålitelige resultater og større grad av reproduserbarhet. Studier som ser seg mer anvendbare i praksis er å foretrekke. (Zabor, Kaizer, and Hobbs 2020)\nStruktur er en viktig komponent når man planlegger en studie. QALMRI-metoden kan bidra til å sikre en ryddig og god struktur. QALMRI adresserer spørsmål som en ønsker svar på, for så å oppgi hvilke tilnærminger som skal benyttes for å besvare spørsmålet. Videre ser man på sammenhengen mellom metodene som benyttes i studien og koblingen til spørsmålet, eller hypotesten, man har stilt i oppgaven. Til slutt presenteres resultatene og man drar konklusjoner til den aktuelle populasjonen.\nI denne oppgaven studeres fem originalartikler som tar for seg effekten av blokkperiodisering på \\(\\dot{V}O_{2max}\\) (Bent R. Rønnestad, Øfsteng, and Ellefsen 2019), (Breil et al. 2010), (B. R. Rønnestad et al. 2016), (B. R. Rønnestad, Hansen, and Ellefsen 2014), (B. R. Rønnestad et al. 2014). I oppgaven blir det lagt mest vekt på studiedesignene og de statistiske analysemetodene fra de utvalgte studiene, samt en vurdering av styrker og svakheter knyttet til disse.",
+    "text": "3.1 Introduksjon\nStatistisk inferens er en type statistikk som omhandler metoder for å trekke konklusjoner om en populasjon basert på et utvalg. Målet er å generalisere funnene fra utvalget og bruke det til å si noe om hele populasjonen. En viktig del av statistisk inferens er å vurdere usikkerheten i estimatene, typisk ved hjelp av konfidensintervaller og p-verdier (Cremers, Wager, and Yarkoni 2017).\nEffektstørrelser gir en kvantitativ vurdering av hvor betydelig en observert effekt er, og er ikke avhengig av utvalgsstørrelse. Dette er nyttig i forskning, da det hjelper med å forstå de praktiske betydningene av funnene man har gjort. Ved å kombinere statistisk inferens med effektstørrelser kan man bedre vurdere resultatene sine og sette det i en bred kontekst (Cremers, Wager, and Yarkoni 2017).\nCode\nlibrary(tidyverse)\nlibrary(ggtext)\nlibrary(gt)\n\nset.seed(1)\npopulation &lt;- rnorm(1000000, mean = 1.5, sd = 3)\n\n#lager to ulike utvalg der gruppe 1 er n=8 og gruppe 2 n=40\nsamp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n\nsamp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n\nm1 &lt;- lm(y ~ 1, data = samp1)\nm2 &lt;- lm(y ~ 1, data = samp2)\n\nsum1 &lt;- summary(m1) \nsum2 &lt;- summary(m2)\nCode\n# plotter samp 1 og 2 for å illustrere den relative spredningen i utvalget\nsamp1 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"orange\") +\n  geom_vline(xintercept = coef(sum1)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum1)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\", \n       caption = \"Utvalg 1 fra populasjonen (n = 8)\",\n       x = \"\", \n       y = \"\")\n\n\n\n\n\n\n\n\n\nCode\nsamp2 |&gt; \n  ggplot(aes(y, 1)) + geom_point(size = 3, shape = 21, fill = \"red\") + \n  geom_vline(xintercept = coef(sum2)[1], color = \"steelblue\", linewidth = 1.5) +\n  annotate(\"richtext\", \n           x = coef(sum2)[1], \n           y = 0.99, \n           label = \"estimate\", \n           angle = -90) +\n  coord_cartesian(y = c(0.98, 1.02)) +\n  labs(subtitle = \"Illustrasjon av spredning i verdier\",\n       caption = \"Utvalg 2 fra populasjonen (n = 40)\", \n       x = \"\", \n       y = \"\")",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
-    ]
-  },
-  {
-    "objectID": "04-study-design.html#footnotes",
-    "href": "04-study-design.html#footnotes",
-    "title": "4  Assignment 4: Study designs",
-    "section": "",
-    "text": "Avoid using review articles or meta-analyses↩︎",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html",
-    "href": "05-repeated-measurements.html",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "",
-    "text": "5.1 Assignment overview\nIn this assignment you will analyse and report on trial investigating the effect of resistance training volume on lean mass and muscle strength. The data are part of the exscidata package and can be accessed as data(\"strengthvolume\") and data(\"dxadata\"). Read the instructions carefully!",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#assignment-overview",
-    "href": "05-repeated-measurements.html#assignment-overview",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "",
-    "text": "Below you will find a basic outline of the report and example code that we worked on in class.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#introduction",
-    "href": "05-repeated-measurements.html#introduction",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "5.2 Introduction",
-    "text": "5.2 Introduction",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#methods",
-    "href": "05-repeated-measurements.html#methods",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "5.3 Methods",
-    "text": "5.3 Methods\n\n5.3.1 Participants and study overview\n\n\n5.3.2 Muscle strength and hypertrophy\n\n\n5.3.3 Data analysis and statistics",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#results",
-    "href": "05-repeated-measurements.html#results",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "5.4 Results",
-    "text": "5.4 Results\nThe average difference in lean mass changes between sets were 122.8, 95% CI: [8.6, 237], p = 0.036.\n\n## Time points in strength data set\n\nstrengthvolume %&gt;%\n  distinct(exercise)\n\n# A tibble: 6 × 1\n  exercise\n  &lt;chr&gt;   \n1 legpress\n2 legext  \n3 isok.60 \n4 isok.120\n5 isok.240\n6 isom    \n\n## Exploratory plot of strength data \n\nstr &lt;- strengthvolume %&gt;%\n  filter(include == \"incl\") %&gt;%\n  mutate(time = factor(time, levels = c(\"pre\", \"session1\", \n                                        \"week2\", \"week5\", \n                                        \"week9\", \"post\"))) %&gt;%\n  print()\n\n# A tibble: 2,856 × 8\n   participant sex   include time     sets     leg   exercise  load\n   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;fct&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;\n 1 FP13        male  incl    pre      single   R     legpress   115\n 2 FP13        male  incl    pre      multiple L     legpress   115\n 3 FP13        male  incl    pre      single   R     legext      55\n 4 FP13        male  incl    pre      multiple L     legext      55\n 5 FP13        male  incl    session1 single   R     legpress   125\n 6 FP13        male  incl    session1 multiple L     legpress   125\n 7 FP13        male  incl    session1 single   R     legext      55\n 8 FP13        male  incl    session1 multiple L     legext      55\n 9 FP13        male  incl    week2    single   R     legpress   185\n10 FP13        male  incl    week2    multiple L     legpress   175\n# ℹ 2,846 more rows\n\nstr %&gt;%\n  ggplot(aes(time, \n             load, \n             group = paste(participant, sets), \n             color = sets)) + \n  geom_line() + \n  facet_wrap(~ exercise, scales = \"free\")\n\nWarning: Removed 5 rows containing missing values or values outside the scale range\n(`geom_line()`).\n\n\n\n\n\n\n\n\n## How many measurements per participant\n\nstr %&gt;%\n  filter(!is.na(load)) %&gt;%\n  group_by(participant, exercise, sets) %&gt;%\n  summarise(n = n() ) %&gt;%\n  ggplot(aes(n, participant, color = sets)) +\n  geom_point() + \n  facet_wrap(~ exercise) + \n  theme(axis.text.y = element_blank())\n\n`summarise()` has grouped output by 'participant', 'exercise'. You can override\nusing the `.groups` argument.\n\n\n\n\n\n\n\n\n## Use pre and post data \n# Combine pre data prior to data analysis\n# per exercise, leg, participant, and sets\n\nstr %&gt;%\n  mutate(time = if_else(time %in% c(\"pre\", \"session1\"), \"pre\", time)) %&gt;%\n  \n  filter(time %in% c(\"pre\", \"post\")) %&gt;%\n  \n  summarise(load = max(load, na.rm = TRUE), \n            .by = c(participant, \n                    sex, \n                    time, \n                    sets,\n                    exercise,\n                    leg)) %&gt;%\n  \n  print()\n\nWarning: There were 7 warnings in `summarise()`.\nThe first warning was:\nℹ In argument: `load = max(load, na.rm = TRUE)`.\nℹ In group 62: `participant = \"FP6\"`, `sex = \"female\"`, `time = \"post\"`, `sets\n  = \"multiple\"`, `exercise = \"legpress\"`, `leg = \"L\"`.\nCaused by warning in `max()`:\n! no non-missing arguments to max; returning -Inf\nℹ Run `dplyr::last_dplyr_warnings()` to see the 6 remaining warnings.\n\n\n# A tibble: 816 × 7\n   participant sex    time  sets     exercise leg    load\n   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;\n 1 FP13        male   pre   single   legpress R     125  \n 2 FP13        male   pre   multiple legpress L     125  \n 3 FP13        male   pre   single   legext   R      55  \n 4 FP13        male   pre   multiple legext   L      55  \n 5 FP13        male   post  single   legpress R     230  \n 6 FP13        male   post  multiple legpress L     235  \n 7 FP13        male   post  single   legext   R      97.5\n 8 FP13        male   post  multiple legext   L     100  \n 9 FP16        female pre   single   legpress R      95  \n10 FP16        female pre   multiple legpress L      85  \n# ℹ 806 more rows",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#discussion",
-    "href": "05-repeated-measurements.html#discussion",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "5.5 Discussion",
-    "text": "5.5 Discussion",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "05-repeated-measurements.html#conclusion",
-    "href": "05-repeated-measurements.html#conclusion",
-    "title": "5  Assignment 5: Analyzing repeated measures experiments",
-    "section": "5.6 Conclusion",
-    "text": "5.6 Conclusion",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Analyzing repeated measures experiments</span>"
-    ]
-  },
-  {
-    "objectID": "06-vitenskapsteori.html",
-    "href": "06-vitenskapsteori.html",
-    "title": "6  Philosophy of science",
-    "section": "",
-    "text": "See instructions on canvas.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Philosophy of science</span>"
-    ]
-  },
-  {
-    "objectID": "07-laboratory-report.html",
-    "href": "07-laboratory-report.html",
-    "title": "7  Molecular Laboratory report",
-    "section": "",
-    "text": "Select one laboratory assignment and write a detailed report.",
-    "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Molecular Laboratory report</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
     ]
   },
   {
@@ -290,11 +190,11 @@
     ]
   },
   {
-    "objectID": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-over-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
-    "href": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-over-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "objectID": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
+    "href": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
     "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
-    "section": "3.9 Ved å benytte det nye datasettet over: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?",
-    "text": "3.9 Ved å benytte det nye datasettet over: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?\n\n\nCode\nfalsepos_8 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 8) |&gt; \n  nrow()\n  \nfalsepos_40 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 40) |&gt; \n  nrow()\n\n\nVed å repetere studien 1000 ganger, vil vi komme over 41 falsk-positive tester for utvalget med 8, og 62 for utvalget med 40. Totalt antall falsk-positive tester blir 103.",
+    "section": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?",
+    "text": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?\n\n\nCode\npopulation &lt;- rnorm(1000000, mean = 0, sd = 3)\n\n# Create data frames to store the model estimates\nresults_8 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 8)  \n\nresults_40 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 40)\n\nfor(i in 1:1000) {\n  \n  # Draw a sample \n  samp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n  samp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n  # Model the data\n  m1 &lt;- lm(y ~ 1, data = samp1)\n  m2 &lt;- lm(y ~ 1, data = samp2)\n  \n  # Extract values from the models\n  results_8[i, 1] &lt;- coef(summary(m1))[1, 1]\n  results_8[i, 2] &lt;- coef(summary(m1))[1, 2]\n  results_8[i, 3] &lt;- coef(summary(m1))[1, 4]\n\n  results_40[i, 1] &lt;- coef(summary(m2))[1, 1]\n  results_40[i, 2] &lt;- coef(summary(m2))[1, 2]\n  results_40[i, 3] &lt;- coef(summary(m2))[1, 4]\n  \n}\n\n# Save the results in a combined data frame\n\nresults_null &lt;- bind_rows(results_8, results_40)\n\n\n\n\nCode\n#lager histogram for koden over\n\nggplot(data = results_null, aes(pval)) +\n  geom_histogram(binwidth = 0.05, \n                 color = \"black\", fill = \"lightgreen\",) +\nfacet_wrap(~ n) +\n  labs(subtitle = \"Fordelingen av *p*-verdier fra 1000 simuleringer\", \n       caption = \"Hver bar representerer antall simuleringer av en gitt *p*-verdi\", \n       x = \"*p*-verdier\", \n       y = \"Number of simulations\") +\n  theme(axis.title.x = element_markdown()) +\ntheme(plot.subtitle = element_markdown()) +\n  theme(plot.caption = element_markdown())\n\n\n\n\n\n\n\n\n\n\n\nCode\nfalsepos_8 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 8) |&gt; \n  nrow()\n  \nfalsepos_40 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 40) |&gt; \n  nrow()\n\n\nVed å repetere studien 1000 ganger, vil vi komme over 53 falsk-positive tester for utvalget med 8, og 43 for utvalget med 40. Totalt antall falsk-positive tester blir 96.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
     ]
@@ -310,13 +210,13 @@
     ]
   },
   {
-    "objectID": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
-    "href": "03-statistical-inference.html#ved-å-benytte-det-nye-datasettet-hvor-mange-tilfeller-av-falsk-positive-tester-vil-vi-komme-over-ved-å-repetere-studien-mange-ganger",
-    "title": "3  Assignment 3: Drawing inference from statistical models, and statistical power",
-    "section": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?",
-    "text": "3.9 Ved å benytte det nye datasettet: hvor mange tilfeller av “falsk positive”-tester vil vi komme over ved å repetere studien mange ganger?\n\n\nCode\npopulation &lt;- rnorm(1000000, mean = 0, sd = 3)\n\n# Create data frames to store the model estimates\nresults_8 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 8)  \n\nresults_40 &lt;- data.frame(estimate = rep(NA, 1000), \n                      se = rep(NA, 1000), \n                      pval = rep(NA, 1000), \n                      n = 40)\n\nfor(i in 1:1000) {\n  \n  # Draw a sample \n  samp1 &lt;- data.frame(y = sample(population, 8, replace = FALSE))\n  samp2 &lt;- data.frame(y = sample(population, 40, replace = FALSE))\n\n  # Model the data\n  m1 &lt;- lm(y ~ 1, data = samp1)\n  m2 &lt;- lm(y ~ 1, data = samp2)\n  \n  # Extract values from the models\n  results_8[i, 1] &lt;- coef(summary(m1))[1, 1]\n  results_8[i, 2] &lt;- coef(summary(m1))[1, 2]\n  results_8[i, 3] &lt;- coef(summary(m1))[1, 4]\n\n  results_40[i, 1] &lt;- coef(summary(m2))[1, 1]\n  results_40[i, 2] &lt;- coef(summary(m2))[1, 2]\n  results_40[i, 3] &lt;- coef(summary(m2))[1, 4]\n  \n}\n\n# Save the results in a combined data frame\n\nresults_null &lt;- bind_rows(results_8, results_40)\n\n\n\n\nCode\n#lager histogram for koden over\n\nggplot(data = results_null, aes(pval)) +\n  geom_histogram(binwidth = 0.05, \n                 color = \"black\", fill = \"lightgreen\",) +\nfacet_wrap(~ n) +\n  labs(subtitle = \"Fordelingen av *p*-verdier fra 1000 simuleringer\", \n       caption = \"Hver bar representerer antall simuleringer av en gitt *p*-verdi\", \n       x = \"*p*-verdier\", \n       y = \"Number of simulations\") +\n  theme(axis.title.x = element_markdown()) +\ntheme(plot.subtitle = element_markdown()) +\n  theme(plot.caption = element_markdown())\n\n\n\n\n\n\n\n\n\n\n\nCode\nfalsepos_8 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 8) |&gt; \n  nrow()\n  \nfalsepos_40 &lt;- results_null |&gt; \n  filter(results_null$pval &lt; 0.05, n == 40) |&gt; \n  nrow()\n\n\nVed å repetere studien 1000 ganger, vil vi komme over 53 falsk-positive tester for utvalget med 8, og 43 for utvalget med 40. Totalt antall falsk-positive tester blir 96.",
+    "objectID": "04-study-design.html",
+    "href": "04-study-design.html",
+    "title": "4  Assignment 4: Study designs",
+    "section": "",
+    "text": "4.1 Introduksjon\nStudiedesign er en viktig komponent i forskning da det vil være avgjørende for hvordan data samles inn, tolkes og analyseres. Et godt studiedesign vil ofte resultere i mer pålitelige resultater og større grad av reproduserbarhet. Studier som ser seg mer anvendbare i praksis er å foretrekke. (Zabor, Kaizer, and Hobbs 2020)\nStruktur er en viktig komponent når man planlegger en studie. QALMRI-metoden kan bidra til å sikre en ryddig og god struktur. QALMRI adresserer spørsmål som en ønsker svar på, for så å oppgi hvilke tilnærminger som skal benyttes for å besvare spørsmålet. Videre ser man på sammenhengen mellom metodene som benyttes i studien og koblingen til spørsmålet, eller hypotesten, man har stilt i oppgaven. Til slutt presenteres resultatene og man drar konklusjoner til den aktuelle populasjonen.\nI denne oppgaven studeres fem originalartikler som tar for seg effekten av blokkperiodisering på \\(\\dot{V}O_{2max}\\) (Bent R. Rønnestad, Øfsteng, and Ellefsen 2019), (Breil et al. 2010), (B. R. Rønnestad et al. 2016), (B. R. Rønnestad, Hansen, and Ellefsen 2014), (B. R. Rønnestad et al. 2014). I oppgaven blir det lagt mest vekt på studiedesignene og de statistiske analysemetodene fra de utvalgte studiene, samt en vurdering av styrker og svakheter knyttet til disse.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Assignment 3: Drawing inference from statistical models, and statistical power</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
     ]
   },
   {
@@ -334,7 +234,7 @@
     "href": "04-study-design.html#resultater",
     "title": "4  Assignment 4: Study designs",
     "section": "4.3 Resultater",
-    "text": "4.3 Resultater\nEtter å ha sammenliknet kontrollgruppen med blokkperiodiseringsgruppen post intervensjon, kom samtlige studier frem til at blokkperiodisering gav signinfikant økning i prestasjonsparametere. Endringen kan ses i tabell 1.\n\n\n\nStudie\nRelativ endring i \\(\\dot{V}O_{2max}\\)\np-verdier\nEffektstørrelse\n\n\n\n\n1\n\\(5.1 \\pm 3.3\\%\\)\n=0.05\n1.04\n\n\n2\n\\(5.1 \\pm na\\)\n&lt;0.01\nna\n\n\n3\n\\(2.0 \\pm 2.5\\%\\)\n&lt;0.05\n0.76\n\n\n4\n\\(4.6 \\pm 3.7\\%\\) (relative)\n&lt;0.05\n1.34\n\n\n5\n\\(8.8 \\pm 5.9\\%\\)\n&lt;0.05\n1.08\n\n\n\nTabell 1: Alle verdier er fra BP-gruppen.\nP-verdier &lt; 0.05 i samtlige studier. Den gjennomsnittlige effekten blir målt til å ligge en plass mellom 0.76 og 1.34 i 4/5 studier. En av studiene gjorde i tillegg beregninger på kun de mannlige utøverne i sin studie og fant mer signifikante resultater. Denne studien presenterte ingen effektstørrelser.",
+    "text": "4.3 Resultater\nEtter å ha sammenliknet kontrollgruppen med blokkperiodiseringsgruppen post intervensjon, kom samtlige studier frem til at blokkperiodisering gav signinfikant økning i prestasjonsparametere. Endringen kan ses i tabell 1.\nP-verdier &lt; 0.05 i samtlige studier. Den gjennomsnittlige effekten blir målt til å ligge en plass mellom 0.76 og 1.34 i 4/5 studier. En av studiene gjorde i tillegg beregninger på kun de mannlige utøverne i sin studie og fant mer signifikante resultater. Denne studien presenterte ingen effektstørrelser.\n\n\n\nStudie\nRelativ endring i \\(\\dot{V}O_{2max}\\)\np-verdier\nEffektstørrelse\n\n\n\n\n1\n\\(5.1 \\pm 3.3\\%\\)\n=0.05\n1.04\n\n\n2\n\\(5.1 \\pm na\\)\n&lt;0.01\nna\n\n\n3\n\\(2.0 \\pm 2.5\\%\\)\n&lt;0.05\n0.76\n\n\n4\n\\(4.6 \\pm 3.7\\%\\) (relative)\n&lt;0.05\n1.34\n\n\n5\n\\(8.8 \\pm 5.9\\%\\)\n&lt;0.05\n1.08\n\n\n\nTabell 1: Alle verdier er fra BP-gruppen.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
     ]
@@ -367,6 +267,156 @@
     "text": "4.6 Referanser\n\n\n\n\nBreil, Fabio A, Simone N Weber, Stefan Koller, Hans Hoppeler, and Michael Vogt. 2010. “Block Training Periodization in Alpine Skiing: Effects of 11-Day HIT on VO2max and Performance.” Eur. J. Appl. Physiol. 109 (6): 1077–86.\n\n\nHopkins, William G, Stephen W Marshall, Alan M Batterham, and Juri Hanin. 2009. “Progressive Statistics for Studies in Sports Medicine and Exercise Science.” Med. Sci. Sports Exerc. 41 (1): 3–13.\n\n\nMishra, Prabhaker, Uttam Singh, Chandra M Pandey, Priyadarshni Mishra, and Gaurav Pandey. 2019. “Application of Student’s t-Test, Analysis of Variance, and Covariance.” Ann. Card. Anaesth. 22 (4): 407–11.\n\n\nRønnestad, B R, S Ellefsen, H Nygaard, E E Zacharoff, O Vikmoen, J Hansen, and J Hallén. 2014. “Effects of 12 Weeks of Block Periodization on Performance and Performance Indices in Well-Trained Cyclists.” Scand. J. Med. Sci. Sports 24 (2): 327–35.\n\n\nRønnestad, B R, J Hansen, and S Ellefsen. 2014. “Block Periodization of High-Intensity Aerobic Intervals Provides Superior Training Effects in Trained Cyclists.” Scand. J. Med. Sci. Sports 24 (1): 34–42.\n\n\nRønnestad, B R, J Hansen, V Thyli, T A Bakken, and Ø Sandbakk. 2016. “5-Week Block Periodization Increases Aerobic Power in Elite Cross-Country Skiers.” Scand. J. Med. Sci. Sports 26 (2): 140–46.\n\n\nRønnestad, Bent R, Sjur J Øfsteng, and Stian Ellefsen. 2019. “Block Periodization of Strength and Endurance Training Is Superior to Traditional Periodization in Ice Hockey Players.” Scand. J. Med. Sci. Sports 29 (2): 180–88.\n\n\nZabor, Emily C, Alexander M Kaizer, and Brian P Hobbs. 2020. “Randomized Controlled Trials.” Chest 158 (1S): S79–87.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Assignment 4: Study designs</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html",
+    "href": "05-repeated-measurements.html",
+    "title": "5  Assignment 5: Repeated measuerements",
+    "section": "",
+    "text": "5.1 Introduksjon\nI dagens samfunn er det i stor grad enighet om at styrketrening er viktig for helse. Dagens befolkning er mindre aktive, samtidig som man blir eldre og eldre. Etter fylte 50 år, viser studier at man taper et sted mellom 5 og 10 % muskelmasse årlig, det tilsvarer ~ 0.4 kg (Westcott 2012). Tilstander som aldersrelatert muskeltap, diabetes type II, hjertesykdom, redusert beinmasse og økende grad av fettmasse ses hyppigere og hyppigere. Det en typisk ser ved sykdom er høy grad av inaktivitet som igjen leder til tap av muskelmasse, redusert metabolsk respons og igjen økt fettmasse. Aerob aktivitet blir i stor grad anbefalt for å motvirke utvikling av disse tilstandene, men bør ikke styrketrening stå på lik linje som aerob trening? (Westcott 2012)\nStyrketrening kan defineres som trening med mål om å bli sterkere, forebygge skader, fremme prestasjon eller trening med mål om å øke muskelmasse (Stone, Stone, and Sands 2007). Noen definerer volum som den viktigste faktoren for å se endringen på cellenivå, mens andre mener at høyintesiv trening kan gi samme effekten (Santana, Castro, and Cavaglieri 2021). Antall sett, antall repetisjoner og motstanden benyttes for definere volumet av trening, mens intensiteten på treningen ofte defineres som en prosentandel av én maksimal repetisjon (1RM). For mange er tidsklemma en problem i hverdagen og flere er trolig interessert i å vite hvor lite trening som skal til for å oppnå ønsket stimuli av treningen man gjennomfører. (Santana, Castro, and Cavaglieri 2021)\nI denne studien ønsker vi å se nærmere på hvorvidt volumet av styrketrening er av betydning for økning av muskelmasse og muskelstyrke.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Repeated measuerements</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#metode",
+    "href": "05-repeated-measurements.html#metode",
+    "title": "5  Assignment 5: Repeated measuerements",
+    "section": "5.2 Metode",
+    "text": "5.2 Metode\n\n5.2.1 Utvalg og studieoversikt\nI studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. Table 5.1 viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett.\n\n\n\n\nTable 5.1: Deltakerkarakteristikk\n\n\n\n\nDeltakerkarakteristikk\n\n\n\nAlder (År)\nHøyde (cm)\nVekt (kg)\n\n\n\n\nKvinne n = 18\n22 (1.3)\n167.7 (6.9)\n64.4 (10.4)\n\n\nMann n = 16\n23.6 (4.1)\n182.9 (5.9)\n75.8 (10.7)\n\n\n\nAlle verdier er gj.snitt og st.avvik.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHenvise til tabellen: deltakerkar kan ses i Table 5.1\n\n\n5.2.2 Spesifikke beskrivelser av testmetode\nIntervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).\n\n\n5.2.3 Styrketreningsprotokoll\nTreningsøktene startet med en standardisert oppvarming som besto av (i) ergometer-sykling i 5 minutter (RPE 12–14), (ii) øvelser med kroppsvekt med 10 repetisjoner av push-ups, sit-ups, ryggekstensjon og knebøy, og til slutt (iii) et sett med 10 repetisjoner på ~ 50 % av 1RM for hver styrkeøvelse i intervensjonen.\nBeinøvelsene ble gjennomført i følgende rekkefølge: ettbeins beinpress, leg curl og kneekstensjon. Single set’ene ble gjennomført mellom andre og tredje sett for multiple set’ene. Etter beinøvelsene ble det gjennomført to sett med benkpress, nedtrekk og enten sittende roing eller skulderpress (to sistnevnte øvelser alternerte). Treningsintensiteten økte gjennom intervensjonen. Det ble trent 10RM første to ukene, 8RM de neste tre ukene og 7RM de siste syv ukene. For å gjøre treningen mer gjennomførbar for deltakerne, ble noen av øktene gjennomført uten tilsyn. Deltakerne ble da bedt om å føre detaljert logg. Fra den niende treningsøkten, ble én av de tre ukentlige øktene gjennomført på 90 % av intensitet, mens tiltenkt volum skulle opprettholdes. Det skulle være minimum 48 timer mellom hver fullintensitetsøkt og minimum 24 timer mellom submaksimale økter (90 %). For å sikre restitusjon, ble hver deltaker tildelt en drikk som innehold 0.15 \\(\\frac{g}{kg}\\) protein, 11.2 \\(\\frac{g}{kg}\\) karbohydrat og 0.5 \\(\\frac{g}{kg}\\) fett.\n\n\n5.2.4 Muskulær Styrkevurdering\nMuskelstyrke ble vurdert ved hjelp av en dynamometer for å måle isokinetisk og isometrisk styrke. Deltakerne ble kjent med testprosedyrer og fikk flere forsøk på hvert nivå for å sikre nøyaktighet. En repetisjon maksimum (1RM) ble testet for unilateral beinpress og kneekstension, der testene ble forberedt med spesifikke oppvarmingssett.\n\n\n5.2.5 Muskel Tverrsnittsområde og Kroppssammensetning\nTverrsnittsområdet (CSA) av musklene ble målt ved hjelp av MRI før og etter intervensjonen, mens kroppssammensetning ble vurdert med dual-energy X-ray absorptiometri (DXA). Deltakerne ble instruert om å faste og unngå intensiv trening før målingene.\n\n\n5.2.6 Dataanalyse og Statistikk\nUtvalgsstørrelsesberegninger indikerte at 40 deltakere var tilstrekkelig for å oppdage meningsfulle forskjeller. Lineære blandede modeller (LMM) ble benyttet for å analysere endringer i muskelhypertrofi og styrke, med relevante faktorer som kjønn inkludert.\nStudien undersøkte også prediktorer for fordeler ved å bruke flere sett kontra ett sett, ved hjelp av logistisk regresjon. Nøkkelprediktorer inkluderte baseline styrke, muskelmasse, og molekylære responser på trening. Alle analyser ble utført i R, med signifikansnivå satt til α = 0,05.\nDenne detaljerte metoden hadde som mål å avdekke effekten av forskjellige motstandstreningsvolumer på muskelstyrke og hypertrofi, samt å undersøke de underliggende molekylære mekanismene.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Repeated measuerements</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#resultater",
+    "href": "05-repeated-measurements.html#resultater",
+    "title": "5  Assignment 5: Repeated measuerements",
+    "section": "5.3 Resultater",
+    "text": "5.3 Resultater\n\n5.3.1 Høyere treningsvolum leder til større grad av hypertrofi i underekstremiteter sammenliknet med lavere treningsvolum\nEtter den 12 uker lange styrketreningsintervensjonen er den prosentvise økningen i mager muskelmasse for benet som trente tre sett 3.25% og for det som trente ett sett 1.9%. Den gjennomsnittlige forskjellen i hypertrofi i underex mellom settene var 122.8 g (95% CI: [8.6, 237.0], p-value = 0.036, t33 = 2.19).\n\n\n\n\n\n\n\n\nFigure 5.1\n\n\n\n\n\nReferere til Figure 5.1.\n\n\n5.3.2 Høyere treningsvolum leder til større kraftutvikling i underekstremiteter sammenliknet med lavere treningsvolum\nDen gjennomsnittlige forskjellen i muskelstyrke i underex mellom sett var 7.8 (95% CI: [1.1, 14.6], p-value = 0.025, t30 = 2.36).",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Repeated measuerements</span>"
+    ]
+  },
+  {
+    "objectID": "05-repeated-measurements.html#diskusjon",
+    "href": "05-repeated-measurements.html#diskusjon",
+    "title": "5  Assignment 5: Repeated measuerements",
+    "section": "5.4 Diskusjon",
+    "text": "5.4 Diskusjon\nKan si noe om %-vis gain av muskelmasse mtp det som står i intro (at man taper 5-10 % muskelmasse i året etter fylte 50, altså ~ 0.4 kg/år)\n\n\n\n\nSantana, Davi Alves de, Alex Castro, and Cláudia Regina Cavaglieri. 2021. “Strength Training Volume to Increase Muscle Mass Responsiveness in Older Individuals: Weekly Sets Based Approach.” Front. Physiol. 12 (September): 759677.\n\n\nStone, Michael H, Meg Stone, and William A Sands. 2007. Principles and Practice of Resistance Training. Human Kinetics.\n\n\nWestcott, Wayne L. 2012. “Resistance Training Is Medicine: Effects of Strength Training on Health.” Curr. Sports Med. Rep. 11 (4): 209–16.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Repeated measuerements</span>"
+    ]
+  },
+  {
+    "objectID": "06-vitenskapsteori.html",
+    "href": "06-vitenskapsteori.html",
+    "title": "6  Philosophy of science",
+    "section": "",
+    "text": "See instructions on canvas.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Philosophy of science</span>"
+    ]
+  },
+  {
+    "objectID": "07-laboratory-report.html",
+    "href": "07-laboratory-report.html",
+    "title": "7  Molecular Laboratory report",
+    "section": "",
+    "text": "Select one laboratory assignment and write a detailed report.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Molecular Laboratory report</span>"
+    ]
+  },
+  {
+    "objectID": "05-rep-meas.html",
+    "href": "05-rep-meas.html",
+    "title": "5  Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke",
+    "section": "",
+    "text": "1 Introduksjon\nI dagens samfunn er det i stor grad enighet om at styrketrening er viktig for god helse. Befolkningen trender mot en mindre aktiv livsstil, samtidig som man blir eldre og eldre. Etter fylte 50 år, viser studier at man taper et sted mellom 5 og 10 % muskelmasse årlig, som tilsvarer ~ 0.4 kg (Westcott 2012). Tilstander som aldersrelatert muskeltap, diabetes type II, hjertesykdom, redusert beinmasse og økende grad av fettmasse ses hyppigere og hyppigere. Ved sykdom ser en høy grad av inaktivitet som igjen leder til tap av muskelmasse, redusert metabolsk respons, økt fettmasse og andre liknende tilstander. Aerob aktivitet er for tiden veldig populært blir i stor grad anbefalt for å motvirke utvikling av disse tilstandene, men hva gjelder så styrketrening? (Westcott 2012)\nStyrketrening kan defineres som trening med mål om å bli sterkere, forebygge skader, fremme prestasjon eller trening med mål om å øke muskelmasse (Stone, Stone, and Sands 2007). Noen definerer volum som den viktigste faktoren for å se endringen på cellenivå, mens andre mener at høyintesiv trening kan gi samme effekten (Santana, Castro, and Cavaglieri 2021). Radaelli et al. (2024) ser at lavintensiv trening også kan ha god effekt for å øke muskelmasse og styrke i underekstremiteter blant eldre individer (\\(\\geq\\) 60 år) (Radaelli et al. 2024). Antall sett, antall repetisjoner og motstanden det trenes på benyttes for definere volumet av trening, mens intensiteten på treningen ofte defineres som en prosentandel av én maksimal repetisjon (1RM). For mange er tidsklemma en problem i hverdagen og flere er trolig interessert i å vite hvor lite trening som skal til for å oppnå ønsket stimuli av treningen man gjennomfører. (Santana, Castro, and Cavaglieri 2021)\nI denne studien er det ønskelig å se nærmere på hvorvidt volumet av styrketrening er av betydning for økning av muskelmasse og muskelstyrke.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke</span>"
+    ]
+  },
+  {
+    "objectID": "05-rep-meas.html#metode",
+    "href": "05-rep-meas.html#metode",
+    "title": "5  Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke",
+    "section": "2 Metode",
+    "text": "2 Metode\n\n2.1 Utvalg og studieoversikt\nI studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. Table 5.1 viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive gjennomsnittlige karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett.\n\n\n\n\nTabell 1: Deltakerkarakteristikk\n\n\n\n\n\n\n\nAlder (År)\nHøyde (cm)\nVekt (kg)\n\n\n\n\nKvinne n = 18\n22 (1.3)\n167.7 (6.9)\n64.4 (10.4)\n\n\nMann n = 16\n23.6 (4.1)\n182.9 (5.9)\n75.8 (10.7)\n\n\n\nAlle verdier er gjennomsnitt og standardavvik.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.2 Spesifikke beskrivelser av testmetode\nIntervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).\n\n\n2.3 Styrketreningsprotokoll\nTreningsøktene startet med en standardisert oppvarming som besto av (i) ergometer-sykling i 5 minutter (RPE 12–14), (ii) øvelser med kroppsvekt med 10 repetisjoner av push-ups, sit-ups, ryggekstensjon og knebøy, og til slutt (iii) et sett med 10 repetisjoner på ~ 50 % av 1RM for hver styrkeøvelse i intervensjonen.\nBeinøvelsene ble gjennomført i følgende rekkefølge: ettbeins beinpress, leg curl og kneekstensjon. Single settene ble gjennomført mellom andre og tredje sett for multiple settene. Treningsintensiteten økte gjennom intervensjonen. Det ble trent 10RM første to ukene, 8RM de neste tre ukene og 7RM de siste syv ukene. For å gjøre treningen mer gjennomførbar for deltakerne, ble noen av øktene gjennomført uten tilsyn. Deltakerne ble da bedt om å føre detaljert logg. Fra den niende treningsøkten, ble én av de tre ukentlige øktene gjennomført på 90 % av intensitet, mens tiltenkt volum skulle opprettholdes. Det skulle være minimum 48 timer mellom hver fullintensitetsøkt og minimum 24 timer mellom submaksimale økter (90 %). For å sikre restitusjon, ble hver deltaker tildelt en drikk som innehold 0.15 \\(\\frac{g}{kg}\\) protein, 11.2 \\(\\frac{g}{kg}\\) karbohydrat og 0.5 \\(\\frac{g}{kg}\\) fett.\n\n\n2.4 Muskulær Styrkevurdering\nMuskelstyrke ble vurdert ved hjelp av en dynamometer for å måle isokinetisk og isometrisk styrke. Deltakerne ble kjent med testprosedyrer og fikk flere forsøk på hvert nivå for å sikre nøyaktighet. En repetisjon maksimum (1RM) ble testet for unilateral beinpress og kneekstension, der testene ble forberedt med spesifikke oppvarmingssett.\n\n\n2.5 Måling av Kroppssammensetning og Mager Muskelmasse\nKroppssammensetning ble vurdert med dual-energy X-ray absorptiometri (DXA). Deltakerne ble instruert om å faste og unngå intensiv trening før målingene.\n\n\n2.6 Dataanalyse og Statistikk\nUtvalgsstørrelsesberegninger indikerte at 40 deltakere var tilstrekkelig for å oppdage meningsfulle forskjeller. Lineære blandede modeller (LMM) ble benyttet for å analysere endringer i muskelhypertrofi og styrke. Alle analyser ble utført i R, med signifikansnivå satt til α = 0,05.\nDe statistsike analysene hadde som mål å avdekke effekten av forskjellige motstandstreningsvolumer på muskelstyrke og hypertrofi.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke</span>"
+    ]
+  },
+  {
+    "objectID": "05-rep-meas.html#resultater",
+    "href": "05-rep-meas.html#resultater",
+    "title": "5  Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke",
+    "section": "3 Resultater",
+    "text": "3 Resultater\n\n3.1 Treningsvolums effekt på mager muskelmasse i underekstremitetene\nEtter den 12 uker lange styrketreningsintervensjonen er den prosentvise økningen i mager muskelmasse for benet som trente tre sett 3.25% og for det som trente ett sett 1.9%. Den gjennomsnittlige forskjellen i mager muskelmasse i beina mellom de to treningsvolumene (ett sett vs. tre sett) var 122.8 g (95% CI: [8.6, 237.0], p-value = 0.036, t33 = 2.19).\nFigure 5.1 viser endringen i mager muskelmasse målt i gram for de ulike deltakerenes bein. Linjen som er trukket mellom punkt viser hver deltakers resultat og gir et inntrykk av forskjellen mellom effekten av treningsvolum på muskelmasse. Tre sett virker av figuren å ha større effekt for å øke muskelmasse, sammenliknet med lavere treningsvolum.\n\n\n\n\n\n\n\n\nFigur 1: Endring i mager muskelmasse fra pre- til post-dxamåling (målt i gram)\n\n\n\n\n\n\n\n3.2 Treningsvolums effekt på kraftutvikling i underekstremitetene\nDen gjennomsnittlige prosentvise økningen i ytelsesvekt ved 1RM (målt i kg) for henholdsvis tre og ett sett var 36.89 og 34.15. Den gjennomsnittlige forskjellen i muskelstyrke mellom beina ved de ulike treningsvolumene (ett sett vs. tre sett) var 7.8 (95% CI: [1.1, 14.6], p-value = 0.025, t30 = 2.36).\nFigure 5.2 viser endringen i den maksimale ytelsesvekten deltakerne evnet å presse ved 1RM for henholdsvis de som trente ett og tre sett. Av figuren ser man en tendens til at høyere treningsvolum gir større evne til å yte mer på øvelsen beinpress.\n\n\n\n\n\n\n\n\nFigur 2: Endring i ytelsesvekt fra pre- til post-test for beinpress (målt i kg)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke</span>"
+    ]
+  },
+  {
+    "objectID": "05-rep-meas.html#diskusjon",
+    "href": "05-rep-meas.html#diskusjon",
+    "title": "5  Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke",
+    "section": "4 Diskusjon",
+    "text": "4 Diskusjon\nI tråd med tidligere forskning, som har undersøkt effekten av treningsvolum på muskelmasse og styrke (Stone, Stone, and Sands 2007), (Santana, Castro, and Cavaglieri 2021), viser denne studien at høyere volum (tre sett) har en tendens til å føre til større muskelvekst og styrkeøkning enn lavere volum (ett sett). Dette styrker ideen om at volum kan være en viktig faktor for å oppnå optimal muskelhypertrofi og styrkeutvikling.\nI en større kontekst, spesielt i forhold til aldersrelatert muskeltap, er det viktig å påpeke at forskning viser at personer over 50 år mister 5–10 % av muskelmassen årlig (Westcott 2012). Studien antyder at styrketrening kan være et effektivt tiltak for å motvirke eller bremse dette tapet av muskelmasse. Dette er særlig relevant for eldre voksne, og andre individer, som er lite aktive eller har begynt å trene styrke for første gang.\nStudien er dog gjennomført på yngre individer, som tidligere har drevet med idrett (se Table 5.1). Det kan av den grunn være misvisende å trekke paralleller til en populasjon med andre forutsetninger. På en annen side hadde deltakerne i studien trent lite til ingen styrke det siste året. Av den grunn kan en anta at treningseffekten en ser vil være tilstede for andre individer med tilsvarende treningsbakgrunn, uavhengig av alder.\nI denne studien med unge utøvere så en frafall underveis i intervensjonen. En kan anta at dette skyldes at treningsmengden blir for høy i forhold til hva kroppen er vant til, noe som kan føre til skader eller andre utfordringer. Dersom en står ovenfor ulike helseutfordringer, kan det være utfordrende å utføre flere sett per øvelse, og derfor kan den praktiske anvendelsen av tre sett være utfordrende. I lys av dette kan det være relevant å vurdere om ett sett også gir tilstrekkelig stimuli for muskelforbedring i populasjoner med begrensede ressurser.\nIntensiteten (70–90 % 1RM) brukt i denne studien er i tråd med anbefalingene for både muskelstyrke og hypertrofi (Santana, Castro, and Cavaglieri 2021). Imidlertid kunne det vært interessant å undersøke om lavere intensitet på treningen kombinert med høyere volum kunne ha hatt en like god effekt på muskelmasseøkning for denne gruppen.\nEn langtidsoppfølging av deltakerne etter at treningsintervensjonen er avsluttet, kan gi mer informasjon om hvordan treningsvolum påvirker vedlikehold av muskelmasse og styrke i lengden. Hvordan deltakerne vedlikeholder gevinster over tid kan være viktig for å vurdere praktisk anvendbarhet av treningsvolumet som en strategi for å bevare helsen.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#metode---gjennomføring-av-dotvo_2max-test",
+    "href": "01-reliabilitet.html#metode---gjennomføring-av-dotvo_2max-test",
+    "title": "1  Assignment 1: Reliabilitet",
+    "section": "1.2 Metode - gjennomføring av \\(\\dot{V}O_{2max}\\) test",
+    "text": "1.2 Metode - gjennomføring av \\(\\dot{V}O_{2max}\\) test\n\n1.2.1 Forberedelse av testdeltager\nTesten som skal gjennomføres er en \\(\\dot{V}O_{2max}\\)-test, der testdeltakeren starter på en forhåndsbestemt wattverdi (motstand). Denne wattverdien økes gradvis hvert minutt, avhengig av den valgte protokollen, og testdeltakeren sykler til en ikke lenger klarer å fortsette. Testen avsluttes dersom deltakerens tråkkfrekvens synker under 60 rpm (rotasjoner per minutt). Under testen skal deltaker forbli sittende på sykkelen.\nTestdeltakeren vil få informasjon om hvor lenge de har syklet underveis i testen. Derimot vil de ikke ha tilgang til annen informasjon som puls, \\(\\dot{V}O_{2}\\) eller lignende data underveis. Testlederen vil informere om hvor lang tid det er igjen til neste wattøkning og hvilken watt testdeltakeren sykler på for øyeblikket.\nTestlederen vil mot slutten av testen bidra til å pushe testdeltakeren for å få ut det siste av deres kapasitet. Hvordan denne “pushingen” gjennomføres, kan variere mellom testledere, men det er viktig at tilnærmingen til hver deltaker er så konsekvent som mulig. Borg-skalaen (6-20) vil benyttes for å vurdere utmattelsen hos testdeltakeren. Ved testslutt vil deltaker bli bedt om å gi et tall på skalaen, der 6 tilsvarer “ingen anstrengelse” og 20 “maksimal anstrengelse”.\nEtt minutt etter testslutt tas en laktatprøve fra testdeltakeren for å estimere maksimal laktatverdi (\\(La_{max}\\)). Etter at prøven er tatt, noterer testlederen ned hvor lenge testdeltakeren har syklet, og henter deretter ut relevant data fra testen via en rapport fra Vyntus-systemet.\n\n\n1.2.2 Standardisering av test\nTestdeltakeren skal spise sitt siste store måltid senest 2 timer før teststart. Det er tillatt å innta en mindre karbohydratkilde (eks: banan, energibar, gel) senest 30 minutter før teststart. Koffeininntak skal gjøres som normalt og testene gjennomføres på samme tidspunkt på dagen så godt det lar seg gjøre. Deltakeren anbefales å forsøke å opprettholde sin vanlige døgnrytme gjennom testperioden. For å forberede kroppen på testen, er det viktig at deltakerne ikke gjennomfører hard trening på underekstremitetene dagen før testen.\nOppvarmingen før testen ble satt til 5 minutter, hvor deltaker sykler på økende intensitet i intervaller på 2-2-1 minutt. Eksempelvis 2 minutter på 150W, 2 minutter på 175W og 1 minutt på 220W.\nTestprotokollen er den samme for alle tester. Et eksempel på testprotokolle var start på 200W med en økning på 20W hvert minutt til utmattelse. Individuelle tilpasning mtp belastning ble gjort for hver deltaker, både ved oppvarming og testprotokoll.\n\n\n1.2.3 Intern validering\nBåde tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne, and Martin 2015). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.\nSelv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne, and Martin 2015).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#metode",
+    "href": "01-reliabilitet.html#metode",
+    "title": "1  Assignment 1: Reliabilitet",
+    "section": "1.2 Metode",
+    "text": "1.2 Metode\n\n1.2.1 Gjennomføring av \\(\\dot{V}O_{2max}\\) test\nTesten som skal gjennomføres er en \\(\\dot{V}O_{2max}\\)-test, der testdeltakeren starter på en forhåndsbestemt wattverdi (motstand). Denne wattverdien økes gradvis hvert minutt, avhengig av den valgte protokollen, og testdeltakeren sykler til en ikke lenger klarer å fortsette. Testen avsluttes dersom deltakerens tråkkfrekvens synker under 60 rpm (rotasjoner per minutt). Under testen skal deltaker forbli sittende på sykkelen.\nTestdeltakeren vil få informasjon om hvor lenge de har syklet underveis i testen. Derimot vil de ikke ha tilgang til annen informasjon som puls, \\(\\dot{V}O_{2}\\) eller lignende data underveis. Testlederen vil informere om hvor lang tid det er igjen til neste wattøkning og hvilken watt testdeltakeren sykler på for øyeblikket.\nTestlederen vil mot slutten av testen bidra til å pushe testdeltakeren for å få ut det siste av deres kapasitet. Hvordan denne “pushingen” gjennomføres, kan variere mellom testledere, men det er viktig at tilnærmingen til hver deltaker er så konsekvent som mulig. Borg-skalaen (6-20) vil benyttes for å vurdere utmattelsen hos testdeltakeren. Ved testslutt vil deltaker bli bedt om å gi et tall på skalaen, der 6 tilsvarer “ingen anstrengelse” og 20 “maksimal anstrengelse”.\nEtt minutt etter testslutt tas en laktatprøve fra testdeltakeren for å estimere maksimal laktatverdi (\\(La_{max}\\)). Etter at prøven er tatt, noterer testlederen ned hvor lenge testdeltakeren har syklet, og henter deretter ut relevant data fra testen via en rapport fra Vyntus-systemet.\n\n\n1.2.2 Standardisering\nTestdeltakeren skal spise sitt siste store måltid senest 2 timer før teststart. Det er tillatt å innta en mindre karbohydratkilde (eks: banan, energibar, gel) senest 30 minutter før teststart. Koffeininntak skal gjøres som normalt og testene gjennomføres på samme tidspunkt på dagen så godt det lar seg gjøre. Deltakeren anbefales å forsøke å opprettholde sin vanlige døgnrytme gjennom testperioden. For å forberede kroppen på testen, er det viktig at deltakerne ikke gjennomfører hard trening på underekstremitetene dagen før testen.\nOppvarmingen før testen ble satt til 5 minutter, hvor deltaker sykler på økende intensitet i intervaller på 2-2-1 minutt. Eksempelvis 2 minutter på 150W, 2 minutter på 175W og 1 minutt på 220W.\nTestprotokollen er den samme for alle tester. Et eksempel på testprotokolle var start på 200W med en økning på 20W hvert minutt til utmattelse. Individuelle tilpasning mtp belastning ble gjort for hver deltaker, både ved oppvarming og testprotokoll.\n\n\n1.2.3 Intern validering\nBåde tekniske og biologiske faktorer kan potensielt påvirke resultatene og true den interne validiteten av testen (Halperin, Pyne, and Martin 2015). Ved å beskrive og etablere testprosedyre samt standardisere testen, ønsker vi å skape rammer som sikrer at vi kontrollerer for mulige konfunderende faktorer som kan påvirke testprestasjon. Dette vil bidra til å redusere variasjoner og sikre at resultatene reflekterer faktiske prestasjoner, snarere enn påvirkninger fra ytre faktorer.\nSelv om vi har jobbet for å sikre god intern validitet, er det faktorer som vil kunne påvirke resultatene grunnet individuelle forskjeller i måten å opptre som testleder, bruk av musikk, samt humør og mental status til testdeltager (Halperin, Pyne, and Martin 2015).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#resultater",
+    "href": "01-reliabilitet.html#resultater",
+    "title": "1  Assignment 1: Reliabilitet",
+    "section": "1.3 Resultater",
+    "text": "1.3 Resultater\n\n\n\n\n\n\n\n\nFigure 1.1: Watten testdeltaker holdt de siste 30 sek av testen ved de ulike tidspunktene\n\n\n\n\n\n\n\n\nGj.snitt og st.avvik for watt-maks ved\n\n\nTidspunkt\nWatt-maks\n\n\n\n\nt1\n332 (62)\n\n\nt2\n331 (66.6)\n\n\nt3\n316 (84.7)\n\n\nt4\n294 (88.8)\n\n\n\nWatt-maks verdier er gj.snitt og st.avvik.\n\n\n\n\n\n\n\n\n\n\n\n\n\nDen gjennomsnittlige watt-verdien som testdeltakerne holdt de siste 30 sekundene av \\(\\dot{V}O_{2max}\\)-testen var 331.1 (±12.6) og den typiske feilen ble målt til 8.9. Ifølge Hopkins (2000) er den typisk feilen, den gjennomsnittlige variasjonen ved en test. Den typiske feilen gir en indikasjon på den forventede variasjonen ved en retest(Hopkins 2000). I dette tilfellet kan en forvente en variasjon på 2.69 % ved en eventuell re-test.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
+    ]
+  },
+  {
+    "objectID": "01-reliabilitet.html#referanser",
+    "href": "01-reliabilitet.html#referanser",
+    "title": "1  Assignment 1: Reliabilitet",
+    "section": "1.4 Referanser",
+    "text": "1.4 Referanser\n\n\n\n\nHalperin, Israel, David B Pyne, and David T Martin. 2015. “Threats to Internal Validity in Exercise Science: A Review of Overlooked Confounding Variables.” Int. J. Sports Physiol. Perform. 10 (7): 823–29.\n\n\nHopkins, W G. 2000. “Measures of Reliability in Sports Medicine and Science.” Sports Med. 30 (1): 1–15.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Assignment 1: Reliabilitet</span>"
+    ]
+  },
+  {
+    "objectID": "05-rep-meas.html#konklusjon",
+    "href": "05-rep-meas.html#konklusjon",
+    "title": "5  Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke",
+    "section": "5 Konklusjon",
+    "text": "5 Konklusjon\nTreningsvolum og intensitet virker å være viktige parametre for å øke muskelmasse og muskelstyrke. Tre sett med styrkeøvelser synes å gi en større tilpasning enn kun ett sett med øvelser. De langsiktige effektene av denne treningsmodellen bør undersøkes nærmere, i tillegg til om de samme effektene av treningsvolum kan observeres i andre deler av befolkningen.\n\n\n\n\nRadaelli, Régis, Anderson Rech, Talita Molinari, Anna Maria Markarian, Maria Petropoulou, Urs Granacher, Tibor Hortobágyi, and Pedro Lopez. 2024. “Effects of Resistance Training Volume on Physical Function, Lean Body Mass and Lower-Body Muscle Hypertrophy and Strength in Older Adults: A Systematic Review and Network Meta-Analysis of 151 Randomised Trials.” Sports Med., October.\n\n\nSantana, Davi Alves de, Alex Castro, and Cláudia Regina Cavaglieri. 2021. “Strength Training Volume to Increase Muscle Mass Responsiveness in Older Individuals: Weekly Sets Based Approach.” Front. Physiol. 12 (September): 759677.\n\n\nStone, Michael H, Meg Stone, and William A Sands. 2007. Principles and Practice of Resistance Training. Human Kinetics.\n\n\nWestcott, Wayne L. 2012. “Resistance Training Is Medicine: Effects of Strength Training on Health.” Curr. Sports Med. Rep. 11 (4): 209–16.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Assignment 5: Effekter av ulikt treningsvolum på muskelhypertrofi og muskelstyrke</span>"
     ]
   }
 ]

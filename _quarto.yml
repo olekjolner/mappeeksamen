@@ -11,7 +11,7 @@ book:
     - 02-regression-models.qmd
     - 03-statistical-inference.qmd
     - 04-study-design.qmd
-    - 05-repeated-measurements.qmd
+    - 05-rep-meas.qmd
     - 06-vitenskapsteori.qmd
     - 07-laboratory-report.qmd
     - references.qmd

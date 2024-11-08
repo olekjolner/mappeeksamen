@@ -1,0 +1,415 @@
+---
+title: "Assignment 5: Repeated measuerements"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: "nødvendige pakker"
+
+library(tidyverse)
+library(exscidata)
+library(gt)
+library(lme4)
+data("dxadata")
+data("strengthvolume")
+```
+
+
+
+
+
+## Introduksjon
+
+I dagens samfunn er det i stor grad enighet om at styrketrening er viktig for helse. Dagens befolkning er mindre aktive, samtidig som man blir eldre og eldre. Etter fylte 50 år, viser studier at man taper et sted mellom 5 og 10 % muskelmasse årlig, det tilsvarer ~ 0.4 kg [@Westcott2012]. Tilstander som aldersrelatert muskeltap, diabetes type II, hjertesykdom, redusert beinmasse og økende grad av fettmasse ses hyppigere og hyppigere. Det en typisk ser ved sykdom er høy grad av inaktivitet som igjen leder til tap av muskelmasse, redusert metabolsk respons og igjen økt fettmasse. Aerob aktivitet blir i stor grad anbefalt for å motvirke utvikling av disse tilstandene, men bør ikke styrketrening stå på lik linje som aerob trening? 
+[@Westcott2012]
+
+Styrketrening kan defineres som trening med mål om å bli sterkere, forebygge skader, fremme prestasjon eller trening med mål om å øke muskelmasse [@Stone]. Noen definerer volum som den viktigste faktoren for å se endringen på cellenivå, mens andre mener at høyintesiv trening kan gi samme effekten [@De_Santana]. Antall sett, antall repetisjoner og motstanden benyttes for definere volumet av trening, mens intensiteten på treningen ofte defineres som en prosentandel av én maksimal repetisjon (1RM). For mange er tidsklemma en problem i hverdagen og flere er trolig interessert i å vite hvor lite trening som skal til for å oppnå ønsket stimuli av treningen man gjennomfører. [@De_Santana]
+
+I denne studien ønsker vi å se nærmere på hvorvidt volumet av styrketrening er av betydning for økning av muskelmasse og muskelstyrke. 
+
+
+
+## Metode
+
+### Utvalg og studieoversikt
+I studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. @tbl-deltakere viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett. 
+
+
+
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: tbl-deltakere
+#| tbl-cap: "Deltakerkarakteristikk"
+
+library(exscidata)
+library(kableExtra)
+
+table <- dxadata |> 
+  filter(time == "pre", include == "incl") |> 
+  select(participant, sex, age, height, weight) |> 
+ pivot_longer(names_to = "vars", 
+              values_to = "vals", 
+              cols = age:weight) |> 
+  summarise(.by = c(sex, vars), 
+            m = mean(vals), 
+            s = sd(vals), 
+            n = n()) |> 
+  mutate(sex = if_else(sex == "male", "Mann", "Kvinne"), 
+                       sex = paste0(sex, " n = ", n), 
+         stat = paste0(round(m, 1), " (", 
+                       round(s, 1), 
+                       ")")) |> 
+  dplyr:: select(sex, vars, stat) |> 
+  pivot_wider(names_from = vars, 
+              values_from = stat) |> 
+   kable(format = "html", 
+         col.names = c(" ", "Alder (&Aring;r)", "H&oslash;yde (cm)", "Vekt (kg)"),
+         escape = FALSE, 
+         caption = "Deltakerkarakteristikk") |> 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) |> 
+  footnote(general = " ", 
+           general_title = "Alle verdier er gj.snitt og st.avvik.")
+
+table
+```
+
+
+
+
+
+
+### Spesifikke beskrivelser av testmetode
+
+Intervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).
+
+### Styrketreningsprotokoll
+
+Treningsøktene startet med en standardisert oppvarming som besto av (i) ergometer-sykling i 5 minutter (RPE 12–14), (ii) øvelser med kroppsvekt med 10 repetisjoner av push-ups, sit-ups, ryggekstensjon og knebøy, og til slutt (iii) et sett med 10 repetisjoner på ~ 50 % av 1RM for hver styrkeøvelse i intervensjonen. 
+
+Beinøvelsene ble gjennomført i følgende rekkefølge: ettbeins beinpress, leg curl og kneekstensjon. Single set'ene ble gjennomført mellom andre og tredje sett for multiple set'ene. Etter beinøvelsene ble det gjennomført to sett med benkpress, nedtrekk og enten sittende roing eller skulderpress (to sistnevnte øvelser alternerte). Treningsintensiteten økte gjennom intervensjonen. Det ble trent 10RM første to ukene, 8RM de neste tre ukene og 7RM de siste syv ukene. For å gjøre treningen mer gjennomførbar for deltakerne, ble noen av øktene gjennomført uten tilsyn. Deltakerne ble da bedt om å føre detaljert logg. Fra den niende treningsøkten, ble én av de tre ukentlige øktene gjennomført på 90 % av intensitet, mens tiltenkt volum skulle opprettholdes. Det skulle være minimum 48 timer mellom hver fullintensitetsøkt og minimum 24 timer mellom submaksimale økter (90 %). For å sikre restitusjon, ble hver deltaker tildelt en drikk som innehold 0.15 $\frac{g}{kg}$ protein, 11.2 $\frac{g}{kg}$ karbohydrat og 0.5 $\frac{g}{kg}$ fett. 
+
+
+### Muskulær Styrkevurdering
+
+Muskelstyrke ble vurdert ved hjelp av en dynamometer for å måle isokinetisk og isometrisk styrke. Deltakerne ble kjent med testprosedyrer og fikk flere forsøk på hvert nivå for å sikre nøyaktighet. En repetisjon maksimum (1RM) ble testet for unilateral beinpress og kneekstension, der testene ble forberedt med spesifikke oppvarmingssett.
+
+### Muskel Tverrsnittsområde og Kroppssammensetning
+
+Tverrsnittsområdet (CSA) av musklene ble målt ved hjelp av MRI før og etter intervensjonen, mens kroppssammensetning ble vurdert med dual-energy X-ray absorptiometri (DXA). Deltakerne ble instruert om å faste og unngå intensiv trening før målingene.
+
+### Dataanalyse og Statistikk
+
+Utvalgsstørrelsesberegninger indikerte at 40 deltakere var tilstrekkelig for å oppdage meningsfulle forskjeller. Lineære blandede modeller (LMM) ble benyttet for å analysere endringer i muskelhypertrofi og styrke, med relevante faktorer som kjønn inkludert.
+
+Studien undersøkte også prediktorer for fordeler ved å bruke flere sett kontra ett sett, ved hjelp av logistisk regresjon. Nøkkelprediktorer inkluderte baseline styrke, muskelmasse, og molekylære responser på trening. Alle analyser ble utført i R, med signifikansnivå satt til α = 0,05.
+
+Denne detaljerte metoden hadde som mål å avdekke effekten av forskjellige motstandstreningsvolumer på muskelstyrke og hypertrofi, samt å undersøke de underliggende molekylære mekanismene.
+
+
+
+## Resultater
+
+
+### Høyere treningsvolum leder til større grad av hypertrofi i underekstremiteter sammenliknet med lavere treningsvolum
+
+
+
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: "lager leanmass data for å gjøre mixed models"
+
+lm_dat <- dxadata |> 
+  select(participant:include, lean.left_leg, lean.right_leg) |> 
+   pivot_longer(names_to = "leg", 
+                values_to = "lean.mass", 
+                cols = lean.left_leg:lean.right_leg) |> 
+  mutate(leg = if_else(leg == "lean.left_leg", "L", "R"), 
+         sets = if_else(multiple == leg, "multiple", "single")) |> 
+  select(participant, time, sex, include, sets, leg, lean.mass) |> 
+  filter(include == "incl") |> 
+  mutate(time = factor(time, levels = c("pre", "post")), 
+         sets = factor(sets, levels = c("single", "multiple")), 
+         leg = paste0(participant, leg))
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: "lager change verdier mellom pre og post og en kolonne med diff-verdier mellom single og multiple for å gjøre t-tester og lm"
+
+lm_change_dat <- lm_dat |> 
+  pivot_wider(names_from = time,
+              values_from = lean.mass) |> 
+  mutate(change = post - pre) |> 
+  select(participant, sex, sets, change) |> 
+  pivot_wider(names_from = sets, 
+              values_from = change) |> 
+  mutate(diff = multiple - single)
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: "lager datasett med pre og post-verdier for å gjennomføre mixed effects models - ANCOVA"
+
+lm_pre_post_dat <- lm_dat |> 
+  pivot_wider(names_from = time, 
+              values_from = lean.mass) |> 
+  select(participant, sex, sets, pre, post) 
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: "beregner den prosentvise endringen i mager muskelmasse i beina for multiple og single sett"
+
+
+perc_change <- lm_pre_post_dat |> 
+  summarise(.by = c(sets), 
+            m_pre = mean(pre), 
+            m_post = mean(post)) |> 
+  mutate(perc = 100 - (m_pre/m_post)*100) |>
+  mutate(perc = round(perc, 2)) |> 
+  select(-m_pre, -m_post)
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: "Her er chunk med alle statistiske tester som gjennomføres for å se på resultaterne for endring i muskelmasse"
+
+# paret t-test
+t1 <- with(lm_change_dat, t.test(multiple, single, paired = TRUE))
+# ser på gjennomsnittet mellom de to gruppene
+
+mm <- lmer(lean.mass ~ time * sets + (1 + time|participant), data = lm_dat)
+sum_mm <- summary(mm)
+
+
+pval <- round(t1$p.value, 3)
+
+tval <- round(t1$statistic, 2)
+
+df <- t1$parameter
+
+cil <- round(t1$conf.int[1], 1)  #confidence interval lower
+ciu <- sprintf("%.1f", round(t1$conf.int[2], 1))  # confidence interval upper
+
+estimate <- round(t1$estimate, 1)
+
+lean.mass.results <- paste0(estimate, " g", 
+                            " (95% CI: [", 
+                            cil, 
+                            ", ", 
+                            ciu, 
+                            "], *p*-value = ", 
+                            pval, 
+                            ", t<sub>", 
+                            df, "</sub> = ", 
+                            tval, ")")
+```
+
+
+
+
+Etter den 12 uker lange styrketreningsintervensjonen er den prosentvise økningen i mager muskelmasse for benet som trente tre sett `r perc_change[1, 2]`% og for det som trente ett sett `r perc_change[2, 2]`%. Den gjennomsnittlige forskjellen i hypertrofi i underex mellom settene var `r lean.mass.results`. 
+
+
+
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| label: fig-leanmass
+
+# chunk med data for å lage plot
+
+library(ggtext)
+
+plot_change <- lm_change_dat |> 
+  pivot_longer(names_to = "sets", 
+               values_to = "lbm", 
+               cols = multiple:single) |>
+  mutate(sets = factor(sets, levels = c("single", "multiple")), 
+         sets = recode(sets, "single" = "Én sett", "multiple" = "Flere sett")) |> 
+  ggplot(aes(sets, lbm, group = participant, color = sex)) + 
+  geom_line() +
+  geom_point() +
+  labs(x = "Sett", 
+       y = "Muskelmasse (g)", 
+       color = "Kj&oslash;nn") +
+  scale_color_manual(values = c("male" = "steelblue", "female" = "orange"),
+                     labels = c("male" = "Mann", "female" = "Kvinne")) +
+  theme(legend.title = element_markdown())
+
+plot_change
+
+```
+
+
+
+
+Referere til @fig-leanmass. 
+
+
+
+
+### Høyere treningsvolum leder til større kraftutvikling i underekstremiteter sammenliknet med lavere treningsvolum
+
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: "data for å beregne mixed models"
+
+str_load_dat <- strengthvolume |> 
+  select(participant:load) |> 
+  filter(include == "incl") |> 
+  filter(exercise == "legpress") |> 
+  filter(time == "pre" | time == "post")
+  
+# benytter dette datasettt til å gjøre mixed models
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: "her er chunk med stat tester: t-tester og lm"
+
+str_change_dat <- strengthvolume |> 
+  select(participant:load) |> 
+  filter(include == "incl") |> 
+  filter(exercise == "legpress") |> 
+  filter(time == "pre" | time == "post") |> 
+  pivot_wider(names_from = time, 
+              values_from = load) |> 
+  mutate(change = post - pre) |> 
+  select(participant:exercise, change, -leg) |> 
+  pivot_wider(names_from = sets, 
+              values_from = change) |> 
+  mutate(diff = multiple - single) |> 
+  filter(!is.na(single)) |> 
+  filter(!is.na(multiple))
+
+t2 <- with(str_change_dat, t.test(multiple, single, paired = TRUE))
+
+pval2 <- round(t2$p.value, 3)
+
+tval2 <- round(t2$statistic, 2)
+
+df2 <- t2$parameter
+
+cil2 <- round(t2$conf.int[1], 1)  #confidence interval lower
+ciu2 <- sprintf("%.1f", round(t2$conf.int[2], 1))  # confidence interval upper
+
+estimate2 <- round(t2$estimate, 1)
+
+strength.results <- paste0(estimate2, 
+                            " (95% CI: [", 
+                            cil2, 
+                            ", ", 
+                            ciu2, 
+                            "], *p*-value = ", 
+                            pval2, 
+                            ", t<sub>", 
+                            df2, "</sub> = ", 
+                            tval2, ")")
+
+```
+
+
+
+
+
+Den gjennomsnittlige forskjellen i muskelstyrke i underex mellom sett var `r strength.results`. 
+
+
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: "plot som ser på endring i muskelstyrke mellom sett per forsøksperson"
+
+
+plot_change2 <- str_change_dat |> 
+  pivot_longer(names_to = "sets", 
+               values_to = "load", 
+               cols = multiple:single) |>
+  mutate(sets = factor(sets, levels = c("single", "multiple")), 
+         sets = recode(sets, "single" = "Ett sett", "multiple" = "Flere sett")) |> 
+  
+  ggplot(aes(sets, load, group = participant, color = sex)) + 
+  geom_line() +
+  geom_point(size = 2) +
+  labs(x = "Sett", 
+       y = "Belastning (kg)", 
+       color = "Kj&oslash;nn") + 
+  scale_color_manual(values = c("male" = "steelblue", "female" = "orange"),
+                     labels = c("male" = "Mann", "female" = "Kvinne")) +
+  theme(legend.title = element_markdown())
+
+plot_change2
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: "data for å beregne mixed effects models - ANCOVA"
+
+str_pp_dat <- strengthvolume |> 
+  select(participant:load) |> 
+  filter(include == "incl") |> 
+  filter(exercise == "legpress") |> 
+  filter(time == "pre" | time == "post") |> 
+  pivot_wider(names_from = time, 
+              values_from = load) |> 
+  select(participant, sex, sets, pre, post)
+
+```
+
+
+
+
+
+## Diskusjon
+
+Kan si noe om %-vis gain av muskelmasse mtp det som står i intro (at man taper 5-10 % muskelmasse i året etter fylte 50, altså  ~ 0.4 kg/år)
+
+
+
+

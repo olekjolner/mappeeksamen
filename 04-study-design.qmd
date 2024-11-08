@@ -3,7 +3,7 @@ title: "Assignment 4: Study designs"
 format: html
 editor_options: 
   chunk_output_type: console
-bibliography: 04_study_designs.bib
+bibliography: bibliography.bib
 ---
 
 
