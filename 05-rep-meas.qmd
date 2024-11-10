@@ -19,6 +19,7 @@ library(tidyverse)
 library(exscidata)
 library(gt)
 library(lme4)
+library(lmerTest)
 data("dxadata")
 data("strengthvolume")
 ```
@@ -168,6 +169,36 @@ lm_pre_post_dat <- lm_dat |>
               values_from = lean.mass) |> 
   select(participant, sex, sets, pre, post) 
 
+# ANCOVA mixed effects: Den tester om sets-betingelsen fortsatt påvirker post-lean mass etter å ha tatt hensyn til pre-lean mass, samtidig som det tar hensyn til individuell variasjon i baseline lean mass.
+
+m4 <- lmer(post ~ pre + sets + (1|participant), 
+           data = lm_pre_post_dat)
+
+sum_m4 <- summary(m4)
+
+est_4 <- round(sum_m4$coefficients[3,"Estimate"], 1)
+
+tval_4 <- round(sum_m4$coefficients[3, "t value"], 2)
+
+pval_4 <- round(sum_m4$coefficients[3, "Pr(>|t|)"], 3)
+
+df_4 <- round(sum_m4$coefficients[3, "df"], 1)
+
+uci_4 <- round(confint(m4)[5, 2], 1)
+
+lci_4 <- round(confint(m4)[5, 1], 1)
+
+ancova.results_4 <- paste0(est_4, " g", 
+                            " (95% CI: [", 
+                            lci_4, 
+                            ", ", 
+                            uci_4, 
+                            "], *p*-value = ", 
+                            pval_4, 
+                            ", t<sub>", 
+                            df_4, "</sub> = ", 
+                            tval_4, ")")
+
 ```
 
 
@@ -196,11 +227,8 @@ perc_change <- lm_pre_post_dat |>
 #| echo: false
 #| message: false
 #| warning: false 
-#| label: "Her er chunk med alle statistiske tester som gjennomføres for å se på resultaterne for endring i muskelmasse"
+#| label: "Her er chunk med t-test og summering av t-test resultater med t-verdi, p-verdi, konfidensint., df og estimat"
 
-
-mm <- lmer(lean.mass ~ time * sets + (1 + time|participant), data = lm_dat)
-sum_mm <- summary(mm)
 
 # paret t-test
 t1 <- with(lm_change_dat, t.test(multiple, single, paired = TRUE))
@@ -230,7 +258,10 @@ lean.mass.results <- paste0(estimate, " g",
 
 Etter den 12 uker lange styrketreningsintervensjonen er den prosentvise økningen i mager muskelmasse for benet som trente tre sett `r perc_change[1, 2]`% og for det som trente ett sett `r perc_change[2, 2]`%. Den gjennomsnittlige forskjellen i mager muskelmasse i beina mellom de to treningsvolumene (ett sett vs. tre sett) var `r lean.mass.results`. 
 
+Benytter man en blandet modell som tar man høyde for hver deltaker sine pre-verdier, og ser på hvordan antall sett påvirker mager muskelmasse etter treningsintervensjonen, blir den gjennomsnittlige endringen i mager muskelmasse mellom ett og tre sett `r ancova.results_4`.
+
 @fig-muskelmasse viser endringen i mager muskelmasse målt i gram for de ulike deltakerenes bein. Linjen som er trukket mellom punkt viser hver deltakers resultat og gir et inntrykk av forskjellen mellom effekten av treningsvolum på muskelmasse. Tre sett virker av figuren å ha større effekt for å øke muskelmasse, sammenliknet med lavere treningsvolum.  
+
 
 
 
@@ -322,7 +353,7 @@ ciu2 <- sprintf("%.1f", round(t2$conf.int[2], 1))  # confidence interval upper
 
 estimate2 <- round(t2$estimate, 1)
 
-strength.results <- paste0(estimate2, 
+strength.results <- paste0(estimate2, " kg", 
                             " (95% CI: [", 
                             cil2, 
                             ", ", 
@@ -351,7 +382,38 @@ str_pp_dat <- strengthvolume |>
   filter(time == "pre" | time == "post") |> 
   pivot_wider(names_from = time, 
               values_from = load) |> 
-  select(participant, sex, sets, pre, post)
+  select(participant, sex, sets, pre, post) |> 
+  mutate(sets = factor(sets, levels = c("single", "multiple")))
+
+# Blandet modell - ancova
+
+m5 <- lmer(post ~ pre + sets + (1|participant), 
+           data = str_pp_dat)
+
+sum_m5 <- summary(m5)
+
+est_5 <- round(sum_m5$coefficients[3,"Estimate"], 1)
+
+tval_5 <- round(sum_m5$coefficients[3, "t value"], 2)
+
+pval_5 <- round(sum_m5$coefficients[3, "Pr(>|t|)"], 3)
+
+df_5 <- round(sum_m5$coefficients[3, "df"], 1)
+
+uci_5 <- round(confint(m5)[5, 2], 1)
+
+lci_5 <- round(confint(m5)[5, 1], 1)
+
+ancova.results_5 <- paste0(est_5, " kg", 
+                            " (95% CI: [", 
+                            lci_5, 
+                            ", ", 
+                            uci_5, 
+                            "], *p*-value = ", 
+                            pval_5, 
+                            ", t<sub>", 
+                            df_5, "</sub> = ", 
+                            tval_5, ")")
 
 ```
 
@@ -379,7 +441,9 @@ perc_change2 <- strengthvolume |>
 ```
 
 
-Den gjennomsnittlige prosentvise økningen i ytelsesvekt ved 1RM (målt i kg) for henholdsvis tre og ett sett var `r round(perc_change2[2, 4], 2)` og `r round(perc_change2[1, 4], 2)`. Den gjennomsnittlige forskjellen i muskelstyrke mellom beina ved de ulike treningsvolumene (ett sett vs. tre sett) var `r strength.results`. 
+Den gjennomsnittlige prosentvise økningen i ytelsesvekt ved 1RM (målt i kg) for henholdsvis tre og ett sett var `r round(perc_change2[2, 4], 2)` og `r round(perc_change2[1, 4], 2)`. Den gjennomsnittlige forskjellen i ytelsesvekt mellom beina ved de ulike treningsvolumene (ett sett vs. tre sett) var `r strength.results`. 
+
+Benytter man en blandet modell der man tar høyde for hver deltaker sine pre-verdier, og ser hvordan antall sett påvirker ytelsesvekt etter treningsintervensjonen, blir den gjennomsnittlige endringen i ytelsesvekt mellom ett og tre sett `r ancova.results_5`.
 
 @fig-styrke viser endringen i den maksimale ytelsesvekten deltakerne evnet å presse ved 1RM for henholdsvis de som trente ett og tre sett. Av figuren ser man en tendens til at høyere treningsvolum gir større evne til å yte mer på øvelsen beinpress. 
 
@@ -425,6 +489,8 @@ I denne studien med unge utøvere så en frafall underveis i intervensjonen. En 
 Intensiteten (70–90 % 1RM) brukt i denne studien er i tråd med anbefalingene for både muskelstyrke og hypertrofi [@De_Santana]. Imidlertid kunne det vært interessant å undersøke om lavere intensitet på treningen kombinert med høyere volum kunne ha hatt en like god effekt på muskelmasseøkning for denne gruppen.
 
 En langtidsoppfølging av deltakerne etter at treningsintervensjonen er avsluttet, kan gi mer informasjon om hvordan treningsvolum påvirker vedlikehold av muskelmasse og styrke i lengden. Hvordan deltakerne vedlikeholder gevinster over tid kan være viktig for å vurdere praktisk anvendbarhet av treningsvolumet som en strategi for å bevare helsen. 
+
+Ved å benytte en blandet modell (ANCOVA) i tillegg til t-test får man en modell som tar hensyn til individuell variasjon. Modellen tar høyde for at hver deltaker har ulike pre-verdier og at de responderer ulikt gjennom intervensjonen. Ved å gi hver deltaker sin egen startverdi, kan man mer presist vurdere og isolere effekten av treningsintervensjonen (ett sett vs tre sett).  
 
 
 ## Konklusjon
