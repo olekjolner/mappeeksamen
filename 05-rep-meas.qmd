@@ -35,7 +35,8 @@ I denne studien er det ønskelig å se nærmere på hvorvidt volumet av styrketr
 
 ### Utvalg og studieoversikt
 
-I studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. @tbl-deltakere viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive gjennomsnittlige karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett.
+I studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. @tbl-deltakere viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive gjennomsnittlige karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett. Intervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).
+
 
 ```{r}
 #| echo: false
@@ -76,9 +77,6 @@ table <- dxadata |>
 table
 ```
 
-### Spesifikke beskrivelser av testmetode
-
-Intervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).
 
 ### Styrketreningsprotokoll
 
@@ -96,9 +94,7 @@ Kroppssammensetning ble vurdert med dual-energy X-ray absorptiometri (DXA). Delt
 
 ### Dataanalyse og Statistikk
 
-Utvalgsstørrelsesberegninger indikerte at 40 deltakere var tilstrekkelig for å oppdage meningsfulle forskjeller. Lineære blandede modeller (LMM) ble benyttet for å analysere endringer i muskelhypertrofi og styrke. Alle analyser ble utført i R, med signifikansnivå satt til α = 0,05.
-
-De statistsike analysene hadde som mål å avdekke effekten av forskjellige motstandstreningsvolumer på muskelstyrke og hypertrofi.
+For å undersøke effekten av ulike treningsvolumer på muskelstyrke og hypertrofi ble det benyttet *t*-tester og ANCOVA-modeller (Analyse av kovarians). *T*-tester ble brukt for å sammenligne gjennomsnittene av muskelstyrke og hypertrofi mellom den to gruppebetingelsene (ett og tre sett). Denne testen er egnet for å vurdere om det er statistisk signifikante forskjeller mellom de to gruppene. Videre ble ANCOVA benyttet for å undersøke effekten av treningsvolumene samtidig som en kontrollerte for konfoundere, som baselineverdier. ANCOVA gjør det mulig å vurdere forskjellene mellom gruppene samtidig som en justerer for disse konfunderne, og gir dermed et mer presist estimat av treningsvolumets effekt på muskelstyrke og hypertrofi. Alle tester ble utført med et signifikansnivå satt til $\alpha$ = 0.05.
 
 ## Resultater
 
@@ -108,7 +104,7 @@ De statistsike analysene hadde som mål å avdekke effekten av forskjellige mots
 #| echo: false
 #| message: false
 #| warning: false 
-#| label: "lager leanmass data for å gjøre mixed models"
+#| label: "lager leanmass data for å gjøre mixed models. NB: ikke gjennomført i oppgaven enda."
 
 lm_dat <- dxadata |> 
   select(participant:include, lean.left_leg, lean.right_leg) |> 
@@ -281,7 +277,7 @@ plot_change
 #| echo: false
 #| message: false
 #| warning: false
-#| label: "data for å beregne mixed models"
+#| label: "data for å beregne mixed models. NB: ikke benyttet enda. "
 
 str_load_dat <- strengthvolume |> 
   select(participant:load) |> 
@@ -468,3 +464,5 @@ Ved å benytte en blandet modell (ANCOVA) i tillegg til t-test får man en model
 ## Konklusjon
 
 Treningsvolum og intensitet virker å være viktige parametre for å øke muskelmasse og muskelstyrke. Tre sett med styrkeøvelser synes å gi en større tilpasning enn kun ett sett med øvelser. De langsiktige effektene av denne treningsmodellen bør undersøkes nærmere, i tillegg til om de samme effektene av treningsvolum kan observeres i andre deler av befolkningen.
+
+## Referanser
