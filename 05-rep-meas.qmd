@@ -8,7 +8,6 @@ crossref:
   tbl-title: "Tabell"
 ---
 
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -24,24 +23,19 @@ data("dxadata")
 data("strengthvolume")
 ```
 
-
 ## Introduksjon
 
-I dagens samfunn er det i stor grad enighet om at styrketrening er viktig for god helse. Befolkningen trender mot en mindre aktiv livsstil, samtidig som man blir eldre og eldre. Etter fylte 50 år, viser studier at man taper et sted mellom 5 og 10 % muskelmasse årlig, som tilsvarer ~ 0.4 kg [@Westcott2012]. Tilstander som aldersrelatert muskeltap, diabetes type II, hjertesykdom, redusert beinmasse og økende grad av fettmasse ses hyppigere og hyppigere. Ved sykdom ser en høy grad av inaktivitet som igjen leder til tap av muskelmasse, redusert metabolsk respons, økt fettmasse og andre liknende tilstander. Aerob aktivitet er for tiden veldig populært blir i stor grad anbefalt for å motvirke utvikling av disse tilstandene, men hva gjelder så styrketrening? 
-[@Westcott2012]
+I dagens samfunn er det i stor grad enighet om at styrketrening er viktig for god helse. Befolkningen trender mot en mindre aktiv livsstil, samtidig som man blir eldre og eldre. Etter fylte 50 år, viser studier at man taper et sted mellom 5 og 10 % muskelmasse årlig, som tilsvarer \~ 0.4 kg [@Westcott2012]. Tilstander som aldersrelatert muskeltap, diabetes type II, hjertesykdom, redusert beinmasse og økende grad av fettmasse ses hyppigere og hyppigere. Ved sykdom ser en høy grad av inaktivitet som igjen leder til tap av muskelmasse, redusert metabolsk respons, økt fettmasse og andre liknende tilstander. Aerob aktivitet er for tiden veldig populært blir i stor grad anbefalt for å motvirke utvikling av disse tilstandene, men hva gjelder så styrketrening? [@Westcott2012]
 
 Styrketrening kan defineres som trening med mål om å bli sterkere, forebygge skader, fremme prestasjon eller trening med mål om å øke muskelmasse [@Stone]. Noen definerer volum som den viktigste faktoren for å se endringen på cellenivå, mens andre mener at høyintesiv trening kan gi samme effekten [@De_Santana]. Radaelli et al. (2024) ser at lavintensiv trening også kan ha god effekt for å øke muskelmasse og styrke i underekstremiteter blant eldre individer ($\geq$ 60 år) [@Radaelli]. Antall sett, antall repetisjoner og motstanden det trenes på benyttes for definere *volumet* av trening, mens *intensiteten* på treningen ofte defineres som en prosentandel av én maksimal repetisjon (1RM). For mange er tidsklemma en problem i hverdagen og flere er trolig interessert i å vite hvor lite trening som skal til for å oppnå ønsket stimuli av treningen man gjennomfører. [@De_Santana]
 
-I denne studien er det ønskelig å se nærmere på hvorvidt volumet av styrketrening er av betydning for økning av muskelmasse og muskelstyrke. 
-
-
+I denne studien er det ønskelig å se nærmere på hvorvidt volumet av styrketrening er av betydning for økning av muskelmasse og muskelstyrke.
 
 ## Metode
 
 ### Utvalg og studieoversikt
-I studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. @tbl-deltakere viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive gjennomsnittlige karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett. 
 
-
+I studien ble det rekruttert 41 individer, menn (n = 19) og kvinner (n = 22). For å bli inkludert i studien måtte man kunne få lokal anestesi, ikke ha trent mer enn én styrkeøkt i uken siste året, ikke ha nedsatt eller påvirket muskelstyrke grunnet tidligere eller nåværende skade og ikke innta medisin som kan påvirke treningsadaptasjon. Etter gjennomført treningsintervensjon ble 7 deltakere ekskludert fra dataanalysen da de ikke oppfylte kravene om gjennomføring av intervensjon. @tbl-deltakere viser en oversikt over antall kvinner og menn som er inkludert i analysering av data og deres respektive gjennomsnittlige karakteristikker. Deltakere som ble inkludert i analysen hadde alle tidligere erfaring med idrett.
 
 ```{r}
 #| echo: false
@@ -82,18 +76,15 @@ table <- dxadata |>
 table
 ```
 
-
-
 ### Spesifikke beskrivelser av testmetode
 
 Intervensjonen varte i 12 uker og bestod av helkropps styrketrening. Beinøvelser ble gjennomført unilateralt. De ble tilfeldig trukket hvilket bein som skulle gjennomføre ett sett (single set) og hvilket som skulle gjøre tre sett (multiple sets).
 
 ### Styrketreningsprotokoll
 
-Treningsøktene startet med en standardisert oppvarming som besto av (i) ergometer-sykling i 5 minutter (RPE 12–14), (ii) øvelser med kroppsvekt med 10 repetisjoner av push-ups, sit-ups, ryggekstensjon og knebøy, og til slutt (iii) et sett med 10 repetisjoner på ~ 50 % av 1RM for hver styrkeøvelse i intervensjonen. 
+Treningsøktene startet med en standardisert oppvarming som besto av (i) ergometer-sykling i 5 minutter (RPE 12–14), (ii) øvelser med kroppsvekt med 10 repetisjoner av push-ups, sit-ups, ryggekstensjon og knebøy, og til slutt (iii) et sett med 10 repetisjoner på \~ 50 % av 1RM for hver styrkeøvelse i intervensjonen.
 
-Beinøvelsene ble gjennomført i følgende rekkefølge: ettbeins beinpress, leg curl og kneekstensjon. Single settene ble gjennomført mellom andre og tredje sett for multiple settene. Treningsintensiteten økte gjennom intervensjonen. Det ble trent 10RM første to ukene, 8RM de neste tre ukene og 7RM de siste syv ukene. For å gjøre treningen mer gjennomførbar for deltakerne, ble noen av øktene gjennomført uten tilsyn. Deltakerne ble da bedt om å føre detaljert logg. Fra den niende treningsøkten, ble én av de tre ukentlige øktene gjennomført på 90 % av intensitet, mens tiltenkt volum skulle opprettholdes. Det skulle være minimum 48 timer mellom hver fullintensitetsøkt og minimum 24 timer mellom submaksimale økter (90 %). For å sikre restitusjon, ble hver deltaker tildelt en drikk som innehold 0.15 $\frac{g}{kg}$ protein, 11.2 $\frac{g}{kg}$ karbohydrat og 0.5 $\frac{g}{kg}$ fett. 
-
+Beinøvelsene ble gjennomført i følgende rekkefølge: ettbeins beinpress, leg curl og kneekstensjon. Single settene ble gjennomført mellom andre og tredje sett for multiple settene. Treningsintensiteten økte gjennom intervensjonen. Det ble trent 10RM første to ukene, 8RM de neste tre ukene og 7RM de siste syv ukene. For å gjøre treningen mer gjennomførbar for deltakerne, ble noen av øktene gjennomført uten tilsyn. Deltakerne ble da bedt om å føre detaljert logg. Fra den niende treningsøkten, ble én av de tre ukentlige øktene gjennomført på 90 % av intensitet, mens tiltenkt volum skulle opprettholdes. Det skulle være minimum 48 timer mellom hver fullintensitetsøkt og minimum 24 timer mellom submaksimale økter (90 %). For å sikre restitusjon, ble hver deltaker tildelt en drikk som innehold 0.15 $\frac{g}{kg}$ protein, 11.2 $\frac{g}{kg}$ karbohydrat og 0.5 $\frac{g}{kg}$ fett.
 
 ### Muskulær Styrkevurdering
 
@@ -109,14 +100,9 @@ Utvalgsstørrelsesberegninger indikerte at 40 deltakere var tilstrekkelig for å
 
 De statistsike analysene hadde som mål å avdekke effekten av forskjellige motstandstreningsvolumer på muskelstyrke og hypertrofi.
 
-
-
 ## Resultater
 
-
 ### Treningsvolums effekt på mager muskelmasse i underekstremitetene
-
-
 
 ```{r}
 #| echo: false
@@ -139,7 +125,6 @@ lm_dat <- dxadata |>
 
 ```
 
-
 ```{r}
 #| echo: false
 #| message: false
@@ -157,7 +142,6 @@ lm_change_dat <- lm_dat |>
 
 ```
 
-
 ```{r}
 #| echo: false
 #| message: false
@@ -167,8 +151,9 @@ lm_change_dat <- lm_dat |>
 lm_pre_post_dat <- lm_dat |> 
   pivot_wider(names_from = time, 
               values_from = lean.mass) |> 
-  select(participant, sex, sets, pre, post) 
-
+  select(participant, sex, sets, pre, post) |> 
+  mutate(sets = factor(sets, levels = c("single", "multiple")))
+  
 # ANCOVA mixed effects: Den tester om sets-betingelsen fortsatt påvirker post-lean mass etter å ha tatt hensyn til pre-lean mass, samtidig som det tar hensyn til individuell variasjon i baseline lean mass.
 
 m4 <- lmer(post ~ pre + sets + (1|participant), 
@@ -201,8 +186,6 @@ ancova.results_4 <- paste0(est_4, " g",
 
 ```
 
-
-
 ```{r}
 #| echo: false
 #| message: false
@@ -212,16 +195,13 @@ ancova.results_4 <- paste0(est_4, " g",
 
 perc_change <- lm_pre_post_dat |> 
   summarise(.by = c(sets), 
-            m_pre = mean(pre), 
-            m_post = mean(post)) |> 
-  mutate(perc = 100 - (m_pre/m_post)*100) |>
-  mutate(perc = round(perc, 2)) |> 
-  select(-m_pre, -m_post)
+            m_pre = mean(pre, na.rm = TRUE), 
+            m_post = mean(post, na.rm = TRUE), 
+            sd_pre = sd(pre, na.rm = TRUE), 
+            sd_post = sd(post, na.rm = TRUE)) |> 
+  mutate(perc = 100 - (m_pre/m_post)*100) 
 
 ```
-
-
-
 
 ```{r}
 #| echo: false
@@ -256,14 +236,13 @@ lean.mass.results <- paste0(estimate, " g",
                             tval, ")")
 ```
 
-Etter den 12 uker lange styrketreningsintervensjonen er den prosentvise økningen i mager muskelmasse for benet som trente tre sett `r perc_change[1, 2]`% og for det som trente ett sett `r perc_change[2, 2]`%. Den gjennomsnittlige forskjellen i mager muskelmasse i beina mellom de to treningsvolumene (ett sett vs. tre sett) var `r lean.mass.results`. 
+Gjennomsnittlig mager muskelmasse for bein som trente ett sett (single set) økte fra `r round(perc_change[2, 2], 1)` g (sd = `r round(perc_change[2, 4], 1)`) pre-intervensjon til `r round(perc_change[2, 3], 1)` g (sd = `r round(perc_change[2, 5], 1)`) post-intervensjon, altså en `r round(perc_change[2, 6], 1)` % økning. Bein som trente tre sett (multiple set) økte fra `r round(perc_change[1, 2], 1)` g (sd = `r round(perc_change[1, 4], 1)`) til `r round(perc_change[1, 3], 1)` g (sd = `r round(perc_change[1, 5], 1)`), altså en `r round(perc_change[1, 6], 1)` % økning. 
+
+Den gjennomsnittlige forskjellen i mager muskelmasse i beina mellom de to treningsvolumene (ett sett vs. tre sett) var `r lean.mass.results`.
 
 Benytter man en blandet modell som tar man høyde for hver deltaker sine pre-verdier, og ser på hvordan antall sett påvirker mager muskelmasse etter treningsintervensjonen, blir den gjennomsnittlige endringen i mager muskelmasse mellom ett og tre sett `r ancova.results_4`.
 
-@fig-muskelmasse viser endringen i mager muskelmasse målt i gram for de ulike deltakerenes bein. Linjen som er trukket mellom punkt viser hver deltakers resultat og gir et inntrykk av forskjellen mellom effekten av treningsvolum på muskelmasse. Tre sett virker av figuren å ha større effekt for å øke muskelmasse, sammenliknet med lavere treningsvolum.  
-
-
-
+@fig-muskelmasse viser endringen i mager muskelmasse målt i gram for de ulike deltakerenes bein. Linjen som er trukket mellom punkt viser hver deltakers resultat og gir et inntrykk av forskjellen mellom effekten av treningsvolum på muskelmasse. Tre sett virker av figuren å ha større effekt for å øke muskelmasse, sammenliknet med lavere treningsvolum.
 
 ```{r}
 #| echo: false
@@ -296,10 +275,6 @@ plot_change
 
 ```
 
-
-
-
-
 ### Treningsvolums effekt på kraftutvikling i underekstremitetene
 
 ```{r}
@@ -316,8 +291,6 @@ str_load_dat <- strengthvolume |>
   
 # benytter dette datasettt til å gjøre mixed models
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -365,9 +338,6 @@ strength.results <- paste0(estimate2, " kg",
                             tval2, ")")
 
 ```
-
-
-
 
 ```{r}
 #| echo: false
@@ -417,8 +387,6 @@ ancova.results_5 <- paste0(est_5, " kg",
 
 ```
 
-
-
 ```{r}
 #| echo: false
 #| message: false
@@ -434,18 +402,23 @@ perc_change2 <- strengthvolume |>
               values_from = load) |> 
   select(participant, sex, sets, pre, post) |> 
   summarise(.by = c(sets), 
-            m_pre = mean(pre), 
-            m_post = mean(post, na.rm = TRUE)) |> 
+            m_pre = mean(pre, na.rm = TRUE), 
+            m_post = mean(post, na.rm = TRUE), 
+            sd_pre = sd(pre, na.rm = TRUE), 
+            sd_post = sd(post, na.rm = TRUE)) |> 
   mutate(perc = 100 - (m_pre/m_post)*100)
+
+
 
 ```
 
+Gjennomsnittlig ytelsesvekt ved beinpress for bein som trente ett sett (single set) økte fra `r round(perc_change2[1, 2], 1)` kg (sd = `r round(perc_change2[1, 4], 1)`) pre-intervensjon til `r round(perc_change2[1, 3], 1)` kg (sd = `r round(perc_change2[1, 5], 1)`) post-intervensjon, altså en `r round(perc_change2[1, 6], 1)` % økning. Beinet som trente tre sett (multiple set) økte fra `r round(perc_change2[2, 2], 1)` kg (sd = `r round(perc_change2[2, 4], 1)`) til `r round(perc_change2[2, 3], 1)` kg (sd = `r round(perc_change2[2, 5], 1)`), altså en `r round(perc_change2[2, 6], 1)` % økning. 
 
-Den gjennomsnittlige prosentvise økningen i ytelsesvekt ved 1RM (målt i kg) for henholdsvis tre og ett sett var `r round(perc_change2[2, 4], 2)` og `r round(perc_change2[1, 4], 2)`. Den gjennomsnittlige forskjellen i ytelsesvekt mellom beina ved de ulike treningsvolumene (ett sett vs. tre sett) var `r strength.results`. 
+Den gjennomsnittlige forskjellen i ytelsesvekt mellom beina ved de ulike treningsvolumene (ett sett vs. tre sett) var `r strength.results`.
 
 Benytter man en blandet modell der man tar høyde for hver deltaker sine pre-verdier, og ser hvordan antall sett påvirker ytelsesvekt etter treningsintervensjonen, blir den gjennomsnittlige endringen i ytelsesvekt mellom ett og tre sett `r ancova.results_5`.
 
-@fig-styrke viser endringen i den maksimale ytelsesvekten deltakerne evnet å presse ved 1RM for henholdsvis de som trente ett og tre sett. Av figuren ser man en tendens til at høyere treningsvolum gir større evne til å yte mer på øvelsen beinpress. 
+@fig-styrke viser endringen i den maksimale ytelsesvekten deltakerne evnet å presse ved 1RM for henholdsvis de som trente ett og tre sett. Av figuren ser man en tendens til at høyere treningsvolum gir større evne til å yte mer på øvelsen beinpress.
 
 ```{r}
 #| echo: false
@@ -482,18 +455,16 @@ I tråd med tidligere forskning, som har undersøkt effekten av treningsvolum p�
 
 I en større kontekst, spesielt i forhold til aldersrelatert muskeltap, er det viktig å påpeke at forskning viser at personer over 50 år mister 5–10 % av muskelmassen årlig [@Westcott2012]. Studien antyder at styrketrening kan være et effektivt tiltak for å motvirke eller bremse dette tapet av muskelmasse. Dette er særlig relevant for eldre voksne, og andre individer, som er lite aktive eller har begynt å trene styrke for første gang.
 
-Studien er dog gjennomført på yngre individer, som tidligere har drevet med idrett (se @tbl-deltakere). Det kan av den grunn være misvisende å trekke paralleller til en populasjon med andre forutsetninger. På en annen side hadde deltakerne i studien trent lite til ingen styrke det siste året. Av den grunn kan en anta at treningseffekten en ser vil være tilstede for andre individer med tilsvarende treningsbakgrunn, uavhengig av alder. 
+Studien er dog gjennomført på yngre individer, som tidligere har drevet med idrett (se @tbl-deltakere). Det kan av den grunn være misvisende å trekke paralleller til en populasjon med andre forutsetninger. På en annen side hadde deltakerne i studien trent lite til ingen styrke det siste året. Av den grunn kan en anta at treningseffekten en ser vil være tilstede for andre individer med tilsvarende treningsbakgrunn, uavhengig av alder.
 
 I denne studien med unge utøvere så en frafall underveis i intervensjonen. En kan anta at dette skyldes at treningsmengden blir for høy i forhold til hva kroppen er vant til, noe som kan føre til skader eller andre utfordringer. Dersom en står ovenfor ulike helseutfordringer, kan det være utfordrende å utføre flere sett per øvelse, og derfor kan den praktiske anvendelsen av tre sett være utfordrende. I lys av dette kan det være relevant å vurdere om ett sett også gir tilstrekkelig stimuli for muskelforbedring i populasjoner med begrensede ressurser.
 
 Intensiteten (70–90 % 1RM) brukt i denne studien er i tråd med anbefalingene for både muskelstyrke og hypertrofi [@De_Santana]. Imidlertid kunne det vært interessant å undersøke om lavere intensitet på treningen kombinert med høyere volum kunne ha hatt en like god effekt på muskelmasseøkning for denne gruppen.
 
-En langtidsoppfølging av deltakerne etter at treningsintervensjonen er avsluttet, kan gi mer informasjon om hvordan treningsvolum påvirker vedlikehold av muskelmasse og styrke i lengden. Hvordan deltakerne vedlikeholder gevinster over tid kan være viktig for å vurdere praktisk anvendbarhet av treningsvolumet som en strategi for å bevare helsen. 
+En langtidsoppfølging av deltakerne etter at treningsintervensjonen er avsluttet, kan gi mer informasjon om hvordan treningsvolum påvirker vedlikehold av muskelmasse og styrke i lengden. Hvordan deltakerne vedlikeholder gevinster over tid kan være viktig for å vurdere praktisk anvendbarhet av treningsvolumet som en strategi for å bevare helsen.
 
-Ved å benytte en blandet modell (ANCOVA) i tillegg til t-test får man en modell som tar hensyn til individuell variasjon. Modellen tar høyde for at hver deltaker har ulike pre-verdier og at de responderer ulikt gjennom intervensjonen. Ved å gi hver deltaker sin egen startverdi, kan man mer presist vurdere og isolere effekten av treningsintervensjonen (ett sett vs tre sett).  
-
+Ved å benytte en blandet modell (ANCOVA) i tillegg til t-test får man en modell som tar hensyn til individuell variasjon. Modellen tar høyde for at hver deltaker har ulike pre-verdier og at de responderer ulikt gjennom intervensjonen. Ved å gi hver deltaker sin egen startverdi, kan man mer presist vurdere og isolere effekten av treningsintervensjonen (ett sett vs tre sett).
 
 ## Konklusjon
 
 Treningsvolum og intensitet virker å være viktige parametre for å øke muskelmasse og muskelstyrke. Tre sett med styrkeøvelser synes å gi en større tilpasning enn kun ett sett med øvelser. De langsiktige effektene av denne treningsmodellen bør undersøkes nærmere, i tillegg til om de samme effektene av treningsvolum kan observeres i andre deler av befolkningen.
-
